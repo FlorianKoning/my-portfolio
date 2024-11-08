@@ -1,0 +1,30 @@
+.scrollHidden {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateX(-50%);
+    transition: all 1s;
+}
+
+@media(prefers-reduced-motion) {
+    .scrollHidden {
+        transition: none;
+    }
+}
+
+.scrollShow {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
+}
+
+.textSection:nth-child(2) {
+    transition-delay: 200ms;
+}
+
+.textSection:nth-child(3) {
+    transition-delay: 300ms;
+}
+
+.textSection:nth-child(4) {
+    transition-delay: 400ms;
+}

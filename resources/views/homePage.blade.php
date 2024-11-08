@@ -1,6 +1,6 @@
 {{-- js and css files --}}
 <link href="{{ asset('css/index.css') }}" rel="stylesheet" type="text/css" >
-<script src="{{ asset('js/index.js') }}" type="text/javascript"></script>
+<script defer src="{{ asset('js/index.js') }}" type="text/javascript"></script>
 
 
 

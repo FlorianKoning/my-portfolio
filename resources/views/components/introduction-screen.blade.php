@@ -2,7 +2,7 @@
     <div class="sm:h-screen relative isolate flex md:flex-row phone:flex-col justify-center items-center pt-14 lg:px-8">
 
         {{-- general info --}}
-        <div class="hidden lg:block mx-auto max-w-2xl phone:py-10 lg:py-56">
+        <div class="textSection scrollHidden hidden lg:block mx-auto max-w-2xl phone:py-10 lg:py-56">
             <div class="flex flex-col phone:gap-4 xl:gap-10 w-[350px] rounded-tl-[100px] rounded-br-[100px] bg-border p-8 ring-1 ring-gray-900/10 sm:mx-8 sm:p-10 lg:mx-0">
                 <div class="flex flex-col mx-auto">
                     <img class="phone:size-16 xl:size-24 mx-auto rounded-full border border-title" src="{{url('/images/me-cropped.jpg')}}" alt="selfie">
@@ -39,7 +39,7 @@
 
 
         {{-- page title --}}
-        <div class="mx-auto max-w-2xl">
+        <div class="textSection scrollHidden mx-auto max-w-2xl">
             <div class="flex flex-col phone:gap-1 xl:gap-3 w-auto p-10 text-white phone:text-base xl:text-2xl font-light">
                 <p class="text-title text-base -indent-8">{{ __('<h1>') }}</p>
                 <h1><span class="xl:text-5xl phone:text-xl font-normal text-title">Hey</span><br>IK BEN <span class="ml-2 phone:text-xl xl:text-5xl font-medium text-title">Florian Koning</span></h1>
@@ -50,7 +50,7 @@
 
 
         {{-- general info for on phone and ipad --}}
-        <div class="lg:hidden block mx-auto max-w-2xl min-[400px]:py-10 lg:py-56">
+        <div class="textSection scrollHidden lg:hidden block mx-auto max-w-2xl min-[400px]:py-10 lg:py-56">
             <div class="flex flex-col phone:gap-4 xl:gap-10 w-[350px] rounded-tl-[100px] rounded-br-[100px] bg-border p-8 ring-1 ring-gray-900/10 sm:mx-8 sm:p-10 lg:mx-0">
                 <div class="flex flex-col mx-auto">
                     <img class="phone:size-16 xl:size-24 mx-auto rounded-full border border-title" src="{{url('/images/me-cropped.jpg')}}" alt="selfie">
@@ -86,7 +86,7 @@
 
 
         {{-- experience details --}}
-        <div class="hidden lg:block mx-auto max-w-2xl sm:py-48 lg:py-56">
+        <div class="textSection scrollHidden hidden lg:block mx-auto max-w-2xl sm:py-48 lg:py-56">
             <div class="flex flex-col gap-12 w-60 rounded-[50px] bg-border p-8 ring-1 ring-gray-900/10 sm:mx-8 sm:p-10 lg:mx-0">
                 <div class="flex flex-row gap-4">
                     <h1 class="text-4xl font-medium text-title">3</h1>
@@ -105,7 +105,7 @@
     </div>
 
     {{-- bounsing mouse --}}
-    <div class="hidden xl:flex relative isolate justify-center items-center px-6 lg:px-8">
+    <div class="textSection scrollHidden hidden xl:flex relative isolate justify-center items-center px-6 lg:px-8">
         <div class="animate-bounce">
             <i class="text-title text-xl fa-solid fa-arrow-down"></i>
         </div>
