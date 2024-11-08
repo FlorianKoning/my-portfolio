@@ -6,7 +6,7 @@
             <h1><span class="text-title">Florian</span> Koning</h1>
         </a>
       </div>
-      <div class="hidden lg:flex lg:gap-x-12">
+      <div class="hidden md:flex md:gap-x-12">
         <a href="/" class="text-sm/6 font-semibold text-title hover:text-title">Home</a>
         <a href="#" class="text-sm/6 font-semibold text-white hover:text-title">Features</a>
         <a href="#" class="text-sm/6 font-semibold text-white hover:text-title">Marketplace</a>
