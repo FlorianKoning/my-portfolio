@@ -17,13 +17,14 @@ export default {
             },
             colors: {
                 background: '#34353A',
+                secondBackground: '#2f3035',
                 gradientBackground: '#3b3c41',
                 title: '#FFD26E',
                 border: '#2e3035',
             },
             screens: {
                 'phone': '360px',
-            }
+            },
         },
     },
     plugins: [],

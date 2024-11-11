@@ -1,15 +1,23 @@
-{{-- js and css files --}}
-<link href="{{ asset('css/index.css') }}" rel="stylesheet" type="text/css" >
-<script defer src="{{ asset('js/index.js') }}" type="text/javascript"></script>
-
-
-
 <x-layouts.app>
     {{-- intro dunction screen --}}
-    <div class="min-h-screen flex flex-col bg-gradient-to-bl from-gradientBackground to-background">
+    <div class="min-h-screen flex flex-col bg-gradient-to-bl from-gradientBackground to-background shadow-xl">
         <x-introduction-screen />
     </div>
 
+    {{-- about me screen --}}
+    <div class="min-h-screen flex flex-col bg-secondBackground">
+        <x-aboutme-screen id="aboutMe" />
+    </div>
+
+    {{-- projects screen --}}
+    <div class="min-h-screen flex flex-col bg-secondBackground">
+        <x-aboutme-screen id="aboutMe" />
+    </div>
+
+    {{-- projects screen --}}
+    <div class="min-h-screen flex flex-col bg-secondBackground">
+        <x-aboutme-screen id="aboutMe" />
+    </div>
 </x-layouts.app>
 
 

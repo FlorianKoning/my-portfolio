@@ -17,12 +17,18 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/5d3b1bfe4e.js" crossorigin="anonymous"></script>
 
+        {{-- js and css files --}}
+        <link href="{{ asset('css/index.css') }}" rel="stylesheet" type="text/css" >
+        <script defer src="{{ asset('js/index.js') }}" type="text/javascript"></script>
+
         {{-- scripts --}}
         @vite('resources/css/app.css')
     </head>
     <body class="font-robotoMono">
-        @include('components.layouts.navigation')
+        <div id="condiv">
+            @include('components.layouts.navigation')
 
-        {{ $slot }}
+            {{ $slot }}
+        </div>
     </body>
 </html>
