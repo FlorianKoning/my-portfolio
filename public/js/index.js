@@ -1,7 +1,6 @@
 // on scroll animation
 const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-        console.log(entry)
         if (entry.isIntersecting) {
             entry.target.classList.add('scrollShow');
         }
@@ -39,3 +38,20 @@ targetElements.forEach((targetElement) => {
         }, timing);
     },900);
 });
+
+
+// Typing animation
+const i = 0;
+const speed = 50
+const text = 'Ik ben Florian Koning, 20 jaar oud en afkomstig uit delft. Al mijn hele leven heb ik interesse de software van computers. Mijn eerste website die ik programmeerde was toen ik twaalf was op een chromeboek in de pauze. Nog steeds leer ik elke dag met plezier.';
+
+if (i < txt.length) {
+    document.getElementById("aboutMeText").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+}
+
+
+
+
+

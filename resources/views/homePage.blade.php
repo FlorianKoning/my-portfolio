@@ -11,12 +11,11 @@
 
     {{-- projects screen --}}
     <div class="min-h-screen flex flex-col bg-secondBackground">
-        <x-aboutme-screen id="aboutMe" />
+        <x-projects-screen />
     </div>
 
     {{-- projects screen --}}
     <div class="min-h-screen flex flex-col bg-secondBackground">
-        <x-aboutme-screen id="aboutMe" />
     </div>
 </x-layouts.app>
 
