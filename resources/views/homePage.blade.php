@@ -16,6 +16,7 @@
 
     {{-- projects screen --}}
     <div class="min-h-screen flex flex-col bg-secondBackground">
+        <x-contact-screen />
     </div>
 </x-layouts.app>
 
