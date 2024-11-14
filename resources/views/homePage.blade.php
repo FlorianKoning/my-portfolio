@@ -5,12 +5,12 @@
     </div>
 
     {{-- about me screen --}}
-    <div class="min-h-screen flex flex-col bg-secondBackground">
+    <div class="min-h-screen flex flex-col bg-secondBackground shadow-xl">
         <x-aboutme-screen id="aboutMe" />
     </div>
 
     {{-- projects screen --}}
-    <div class="min-h-screen flex flex-col bg-secondBackground">
+    <div class="min-h-screen flex flex-col bg-gradient-to-bl from-gradientBackground to-background shadow-xl">
         <x-projects-screen />
     </div>
 

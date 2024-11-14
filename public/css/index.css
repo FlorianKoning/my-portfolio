@@ -34,13 +34,3 @@
 .textSection:nth-child(5) {
     transition-delay: 400ms;
 }
-
-
-/* navbar */
-.active {
-    color: #FFD26E;
-}
-
-.inActive {
-    color: white;
-}

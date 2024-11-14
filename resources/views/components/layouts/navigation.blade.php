@@ -7,10 +7,10 @@
         </a>
       </div>
       <div id="navigation" class="hidden md:flex md:gap-x-12">
-        <a id="navHome" onclick="scrolldiv('home')" class="text-sm/6 font-semibold text-white hover:text-title cursor-pointer">Home</a>
-        <a id="navAboutMe" onclick="scrolldiv('about-me')" class="text-sm/6 font-semibold text-white hover:text-title cursor-pointer">Over Mij</a>
-        <a id="navProjects" onclick="scrolldiv('projects')" class="text-sm/6 font-semibold text-white hover:text-title cursor-pointer">Projecten</a>
-        <a id="navContact" onclick="scrolldiv('contact')" class="text-sm/6 font-semibold text-white hover:text-title cursor-pointer">Contact</a>
+        <a id="navHome" onclick="scrolldiv('home')" class="text-sm/6 font-semibold text-white hover:text-title cursor-pointer transition duration-300 ease-in-out">Home</a>
+        <a id="navAboutMe" onclick="scrolldiv('about-me')" class="text-sm/6 font-semibold text-white hover:text-title cursor-pointer transition duration-300 ease-in-out">Over Mij</a>
+        <a id="navProjects" onclick="scrolldiv('projects')" class="text-sm/6 font-semibold text-white hover:text-title cursor-pointer transition duration-300 ease-in-out">Projecten</a>
+        <a id="navContact" onclick="scrolldiv('contact')" class="text-sm/6 font-semibold text-white hover:text-title cursor-pointer transition duration-300 ease-in-out">Contact</a>
       </div>
       <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-5">
         <a class="text-sm/6 font-semibold text-gray-900">

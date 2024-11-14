@@ -1,3 +1,4 @@
+import { plugin } from 'postcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
@@ -20,6 +21,7 @@ export default {
                 secondBackground: '#2f3035',
                 gradientBackground: '#3b3c41',
                 title: '#FFD26E',
+                hoverTitle: '#ffda86',
                 border: '#2e3035',
             },
             screens: {

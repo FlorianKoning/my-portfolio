@@ -41,17 +41,26 @@ targetElements.forEach((targetElement) => {
 
 
 // Typing animation
-const i = 0;
-const speed = 50
-const text = 'Ik ben Florian Koning, 20 jaar oud en afkomstig uit delft. Al mijn hele leven heb ik interesse de software van computers. Mijn eerste website die ik programmeerde was toen ik twaalf was op een chromeboek in de pauze. Nog steeds leer ik elke dag met plezier.';
+const text = 'Ik ben Florian Koning, 20 jaar oud en afkomstig uit delft. Al mijn hele leven heb ik interesse in de software van computers. Mijn eerste website die ik programmeerde was toen ik twaalf was op een chromeboek in mijn pauze. Nog steeds leer ik elke dag met plezier, en wil ik altijd meer leren.';
+const textDiv = document.getElementById('aboutMeText');
+let amount = 0;
 
-if (i < txt.length) {
-    document.getElementById("aboutMeText").innerHTML += txt.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
+function textTypingEffect(element, text, i = 0) {
+    element.textContent += text[i];
+
+    if (i == text.length - 1) {
+        return;
+    }
+
+    setTimeout(() => textTypingEffect(element, text, i + 1), 35);
 }
 
+const textObserver = new IntersectionObserver((entries) => {
+    const entry = entries[0];
+    if (entry['isIntersecting'] == true && amount == 0) {
+        textTypingEffect(textDiv, text);
+        amount++;
+    }
+});
 
-
-
-
+textObserver.observe(textDiv);
