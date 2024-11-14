@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactRequest;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,5 +14,14 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         return view('homePage');
+    }
+
+
+    /**
+     * Controller for the contact form actions
+     * @param \Illuminate\Http\Request $request
+     */
+    public function contact(ContactRequest $request) {
+        $validated = $request->validated();
     }
 }
