@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
+use App\Mail\ContactMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -23,5 +25,14 @@ class HomeController extends Controller
      */
     public function contact(ContactRequest $request) {
         $validated = $request->validated();
+
+        Mail::to('florian.koning2004@gmail.com')->send(new ContactMail(
+            $request->fullName, 
+            $request->email,
+            $request->subject,
+            $request->message
+        ));
+
+        return redirect()->route('home.index')->with('succes_contact');
     }
 }

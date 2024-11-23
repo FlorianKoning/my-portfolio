@@ -24,10 +24,9 @@
         {{-- scripts --}}
         @vite('resources/css/app.css')
     </head>
-    <body class="font-robotoMono">
+    <body class="font-robotoMono bg-background">
         <div id="condiv">
             @include('components.layouts.navigation')
-
             {{ $slot }}
         </div>
     </body>

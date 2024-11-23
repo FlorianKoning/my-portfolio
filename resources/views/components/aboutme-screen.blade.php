@@ -18,7 +18,6 @@
 
         {{-- foto --}}
         <div class="textSection scrollHidden hidden md:flex flex-col gap-12 mx-auto max-w-2xl phone:py-10">
-            <div class="md:w-52 xl:w-80 h-fit rounded-tl-[40px] rounded-br-[40px] shadow-xl">
                 <img class="w-80 rounded-tl-[40px] rounded-br-[40px] mx-auto border-4 border-title" src="{{url('/images/fotoMe.jpg')}}" alt="selfie">
             </div>
         </div>
