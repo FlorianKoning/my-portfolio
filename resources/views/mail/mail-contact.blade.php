@@ -6,11 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Portfolio | Mail</title>
 </head>
-<body>
-    <h1>New contact mail from: {{ $fromAddress }}</h1>
-    <h2>Subject: {{ $subject }}</h2>
+<body class="bg-background">
 
-    <p>{{ $mailMessage }}</p>
+    <div class="bg-gradient-to-bl from-gradientBackground to-background shadow-xl">
+        <h1 class="text-xl text-white">New contact mail from: {{ $fromAddress }}</h1>
+        <h2 class="text-lg text-white">Subject: {{ $subject }}</h2>
+    </div>
+    
+    <p class="text-base text-white">{{ $mailMessage }}</p>
 </body>
 </html>
 

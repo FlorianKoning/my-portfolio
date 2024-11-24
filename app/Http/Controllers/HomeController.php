@@ -33,6 +33,6 @@ class HomeController extends Controller
             $request->message
         ));
 
-        return redirect()->route('home.index')->with('succes_contact');
+        return redirect()->route('home.index')->with('succes_contact', 'Mail has succesfully been send to florian.koning2004@gmail.com.');
     }
 }

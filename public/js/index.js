@@ -64,3 +64,6 @@ const textObserver = new IntersectionObserver((entries) => {
 });
 
 textObserver.observe(textDiv);
+
+
+

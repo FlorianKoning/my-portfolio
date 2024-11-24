@@ -2,13 +2,13 @@
     <div class="sm:h-screen relative isolate flex flex-col justify-between items-center pt-14 lg:px-8">
         {{-- page title --}}
         <div class="textSection scrollHidden flex flex-col justify-start xl:mt-5">
-            <h1 class="xl:text-5xl phone:text-xl font-semibold text-title">Mijn Projecten</h1>
+            <h1 class="xl:text-5xl phone:text-3xl font-semibold text-title">Mijn Projecten</h1>
         </div>
 
         <div class="sm:h-screen flex flex-col justify-center pt-14 lg:px-8">
             {{-- project list --}}
             <div class="">
-                <ul role="list" class="grid grid-cols-2 gap-x-2 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-2 xl:gap-x-8">
+                <ul role="list" class="grid phone:grid-rows-2 lg:grid-cols-2 gap-x-2 gap-y-8 sm:gap-x-6 xl:gap-x-8">
                   {{-- password manager --}}
                   <li class="textSection scrollHidden">
                     <div class="bg-secondBackground hover:bg-hoverTitle relative p-5 rounded-lg transition duration-500 ease-in-out">
@@ -19,7 +19,7 @@
                         </button>
                       </div>
                       <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-white">Password Manager</p>
-                      <div class="flex flex-row gap-6 mt-3 size-10">
+                      <div class="flex flex-row gap-6 mt-3 size-8">
                         <img src="{{url('/images/laravel.png')}}" alt="" class="pointer-events-none object-cover">
                         <img src="{{url('/images/javascript.png')}}" alt="" class="pointer-events-none object-cover">
                         <img src="{{url('/images/tailwind.png')}}" alt="" class="pointer-events-none object-cover">

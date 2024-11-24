@@ -17,7 +17,7 @@ class ContactMail extends Mailable
     var $fromAddress;
     var $subject;
     var $message;
-
+    
     /**
      * Create a new message instance.
      */

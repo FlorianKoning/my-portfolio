@@ -18,6 +18,12 @@
     <div class="min-h-screen flex flex-col bg-secondBackground">
         <x-contact-screen />
     </div>
+
+
+    {{-- Success notivication --}}
+    @if (session()->has('succes_contact'))
+        <x-succes-notification :option="true" :message="session('succes_contact')" />
+    @endif
 </x-layouts.app>
 
 
