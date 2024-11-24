@@ -5,7 +5,7 @@
             <h1 class="xl:text-5xl phone:text-3xl font-semibold text-title">Mijn Projecten</h1>
         </div>
 
-        <div class="sm:h-screen flex flex-col justify-center pt-14 lg:px-8">
+        <div class="sm:h-screen pt-14 lg:px-8">
             {{-- project list --}}
             <div class="">
                 <ul role="list" class="grid phone:grid-rows-2 lg:grid-cols-2 gap-x-2 gap-y-8 sm:gap-x-6 xl:gap-x-8">
