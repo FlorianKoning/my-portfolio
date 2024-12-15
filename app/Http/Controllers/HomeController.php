@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function contact(ContactRequest $request) {
         $validated = $request->validated();
 
-        Mail::cc('info@floriankoning.nl')->send(new ContactMail(
+        Mail::cc('florian.koning2004@gmail.com')->send(new ContactMail(
             $request->fullName,
             $request->email,
             $request->subject,

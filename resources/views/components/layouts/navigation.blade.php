@@ -20,7 +20,7 @@
             <a class="inline-flex items-center px-1 pt-1 text-2xl font-medium text-title" target=”_blank” href="https://github.com/FlorianKoning">
                 <i class="fa-brands fa-github"></i>
             </a>
-            <a class="inline-flex items-center px-1 pt-1 text-2xl font-medium text-title" target=”_blank” href="https://mail.google.com/mail/?view=cm&fs=1&to=florian.koning2004@gmail.com">
+            <a class="inline-flex items-center px-1 pt-1 text-2xl font-medium text-title" target=”_blank” href="mailto:florian.koning2004@gmail.com?subject=your title&body=The message">
                 <i class="fa-solid fa-envelope"></i>
             </a>
         </a>
