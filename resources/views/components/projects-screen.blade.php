@@ -1,14 +1,14 @@
-<div id="projects" class="h-fit pb-10 lg:h-screen lg:pb-0 relative flex flex-col phone:justify-around flex-grow">
-    <div class="sm:h-screen relative isolate flex flex-col justify-between items-center pt-14 lg:px-8">
+<div id="projects" class="h-fit pb-32 relative flex flex-col phone:justify-around flex-grow">
+    <div class="h-fit relative isolate flex flex-col justify-between items-center pt-14 lg:px-8">
         {{-- page title --}}
         <div class="textSection scrollHidden flex flex-col justify-start xl:mt-5">
             <h1 class="xl:text-5xl phone:text-3xl font-semibold text-title">Mijn Projecten</h1>
         </div>
 
-        <div class="sm:h-screen pt-14 lg:px-8">
+        <div class="h-fit pt-14 lg:px-8">
             {{-- project list --}}
             <div class="">
-                <ul role="list" class="grid phone:grid-rows-3 lg:grid-cols-3 gap-x-3 gap-y-8 sm:gap-x-6 xl:gap-x-8">
+                <ul role="list" class="grid 2xl:grid-cols-3 gap-x-3 gap-y-8 sm:gap-x-6 xl:gap-x-8">
                   {{-- password manager --}}
                     <a href="https://github.com/FlorianKoning/Password-Manager" target="_blank">
                         <li class="textSection scrollHidden">

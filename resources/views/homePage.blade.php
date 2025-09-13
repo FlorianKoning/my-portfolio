@@ -10,11 +10,11 @@
     </div>
 
     {{-- projects screen --}}
-    <div class="min-h-screen flex flex-col bg-gradient-to-bl from-gradientBackground to-background shadow-xl">
+    <div class="min-h-fit flex flex-col bg-gradient-to-bl from-gradientBackground to-background shadow-xl">
         <x-projects-screen />
     </div>
 
-    {{-- projects screen --}}
+    {{-- contact screen --}}
     <div class="min-h-screen flex flex-col bg-secondBackground">
         <x-contact-screen />
     </div>
