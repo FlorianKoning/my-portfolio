@@ -18,19 +18,20 @@
                         <i class="w-4 text-title my-auto fa-solid fa-location-dot"></i>
                         <p class="text-white text-sm text-light">Nederland - Delft</p>
                     </div>
-                    <div class="flex flex-row gap-4">
+                    {{-- <div class="flex flex-row gap-4">
                         <i class="w-4 text-title my-auto fa-solid fa-briefcase"></i>
                         <p class="text-white text-sm text-light">Part Time</p>
-                    </div>
+                    </div> --}}
                     <div class="flex flex-row gap-4">
                         <i class="w-4 text-title my-auto fa-solid fa-link"></i>
                         <p class="text-white text-sm text-light">www.floriankoning.nl</p>
                     </div>
-                    <div class="flex flex-row gap-4">
-                        <button class="bg-title font-medium text-sm px-2 rounded-[20px]">PHP</button>
-                        <button class="bg-title font-medium text-sm px-2 rounded-[20px]">Laravel</button>
-                        <button class="bg-title font-medium text-sm px-2 rounded-[20px]">HTML</button>
-                        <button class="bg-title font-medium text-sm px-2 rounded-[20px]">CSS</button>
+                    <div class="grid grid-cols-3 grid-rows-2 gap-4">
+                        <button class="bg-title font-medium text-sm px-2 rounded-[20px] cursor-default">PHP</button>
+                        <button class="bg-title font-medium text-sm px-2 rounded-[20px] cursor-default">Laravel</button>
+                        <button class="bg-title font-medium text-sm px-2 rounded-[20px] cursor-default">HTML</button>
+                        <button class="bg-title font-medium text-sm px-2 rounded-[20px] cursor-default">CSS</button>
+                        <button class="bg-title font-medium text-sm px-2 rounded-[20px] cursor-default">GIT</button>
                     </div>
                 </div>
             </div>
@@ -43,7 +44,7 @@
             <div class="flex flex-col phone:gap-1 xl:gap-3 w-auto p-10 text-white phone:text-base xl:text-2xl font-light">
                 <p class="text-title text-base -indent-8">{{ __('<h1>') }}</p>
                 <h1><span class="xl:text-5xl phone:text-xl font-normal text-title">Hey</span><br>IK BEN <span class="ml-2 phone:text-xl xl:text-5xl font-medium text-title">Florian Koning</span></h1>
-                <p>Junior full stack PHP developer <br>Bij Aristoteles.</p>
+                <p>Gedreven Developer met ervaring in Laravel en moderne frontend</p>
                 <p class="text-title text-base -indent-8">{{ __('</h1>') }}</p>
             </div>
         </div>
@@ -97,7 +98,7 @@
                     <p class="text-base font-normal text-white">Development Tool</p>
                 </div>
                 <div class="flex flex-row gap-4">
-                    <span class="digit-box text-4xl font-medium text-title" secondValue="100" value="1">0</span>
+                    <span class="digit-box text-4xl font-medium text-title" secondValue="100" value="2">0</span>
                     <p class="text-base font-normal text-white">Jaar aan Ervaring</p>
                 </div>
             </div>

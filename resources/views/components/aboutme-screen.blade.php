@@ -10,7 +10,7 @@
                 <h1 class="phone:text-base xl:text-3xl font-medium text-white">Florian Koning</h1>
             </div>
 
-            <div class="typeAnimation phone:w-80 phone:h-44 lg:w-[700px] lg:h-52 p-5 rounded-xl border-2 bg-gradient-to-bl from-gradientBackground to-background shadow-md">
+            <div class="typeAnimation phone:w-80 phone:h-60 lg:w-[700px] lg:h-80 p-5 rounded-xl border-2 bg-gradient-to-bl from-gradientBackground to-background shadow-md">
                 <h1 id="aboutMeText" class="break-words phone:text-xs xl:text-xl font-medium text-white"></h1>
             </div>
             <p class="text-base text-title lg:-indent-8 phone:-indent-4">{{ __('</div>') }}</p>

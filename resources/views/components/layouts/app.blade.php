@@ -19,10 +19,10 @@
 
         {{-- js and css files --}}
         <link href="{{ asset('css/index.css') }}" rel="stylesheet" type="text/css" >
-        <script defer src="{{ asset('js/index.js') }}" type="text/javascript"></script>
 
         {{-- scripts --}}
         @vite('resources/css/app.css')
+        @vite('resources/js/app.js')
     </head>
     <body class="font-robotoMono bg-background">
         <div id="condiv">
