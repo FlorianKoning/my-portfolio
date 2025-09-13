@@ -75,11 +75,12 @@
                         <i class="text-title my-auto fa-solid fa-link"></i>
                         <p class="text-white text-sm text-light">www.floriankoning.nl</p>
                     </div>
-                    <div class="flex flex-row gap-4">
-                        <button class="bg-title font-medium text-sm px-2 rounded-[20px]">PHP</button>
-                        <button class="bg-title font-medium text-sm px-2 rounded-[20px]">Laravel</button>
-                        <button class="bg-title font-medium text-sm px-2 rounded-[20px]">HTML</button>
-                        <button class="bg-title font-medium text-sm px-2 rounded-[20px]">CSS</button>
+                    <div class="grid grid-cols-3 grid-rows-2 gap-4">
+                        <button class="bg-title font-medium text-sm px-2 rounded-[20px] cursor-default">PHP</button>
+                        <button class="bg-title font-medium text-sm px-2 rounded-[20px] cursor-default">Laravel</button>
+                        <button class="bg-title font-medium text-sm px-2 rounded-[20px] cursor-default">HTML</button>
+                        <button class="bg-title font-medium text-sm px-2 rounded-[20px] cursor-default">CSS</button>
+                        <button class="bg-title font-medium text-sm px-2 rounded-[20px] cursor-default">GIT</button>
                     </div>
                 </div>
             </div>
