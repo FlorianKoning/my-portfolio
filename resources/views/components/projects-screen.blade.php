@@ -16,10 +16,10 @@
                                 <div class="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg focus-within:ring-2 focus-within:ring-title focus-within:ring-offset-2">
                                     <img src="{{url('/images/password-manager.png')}}" alt="" class="pointer-events-none object-cover">
                                     <button type="button" class="absolute inset-0 focus:outline-none">
-                                        <span class="sr-only text-white">Password Manager</span>
+                                        <span class="sr-only text-white">Password Manager | Florian koning</span>
                                     </button>
                                 </div>
-                                <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-white">Password Manager</p>
+                                <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-white">Password Manager | Florian koning</p>
                                 <div class="flex flex-row gap-6 mt-3 size-8">
                                     <img src="{{url('/images/laravel.png')}}" alt="" class="pointer-events-none object-cover">
                                     <img src="{{url('/images/javascript.png')}}" alt="" class="pointer-events-none object-cover">
@@ -35,10 +35,10 @@
                         <div class="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg focus-within:ring-2 focus-within:ring-title focus-within:ring-offset-2">
                           <img src="{{url('/images/portfolio.png')}}" alt="" class="pointer-events-none object-cover">
                           <button type="button" class="absolute inset-0 focus:outline-none">
-                            <span class="sr-only text-white">Mijn Portfolio Website</span>
+                            <span class="sr-only text-white">Portfolio Website | Florian Koning</span>
                           </button>
                         </div>
-                        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-white">Mijn Portfolio Website</p>
+                        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-white">Portfolio Website | Florian Koning</p>
                         <div class="flex flex-row gap-6 mt-3 size-8">
                           <img src="{{url('/images/laravel.png')}}" alt="" class="pointer-events-none object-cover">
                           <img src="{{url('/images/javascript.png')}}" alt="" class="pointer-events-none object-cover">
@@ -54,10 +54,10 @@
                                 <div class="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg focus-within:ring-2 focus-within:ring-title focus-within:ring-offset-2">
                                     <img src="{{url('/images/dbmMilitaria.png')}}" alt="" class="pointer-events-none object-cover">
                                     <button type="button" class="absolute inset-0 focus:outline-none">
-                                        <span class="sr-only text-white">E-commerce website DBMmilitaria.nl</span>
+                                        <span class="sr-only text-white">E-commerce website | DBMmilitaria.nl</span>
                                     </button>
                                 </div>
-                                <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-white">E-commerce website DBMmilitaria.nl</p>
+                                <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-white">E-commerce website | DBMmilitaria.nl</p>
                                 <div class="flex flex-row gap-6 mt-3 size-8">
                                     <img src="{{url('/images/laravel.png')}}" alt="" class="pointer-events-none object-cover">
                                     <img src="{{url('/images/javascript.png')}}" alt="" class="pointer-events-none object-cover">
