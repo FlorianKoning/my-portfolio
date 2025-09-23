@@ -68,10 +68,6 @@
                         <p class="text-white text-sm text-light">Nederland - Delft</p>
                     </div>
                     <div class="flex flex-row gap-4">
-                        <i class="text-title my-auto fa-solid fa-briefcase"></i>
-                        <p class="text-white text-sm text-light">Part Time op dit moment</p>
-                    </div>
-                    <div class="flex flex-row gap-4">
                         <i class="text-title my-auto fa-solid fa-link"></i>
                         <p class="text-white text-sm text-light">www.floriankoning.nl</p>
                     </div>
