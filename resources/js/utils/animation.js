@@ -11,12 +11,12 @@ hiddenElements.forEach((el) => observer.observe(el));
 
 
 // Navbar Scroll Animation
-function scrolldiv(id) {
+export function scrolldiv(id) {
     var elem = document.getElementById(id);
     elem.scrollIntoView({
-          block: 'end',
-          behavior: 'smooth'
-        });
+        block: 'start',
+        behavior: 'smooth'
+    });
 }
 
 
