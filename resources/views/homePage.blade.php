@@ -15,7 +15,7 @@
     </div>
 
     {{-- contact screen --}}
-    <div class="min-h-screen flex flex-col bg-secondBackground">
+    <div class="min-h-[50vh] flex flex-col bg-secondBackground">
         <x-contact-screen />
     </div>
 

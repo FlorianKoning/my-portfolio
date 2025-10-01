@@ -12,16 +12,12 @@
                 <div class="flex flex-col gap-4 mx-auto">
                     <div class="flex flex-row gap-4">
                         <i class="w-4 text-title my-auto fa-solid fa-envelope"></i>
-                        <p class="text-white text-sm text-light">florian.koning2004@gmail.com</p>
+                        <p class="text-white text-xs text-light">floriankoning.developer@gmail.com</p>
                     </div>
                     <div class="flex flex-row gap-4">
                         <i class="w-4 text-title my-auto fa-solid fa-location-dot"></i>
                         <p class="text-white text-sm text-light">Nederland - Delft</p>
                     </div>
-                    {{-- <div class="flex flex-row gap-4">
-                        <i class="w-4 text-title my-auto fa-solid fa-briefcase"></i>
-                        <p class="text-white text-sm text-light">Part Time</p>
-                    </div> --}}
                     <div class="flex flex-row gap-4">
                         <i class="w-4 text-title my-auto fa-solid fa-link"></i>
                         <p class="text-white text-sm text-light">www.floriankoning.nl</p>
@@ -61,7 +57,7 @@
                 <div class="flex flex-col gap-3 mx-auto">
                     <div class="flex flex-row gap-4">
                         <i class="text-title my-auto fa-solid fa-envelope"></i>
-                        <p class="text-white text-sm text-light">florian.koning2004@gmail.com</p>
+                        <p class="text-white text-xs text-light">floriankoning.developer@gmail.com</p>
                     </div>
                     <div class="flex flex-row gap-4">
                         <i class="text-title my-auto fa-solid fa-location-dot"></i>
