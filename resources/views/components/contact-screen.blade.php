@@ -1,4 +1,4 @@
-    <div id="contact" class="h-[50vh] relative flex flex-col phone:justify-around flex-grow">
+    <div id="contact" class="h-fit relative flex flex-col phone:justify-around flex-grow">
         <div class="sm:h-[50vh] relative isolate flex flex-col justify-around items-center pt-14 lg:px-8">
             {{-- page title --}}
             <div class="textSection scrollHidden flex flex-col justify-start">
