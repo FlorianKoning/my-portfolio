@@ -40,7 +40,7 @@
             <div class="flex flex-col phone:gap-1 xl:gap-3 w-auto p-10 text-white phone:text-base xl:text-2xl font-light">
                 <p class="text-title text-base -indent-8">{{ __('<h1>') }}</p>
                 <h1><span class="xl:text-5xl phone:text-xl font-normal text-title">Hey</span><br>IK BEN <span class="ml-2 phone:text-xl xl:text-5xl font-medium text-title">Florian Koning</span></h1>
-                <p>Gedreven Developer met ervaring in Laravel en moderne frontend</p>
+                <p>Back-end developer bij Pay.nl, met ervaring in Laravel, symfony en moderne API’s</p>
                 <p class="text-title text-base -indent-8">{{ __('</h1>') }}</p>
             </div>
         </div>
