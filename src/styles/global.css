@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --font-robotoMono: "Roboto Mono Variable", monospace;
+
+  --color-background: #34353A;
+  --color-secondBackground: #2f3035;
+  --color-gradientBackground: #3b3c41;
+  --color-title: #FFD26E;
+  --color-hoverTitle: #ffda86;
+  --color-border: #2e3035;
+
+  --breakpoint-phone: 360px;
+}
