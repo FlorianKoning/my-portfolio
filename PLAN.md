@@ -25,53 +25,35 @@ Bij elk nieuw stukje code vraag je je af: in welk bakje hoort dit?
 ## Waar we nu staan (5 nov)
 
 - [x] `src/data/site.ts` met `navItems` en `socials`
-- [x] `Navbar.astro` (nog in de oude stijl)
+- [x] `Navbar.astro` (eigen gecentreerde layout behouden, alleen nieuwe kleuren)
 - [x] `BaseLayout.astro`
 - [x] `--spacing-nav` (geeft `h-nav`, `pt-nav`)
 - [x] Kleuren in `global.css` bijgewerkt naar het nieuwe design (`ink-*`, `accent`, `text-*`, `online`)
-- [ ] Testsecties in `index.astro` (deze vervangen we in fase 1)
+- [x] Fase 0 en fase 1: fixes gedaan, `Section.astro` staat, `index.astro` heeft 4 placeholder-secties
+- [x] Fase 2: navbar blijft zoals hij is
 
 ---
 
-## Fase 0: kleine fixes (5 min)
+## Fase 0: kleine fixes ✅
 
-1. **`index.astro`: `id="{item.id}"` moet `id={item.id}` zijn.** Met aanhalingstekens is het letterlijk de tekst `{item.id}`, en daarom springen de navbar-links nergens heen. Vuistregel in Astro: een `{}`-expressie als attribuut zet je **nooit** tussen quotes.
-2. **`BaseLayout.astro`: zet `<!doctype html>` bovenaan het template**, boven `<html>`. Zonder doctype draait de browser in "quirks mode".
-3. **Kies wat de navbar-links in het design zijn.** Het design gebruikt `#over-mij` en `#projecten`, `site.ts` gebruikt `about` en `projects`. Kies één set en gebruik die overal. Omdat beide vanuit `navItems` komen, hoeft dat maar op één plek.
+`id="{...}"` → `id={...}` (een `{}`-expressie als attribuut **nooit** tussen quotes), `<!doctype html>` toegevoegd. De ids blijven `home` / `about` / `projects` / `contact`.
 
-## Fase 1: het `Section`-frame
+## Fase 1: het `Section`-frame ✅
 
-**Wat:** `src/components/layout/Section.astro` met de props `id` en `variant`.
+`src/components/layout/Section.astro` heeft voorlopig alleen een `id`-prop. De achtergrond (`bg-ink-700`) staat vast in de class. De stippen uit het design laten we bewust weg.
 
-**Wat het design ons vertelt:**
-- De home-sectie heeft `bg-ink-700` met een stippenpatroon (`bg-dots`). Variant 1 wordt dus `dots`.
-- De scroll-hint staat `absolute` onderin de sectie, dus het frame moet `relative` zijn.
-- In het design is de hero op desktop 1440px breed met 140px padding, dus ongeveer 1160px content. Dat is vrijwel precies `max-w-6xl` (1152px), dus die container houden we.
+**Zodra een design een andere achtergrond vraagt**, voeg je een `variant`-prop toe met een object met volledig uitgeschreven class-namen (Tailwind ziet geen in elkaar geplakte strings):
+```ts
+const backgrounds = {
+  plain: 'bg-ink-700',
+  raised: 'bg-ink-800',
+};
+```
+Gebruik dan `class:list`. Het frame zelf (hoogte, padding, container) verandert niet.
 
-**Stappen:**
-1. Maak `Section.astro` met: `relative flex min-h-svh flex-col pt-nav px-6 lg:px-8` en een binnenste container `mx-auto w-full max-w-6xl flex-1 flex flex-col justify-center`.
-2. Een `backgrounds`-object met **volledig uitgeschreven** class-namen (Tailwind ziet geen in elkaar geplakte strings):
-   ```ts
-   const backgrounds = {
-     dots: 'bg-ink-700 bg-dots',
-     plain: 'bg-ink-700',
-   };
-   ```
-3. Zet `bg-dots` in `@theme` (zie "Van design naar Tailwind v4" hieronder).
-4. Vervang de testsecties in `index.astro` door vier `<Section>`s met een placeholder-titel.
+## Fase 2: navbar ✅ (bewust niet naar het nieuwe design)
 
-**Belangrijk:** elk nieuw sectiedesign mag een nieuwe `variant` toevoegen. Het frame zelf (hoogte, padding, container) verandert niet.
-
-## Fase 2: de navbar naar het nieuwe design
-
-Het design verschilt van wat er nu staat:
-- Achtergrond `bg-ink-750`, rand `border-b border-ink-600`, kleine tekst (`text-xs` / `text-[11px]`)
-- De socials zijn tekstlinks in plaats van iconen. Kies zelf welke van de twee je wilt.
-- De actieve link is `text-accent`. Dat kan nu nog niet automatisch, dat komt in fase 5.
-
-**Te bespreken:** in het design staat de header gewoon bovenaan de home-sectie. Wij houden hem **in de layout en `fixed`**, zodat hij bij elke sectie zichtbaar blijft. Moet hij juist meescrollen? Dan wordt hij `sticky` of gewoon niet fixed, en is `pt-nav` in het frame niet meer nodig.
-
-Stappen: kleuren en groottes overnemen, `h-nav` zo nodig aanpassen aan de echte hoogte, `<php/>`-logo zoals in het design.
+De huidige navbar blijft: alles gecentreerd in dezelfde `max-w-6xl` container als de secties, `fixed`, met iconen voor de socials. Alleen de kleuren zijn al omgezet naar de nieuwe tokens. Een actieve link (`text-accent`) volgt in fase 5.
 
 ## Fase 3: de hero (sectie 1), volgens het recept hieronder
 
@@ -86,7 +68,7 @@ Wat er uit `Designs/section-one/home.html` komt:
 | Getallenkaart rechts | `ui/StatsCard.astro` |
 | `// scroll ↓` hint | `ui/ScrollHint.astro` (krijgt een `href` mee, zodat je hem ook in andere secties kunt gebruiken) |
 | Intro met `<h1>` en de knipperende `_` | rechtstreeks in `sections/Hero.astro` |
-| Animaties `blink` en `nudge`, stippen `bg-dots` | `global.css` → `@theme` |
+| Animaties `blink` en `nudge` | `global.css` → `@theme` |
 | Foto | `src/assets/` + Astro's `<Image />` (wordt automatisch geoptimaliseerd) |
 
 Leerpunten in deze fase: props doorgeven aan ui-componenten, data `.map()`en, `<Image />`, keyframes in Tailwind v4.
