@@ -1,17 +1,22 @@
 ---
-import { navItems } from "../data/site";
+import Section from "../components/layout/Section.astro";
 import BaseLayout from "../layout/BaseLayout.astro";
 ---
 
 <BaseLayout title="Florian Koning | Developer">
-    {
-        navItems.map((item) => (
-            <section
-                id="{item.id}"
-                class="min-h-svh pt-nav even:bg-ink-800"
-            >
-                <h2 class="p-8 text-3xl text-accent">{item.label}</h2>
-            </section>
-        ))
-    }
+    <Section id="home">
+        <h1 class="text-3xl text-accent">Home</h1>
+    </Section>
+
+    <Section id="about">
+        <h2 class="text-3xl text-accent">Over mij</h2>
+    </Section>
+
+    <Section id="projects">
+        <h2 class="text-3xl text-accent">Projecten</h2>
+    </Section>
+
+    <Section id="contact">
+        <h2 class="text-3xl text-accent">Contact</h2>
+    </Section>
 </BaseLayout>
