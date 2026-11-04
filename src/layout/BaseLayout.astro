@@ -1,0 +1,30 @@
+---
+import "@fontsource-variable/roboto-mono";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import Navbar from "../components/layout/Navbar.astro";
+import "../styles/global.css";
+
+interface Props {
+    title: string;
+    description?: string;
+}
+
+const { title, description = "Portoflio van Florian Koning, developer" } =
+    Astro.props;
+---
+
+<html lang="nl" class="scroll-smooth">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={description} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>{title}</title>
+    </head>
+    <body class="bg-ink-700 font-mono text-text antialiased">
+        <Navbar />
+        <main>
+            <slot />
+        </main>
+    </body>
+</html>

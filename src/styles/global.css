@@ -1,14 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --font-robotoMono: "Roboto Mono Variable", monospace;
+  --font-mono: "Roboto Mono Variable", ui-monospace, monospace;
 
-  --color-background: #34353A;
-  --color-secondBackground: #2f3035;
-  --color-gradientBackground: #3b3c41;
-  --color-title: #FFD26E;
-  --color-hoverTitle: #ffda86;
-  --color-border: #2e3035;
+  /* Accent */
+  --color-accent: #F6C64F;
+  --color-online: #7CD992;
+
+  /* Vlakken: van donker naar licht */
+  --color-ink-900: #1F2024; /* donkerste vlak (chips, labels) */
+  --color-ink-800: #2A2B30; /* kaarten */
+  --color-ink-750: #2B2C31; /* header */
+  --color-ink-700: #2F3035; /* achtergrond */
+  --color-ink-600: #3A3B42; /* randen */
+  --color-ink-500: #44454D; /* stippellijnen */
+
+  /* Tekst */
+  --color-text: #E8E6E1;
+  --color-text-soft: #D4D3CF;
+  --color-text-muted: #C9C8C4;
+  --color-text-dim: #9A9CA5;
 
   --breakpoint-phone: 360px;
+
+  --spacing-nav: 5rem;
 }

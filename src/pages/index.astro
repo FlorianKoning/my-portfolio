@@ -1,16 +1,17 @@
 ---
+import { navItems } from "../data/site";
+import BaseLayout from "../layout/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Florian Koning | Developer">
+    {
+        navItems.map((item) => (
+            <section
+                id="{item.id}"
+                class="min-h-svh pt-nav even:bg-ink-800"
+            >
+                <h2 class="p-8 text-3xl text-accent">{item.label}</h2>
+            </section>
+        ))
+    }
+</BaseLayout>
