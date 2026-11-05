@@ -1,0 +1,17 @@
+---
+interface Props {
+    href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<a
+    href={href}
+    class="absolute inset-x-0 bottom-8 mx-auto hidden w-fit flex-col items-center gap-1 text-sm text-text-dim transition-colors hover:text-accent lg:flex"
+>
+    <span class="flex animate-nudge flex-col items-center gap-1">
+        // scroll
+        <span class="text-xl text-accent" aria-hidden="true">↓</span>
+    </span>
+</a>

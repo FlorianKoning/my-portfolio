@@ -1,0 +1,22 @@
+---
+import { stats } from "../../data/site";
+---
+
+<aside
+    class="flex w-full max-w-80 flex-col rounded-[0.25rem_3rem_0.25rem_3rem] border border-ink-600 bg-ink-800 px-6 py-4 lg:w-52"
+>
+    <dl>
+        {
+            stats.map((stat) => (
+                <div class="flex items-center gap-4 border-b border-dashed border-ink-500 py-5 last:border-b-0">
+                    <dt class="order-last text-sm leading-snug text-text-soft first-letter:uppercase">
+                        {stat.label}
+                    </dt>
+                    <dd class="text-3xl font-bold text-accent">
+                        {stat.amount}
+                    </dd>
+                </div>
+            ))
+        }
+    </dl>
+</aside>

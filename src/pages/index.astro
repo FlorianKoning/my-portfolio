@@ -1,11 +1,12 @@
 ---
 import Section from "../components/layout/Section.astro";
+import Hero from "../components/sections/Hero.astro";
 import BaseLayout from "../layout/BaseLayout.astro";
 ---
 
 <BaseLayout title="Florian Koning | Developer">
-    <Section id="home">
-        <h1 class="text-3xl text-accent">Home</h1>
+    <Section id="home" variant="glow" width="full">
+        <Hero />
     </Section>
 
     <Section id="about">

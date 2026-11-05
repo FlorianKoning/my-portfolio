@@ -1,17 +1,44 @@
 ---
+// Volledig uitgeschreven class-namen: Tailwind ziet geen in elkaar geplakte strings
+// Wissel base en alt af. De stippellijn bovenaan elke sectie scheidt ze.
+const backgrounds = {
+    base: "bg-ink-700",
+    alt: "bg-ink-650",
+    // Zoals base, met een lichte gloed bovenin
+    glow: "bg-ink-700 bg-radial-[at_50%_0%] from-ink-600 to-ink-700 to-70%",
+};
+
+const widths = {
+    // Even breed als de navbar: voor secties met veel tekst
+    content: "max-w-7xl",
+    // Bijna de hele schermbreedte: voor de hero
+    full: "max-w-[3440px]",
+};
+
 interface Props {
     id: string;
+    variant?: keyof typeof backgrounds;
+    width?: keyof typeof widths;
 }
 
-const { id } = Astro.props;
+const { id, variant = "base", width = "content" } = Astro.props;
 ---
 
 <section
     id={id}
-    class="relative flex min-h-svh flex-col bg-ink-700 px-6 pt-nav lg:px-8"
+    class:list={[
+        "relative flex min-h-svh flex-col px-6 pt-nav",
+        // Stippellijn tussen secties: niet bij de eerste, die zit al onder de navbar
+        "border-dashed border-ink-500 not-first:border-t",
+        width === "full" ? "lg:px-[8vw]" : "lg:px-8",
+        backgrounds[variant],
+    ]}
 >
     <div
-        class="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center py-12"
+        class:list={[
+            "mx-auto flex w-full flex-1 flex-col justify-center py-12",
+            widths[width],
+        ]}
     >
         <slot />
     </div>

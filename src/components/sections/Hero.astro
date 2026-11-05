@@ -1,0 +1,60 @@
+---
+import CodeLabel from "../ui/CodeLabel.astro";
+import ProfileCard from "../ui/ProfileCard.astro";
+import ScrollHint from "../ui/ScrollHint.astro";
+import StatsCard from "../ui/StatsCard.astro";
+---
+
+<div
+    class="flex flex-col items-center gap-12 lg:flex-row lg:items-center lg:justify-between"
+>
+    <ProfileCard />
+
+    <!-- Intro: op mobiel bovenaan, op pc in het midden -->
+    <div
+        class="order-first flex w-full max-w-[34rem] flex-col gap-3 lg:order-none"
+    >
+        <CodeLabel>{"<h1>"}</CodeLabel>
+
+        <div class="flex flex-col gap-4 pl-6">
+            <span class="text-4xl text-accent">Hey</span>
+
+            <h1
+                class="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-normal lg:flex-nowrap"
+            >
+                <span class="text-md tracking-wider text-text">IK BEN</span>
+                <span class="text-4xl font-bold text-accent sm:text-5xl">
+                    Florian Koning<span class="animate-blink" aria-hidden="true"
+                        >_</span
+                    >
+                </span>
+            </h1>
+
+            <p class="mt-1 text-lg leading-relaxed text-text-muted">
+                Back-end developer bij Pay.nl, met ervaring in Laravel, Symfony
+                en moderne API's.
+            </p>
+
+            <div class="mt-4 flex flex-wrap gap-6 text-sm">
+                <a
+                    href="#projects"
+                    class="border-b border-accent pb-0.5 text-accent transition-opacity hover:opacity-80"
+                >
+                    ./projecten
+                </a>
+                <a
+                    href="#contact"
+                    class="border-b border-dashed border-text-dim pb-0.5 text-text-soft transition-colors hover:border-accent hover:text-accent"
+                >
+                    ./contact
+                </a>
+            </div>
+        </div>
+
+        <CodeLabel>{"</h1>"}</CodeLabel>
+    </div>
+
+    <StatsCard />
+</div>
+
+<ScrollHint href="#about" />

@@ -1,0 +1,60 @@
+---
+import { Image } from "astro:assets";
+import photo from "../../assets/florian-portrait.jpeg";
+import { profile } from "../../data/site";
+import Tag from "./Tag.astro";
+---
+
+<aside
+    class="flex w-full max-w-80 flex-col items-center gap-5 rounded-[4.5rem_0.25rem_4.5rem_0.25rem] border border-ink-600 bg-ink-800 px-6 pt-9 pb-8"
+>
+    <Image
+        src={photo}
+        alt="Portret van Florian Koning"
+        width={192}
+        class="size-24 rounded-full border-2 border-accent object-cover object-[center_40%]"
+    />
+
+    <div class="flex flex-col gap-1 text-center">
+        <span class="text-lg font-bold text-accent">{profile.name}</span>
+        <span class="text-sm text-text-soft">{profile.role}</span>
+    </div>
+
+    <span
+        class="flex items-center gap-2 rounded-full bg-ink-900 px-3 py-1 text-xs text-text-muted"
+    >
+        <span aria-hidden="true" class="size-2 rounded-full bg-online"></span>
+        Nu bij {profile.company}
+    </span>
+
+    <ul
+        class="flex w-full flex-col gap-3.5 border-t border-dashed border-ink-500 pt-5 text-[0.8125rem] text-text-soft"
+    >
+        <li class="break-all">
+            <span class="text-accent" aria-hidden="true">@</span>&nbsp;
+            <a href={`mailto:${profile.email}`} class="hover:text-accent">
+                {profile.email}
+            </a>
+        </li>
+        <li>
+            <span class="text-accent" aria-hidden="true">⌖</span>&nbsp;
+            {profile.location}
+        </li>
+        <li>
+            <span class="text-accent" aria-hidden="true">↗</span>&nbsp;
+            <a href={profile.website.href} class="hover:text-accent">
+                {profile.website.label}
+            </a>
+        </li>
+    </ul>
+
+    <ul class="grid w-full grid-cols-3 gap-2" aria-label="Skills">
+        {
+            profile.skills.map((skill) => (
+                <li class="grid">
+                    <Tag label={skill} />
+                </li>
+            ))
+        }
+    </ul>
+</aside>
