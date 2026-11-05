@@ -1,0 +1,17 @@
+---
+// Een vlak met rand: de basis voor tegels en kleine kaartjes
+interface Props {
+    class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div
+    class:list={[
+        "rounded-[1.25rem] border border-ink-600 bg-ink-850",
+        className,
+    ]}
+>
+    <slot />
+</div>

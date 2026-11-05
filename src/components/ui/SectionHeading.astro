@@ -1,0 +1,20 @@
+---
+import CodeLabel from "./CodeLabel.astro";
+
+interface Props {
+    // Wordt getoond als <section id="...">
+    id: string;
+    title: string;
+    // Het deel van de titel dat geel wordt
+    highlight: string;
+}
+
+const { id, title, highlight } = Astro.props;
+---
+
+<div class="flex flex-col gap-3">
+    <CodeLabel>{`<section id="${id}">`}</CodeLabel>
+    <h2 class="text-4xl font-bold tracking-tight sm:text-5xl">
+        {title} <span class="text-accent">{highlight}</span>
+    </h2>
+</div>

@@ -1,0 +1,86 @@
+---
+import { Image } from "astro:assets";
+import portrait from "../../assets/florian-portrait.jpeg";
+import { about, aboutFacts } from "../../data/about";
+import CodeLabel from "../ui/CodeLabel.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+import Tile from "../ui/Tile.astro";
+---
+
+<div class="flex flex-col gap-8">
+    <SectionHeading id="over-mij" title="Over" highlight="mij" />
+
+    <div class="flex flex-col gap-6 lg:flex-row lg:items-stretch">
+        <!-- Links: foto + drie getallen -->
+        <div
+            class="flex w-full flex-col gap-5 lg:max-w-95 lg:shrink-0 lg:basis-[38%]"
+        >
+            <!-- Foto met verschoven kader -->
+            <div class="relative pr-4.5 pb-4.5">
+                <div
+                    aria-hidden="true"
+                    class="absolute inset-0 top-4.5 left-4.5 rounded-[0_2.5rem_0_2.5rem] border-2 border-accent"
+                >
+                </div>
+                <Image
+                    src={portrait}
+                    alt="Portret van Florian Koning"
+                    widths={[400, 800]}
+                    sizes="(min-width: 1024px) 380px, 100vw"
+                    class="relative block h-90 w-full rounded-[0_2.5rem_0_2.5rem] object-cover object-[center_40%] sm:h-105"
+                />
+            </div>
+
+            <!-- Feitjes -->
+            <dl class="grid grid-cols-3 gap-3">
+                {
+                    aboutFacts.map((fact) => (
+                        <Tile class="flex flex-col justify-end gap-1 p-3.5">
+                            <dt class="order-last text-sm text-text-subtle">
+                                {fact.label}
+                            </dt>
+                            <dd
+                                class:list={[
+                                    "font-bold break-words text-accent",
+                                    typeof fact.value === "number"
+                                        ? "text-3xl"
+                                        : "text-xl",
+                                ]}
+                            >
+                                {fact.value}
+                            </dd>
+                        </Tile>
+                    ))
+                }
+            </dl>
+        </div>
+
+        <!-- Rechts: tekst-tegels -->
+        <div class="flex min-w-0 flex-1 flex-col gap-5">
+            <Tile
+                class="flex flex-1 flex-col justify-center gap-4.5 p-7 sm:p-9"
+            >
+                <span class="text-sm text-accent">{about.greeting}</span>
+                <p class="max-w-155 text-lg leading-relaxed text-text">
+                    {about.intro}
+                </p>
+                <p class="max-w-155 text-base leading-relaxed text-text-subtle">
+                    {about.body}
+                </p>
+            </Tile>
+
+            <Tile class="flex flex-wrap items-center gap-6 p-7 sm:px-9">
+                <span class="shrink-0 text-sm text-text-dim">
+                    {about.origin.label}
+                </span>
+                <p
+                    class="min-w-0 flex-1 basis-75 text-base leading-relaxed text-text-soft"
+                >
+                    {about.origin.text}
+                </p>
+            </Tile>
+        </div>
+    </div>
+
+    <CodeLabel>{"</section>"}</CodeLabel>
+</div>

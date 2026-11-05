@@ -40,6 +40,8 @@ Bij elk nieuw stukje code vraag je je af: in welk bakje hoort dit?
 
 ## Fase 1: het `Section`-frame ✅
 
+> Update: de `variant`-prop bestaat nu (`base` = ink-700 | `alt` = ink-650 | `glow` = hero met gloed). Secties wisselen af en worden gescheiden door een stippellijn (`not-first:border-t border-dashed`). Zachte gradient-overgangen tussen secties zijn geprobeerd, maar gaven banding (zichtbare lijntjes). De git-lijn als achtergrond is geprobeerd en afgekeurd omdat hij te druk was.
+
 `src/components/layout/Section.astro` heeft voorlopig alleen een `id`-prop. De achtergrond (`bg-ink-700`) staat vast in de class. De stippen uit het design laten we bewust weg.
 
 **Zodra een design een andere achtergrond vraagt**, voeg je een `variant`-prop toe met een object met volledig uitgeschreven class-namen (Tailwind ziet geen in elkaar geplakte strings):
@@ -53,7 +55,7 @@ Gebruik dan `class:list`. Het frame zelf (hoogte, padding, container) verandert 
 
 ## Fase 2: navbar ✅ (bewust niet naar het nieuwe design)
 
-De huidige navbar blijft: alles gecentreerd in dezelfde `max-w-6xl` container als de secties, `fixed`, met iconen voor de socials. Alleen de kleuren zijn al omgezet naar de nieuwe tokens. Een actieve link (`text-accent`) volgt in fase 5.
+De huidige navbar blijft: alles gecentreerd in een `max-w-6xl` container, `fixed`. De secties zelf gaan wel over de volle breedte (`max-w-[3440px]`, `lg:px-[8vw]`), met iconen voor de socials. Alleen de kleuren zijn al omgezet naar de nieuwe tokens. Een actieve link (`text-accent`) volgt in fase 5.
 
 ## Fase 3: de hero (sectie 1), volgens het recept hieronder
 
@@ -77,7 +79,7 @@ Leerpunten in deze fase: props doorgeven aan ui-componenten, data `.map()`en, `<
 
 ## Fase 4: de overige secties (zodra hun designs er zijn)
 
-- [ ] Sectie 2: Over mij (`Designs/section-two/`)
+- [x] Sectie 2: Over mij (`sections/About.astro`, data in `src/data/about.ts`). Gedeelde ui: `CodeLabel`, `SectionHeading`, `Tile`. `Section` heeft nu ook `width` (`content` = max-w-7xl, standaard | `full`)
 - [ ] Sectie 3: Projecten (`Designs/section-three/`). Projecten in `src/data/projects.ts`, of als Astro content collection als je per project een eigen pagina wilt.
 - [ ] Sectie 4: Contact (`Designs/section-four/`)
 
