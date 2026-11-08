@@ -8,11 +8,16 @@ import StatsCard from "../ui/StatsCard.astro";
 <div
     class="flex flex-col items-center gap-12 lg:flex-row lg:items-center lg:justify-between"
 >
-    <ProfileCard />
+    <!-- Kaarten schuiven in en blijven daarna zweven; elk eigen tempo
+         zodat ze niet synchroon bewegen. Zie global.css. -->
+    <ProfileCard
+        class="slide-in-float from-left [--enter-delay:150ms] [--float-delay:-2s] [--float-duration:10s] [--float-r:0.5deg] [--float-y:7px]"
+    />
 
-    <!-- Intro: op mobiel bovenaan, op pc in het midden -->
+    <!-- Intro: op mobiel bovenaan, op pc in het midden.
+         Alleen inschuiven, niet zweven (blijft goed leesbaar). -->
     <div
-        class="order-first flex w-full max-w-[34rem] flex-col gap-3 lg:order-none"
+        class="slide-in order-first flex w-full max-w-[34rem] flex-col gap-3 lg:order-none"
     >
         <CodeLabel>{"<h1>"}</CodeLabel>
 
@@ -54,7 +59,9 @@ import StatsCard from "../ui/StatsCard.astro";
         <CodeLabel>{"</h1>"}</CodeLabel>
     </div>
 
-    <StatsCard />
+    <StatsCard
+        class="slide-in-float from-right [--enter-delay:300ms] [--float-delay:-5s] [--float-duration:12s] [--float-r:-0.6deg] [--float-y:6px]"
+    />
 </div>
 
 <ScrollHint href="#about" />

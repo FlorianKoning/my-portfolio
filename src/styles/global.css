@@ -96,7 +96,7 @@
     (voorkomt horizontale scroll). Vanaf lg vanaf de zijkanten. */
   /* Overige instellingen via Tailwind-classes per element, bijv.
     [--enter-delay:150ms] [--float-duration:9s] [--float-y:12px].
-    Defaults staan als var()-fallback, want utilities zitten in een
+    Defaults staan als var()-fallback, want utlities zitten in een
     @layer en zouden anders door deze (ongelaagde) regels overschreven worden. */
   --slide-from: 0 1.5rem;
 
