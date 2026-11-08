@@ -45,7 +45,7 @@ const textFacts = facts.filter((f) => typeof f.text !== "number");
                         {
                             textFacts.map((fact) => (
                                 <div class="flex flex-col gap-1 py-3">
-                                    <dt class="text-sm text-text-dim">
+                                    <dt class="font-terminal text-lg text-text-dim">
                                         {`// ${fact.label.toLowerCase()}`}
                                     </dt>
                                     <dd class="font-bold wrap-break-word text-accent">
@@ -64,7 +64,7 @@ const textFacts = facts.filter((f) => typeof f.text !== "number");
             <Tile
                 class="flex flex-1 flex-col justify-center gap-4.5 p-7 sm:p-9"
             >
-                <span class="text-sm text-accent">{about.greeting}</span>
+                <span class="font-terminal text-lg text-accent">{about.greeting}</span>
                 <p class="max-w-155 text-lg leading-relaxed text-text">
                     {about.intro}
                 </p>
@@ -74,7 +74,7 @@ const textFacts = facts.filter((f) => typeof f.text !== "number");
             </Tile>
 
             <Tile class="flex flex-wrap items-center gap-6 p-7 sm:px-9">
-                <span class="shrink-0 text-sm text-text-dim">
+                <span class="shrink-0 font-terminal text-lg text-text-dim">
                     {about.origin.label}
                 </span>
                 <p

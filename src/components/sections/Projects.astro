@@ -1,0 +1,335 @@
+---
+import { projectImages, projects } from "../../data/projects";
+import CodeLabel from "../ui/CodeLabel.astro";
+import Gallery from "../ui/Gallery.astro";
+import Lightbox from "../ui/Lightbox.astro";
+import SectionHeading from "../ui/SectionHeading.astro";
+import Tag from "../ui/Tag.astro";
+import Tile from "../ui/Tile.astro";
+import ZoomImage from "../ui/ZoomImage.astro";
+
+// Alles wat de template per project nodig heeft alvast klaarzetten
+const items = projects.map((project, index) => {
+    const { main, gallery, chapters } = projectImages(project);
+
+    const count = String(projects.length).padStart(2, "0");
+    const number = String(index + 1).padStart(2, "0");
+
+    return {
+        ...project,
+        main,
+        gallery,
+        chapters,
+        counter: `// project ${number} / ${count}`,
+        // Vorige/volgende lopen rond: na de laatste komt weer de eerste
+        prev: (index - 1 + projects.length) % projects.length,
+        next: (index + 1) % projects.length,
+    };
+});
+---
+
+<div class="flex flex-col gap-10">
+    <SectionHeading id="projecten" title="Mijn" highlight="projecten" />
+
+    {
+        items.map((project, index) => (
+            <article
+                id={`project-${project.slug}`}
+                data-project
+                hidden={index !== 0}
+                class="flex scroll-mt-nav flex-col gap-12"
+            >
+                {/* ===== Kop ===== */}
+                <div class="flex flex-col gap-5">
+                    <span class="font-terminal text-lg text-text-dim">{project.counter}</span>
+                    <CodeLabel>{"<article>"}</CodeLabel>
+                    <h3 class="-mt-2 text-3xl leading-tight font-bold tracking-tight sm:text-4xl">
+                        {project.title}
+                    </h3>
+                    <div class="flex max-w-180 flex-col gap-4">
+                        {project.intro.map((paragraph) => (
+                            <p class="text-lg leading-relaxed text-text-muted">{paragraph}</p>
+                        ))}
+                    </div>
+
+                    <dl class="mt-2 grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-3">
+                        <Tile class="flex flex-col gap-1.5 px-4 py-3.5">
+                            <dt class="text-sm text-text-dim">rol</dt>
+                            <dd>{project.role}</dd>
+                        </Tile>
+                        <Tile class="flex flex-col gap-1.5 px-4 py-3.5">
+                            <dt class="text-sm text-text-dim">jaar</dt>
+                            <dd>{project.year}</dd>
+                        </Tile>
+                        <Tile class="flex flex-col gap-1.5 px-4 py-3.5">
+                            <dt class="text-sm text-text-dim">stack</dt>
+                            <dd class="flex flex-wrap gap-1.5">
+                                {project.stack.map((tech) => (
+                                    <Tag label={tech} class="px-2.5" />
+                                ))}
+                            </dd>
+                        </Tile>
+                        <Tile class="flex flex-col gap-1.5 px-4 py-3.5">
+                            <dt class="text-sm text-text-dim">links</dt>
+                            <dd class="flex gap-3.5 text-accent">
+                                {project.links.github && (
+                                    <a href={project.links.github} target="_blank" rel="noopener" class="hover:underline">
+                                        GitHub ↗
+                                    </a>
+                                )}
+                                {project.links.live && (
+                                    <a href={project.links.live} target="_blank" rel="noopener" class="hover:underline">
+                                        Live ↗
+                                    </a>
+                                )}
+                            </dd>
+                        </Tile>
+                    </dl>
+                </div>
+
+                {/* ===== Hoofdfoto met verschoven kader ===== */}
+                <figure class="flex flex-col gap-3">
+                    <div class="relative pr-5 pb-5">
+                        <div
+                            aria-hidden="true"
+                            class="absolute inset-0 top-5 left-5 rounded-[0_3rem_0_3rem] border-2 border-accent"
+                        />
+                        <ZoomImage
+                            src={project.main}
+                            alt={`Screenshot van ${project.title}`}
+                            sizes="(min-width: 1280px) 1280px, 100vw"
+                            class="h-70 rounded-[0_3rem_0_3rem] sm:h-130"
+                        />
+                    </div>
+                    <figcaption class="font-terminal text-lg text-text-dim">{project.caption}</figcaption>
+                </figure>
+
+                {/* ===== Het idee: het begin is altijd zichtbaar en vervaagt ===== */}
+                {/* Alleen de tekst is max-w-180; de "lees verder"-rij loopt over de volle breedte */}
+                <section data-idea class="flex scroll-mt-nav flex-col gap-4">
+                    <h4 class="font-terminal text-lg text-accent">// het idee</h4>
+
+                    {/* Ingeklapt: max-h-30 + een masker dat de onderkant laat vervagen.
+                        Het masker maakt de tekst zelf doorzichtig, dus het werkt op elke achtergrondkleur. */}
+                    <div
+                        data-idea-text
+                        class="flex max-h-30 max-w-180 flex-col gap-4 overflow-hidden mask-[linear-gradient(to_bottom,black_25%,transparent)] transition-[max-height] duration-500 ease-out data-open:mask-none motion-reduce:transition-none"
+                    >
+                        {project.idea.map((paragraph) => (
+                            <p class="text-base leading-relaxed text-text-soft">{paragraph}</p>
+                        ))}
+                    </div>
+
+                    {/* "lees verder"-knop tussen twee stippellijntjes */}
+                    <div data-read-more class="flex flex-col gap-1">
+                        <div class="flex items-center gap-4">
+                            <span aria-hidden="true" class="flex-1 border-t border-dashed border-ink-500" />
+                            <button
+                                type="button"
+                                data-story-open
+                                aria-expanded="false"
+                                aria-controls={`verhaal-${project.slug}`}
+                                class="inline-flex min-h-11 items-center gap-2.5 rounded-full border border-ink-500 bg-ink-850 px-5.5 text-sm text-text-soft transition-colors hover:border-accent hover:text-accent"
+                            >
+                                lees verder <span class="text-accent">↓</span>
+                            </button>
+                            <span aria-hidden="true" class="flex-1 border-t border-dashed border-ink-500" />
+                        </div>
+                    </div>
+                </section>
+
+                {/* ===== De rest van het verhaal (standaard ingeklapt) ===== */}
+                <div id={`verhaal-${project.slug}`} data-story hidden class="flex flex-col gap-12">
+
+                    {/* Losse foto's (gallery/*.png) */}
+                    <Gallery images={project.gallery} label={project.title} />
+
+                    <section class="flex max-w-180 flex-col gap-4">
+                        <h4 class="font-terminal text-lg text-accent">// hoe ik het aanpakte</h4>
+                        <dl class="flex flex-col gap-5">
+                            {project.built.map((part) => (
+                                <div class="flex flex-col gap-1.5">
+                                    <dt class="flex gap-3 font-bold">
+                                        <span class="text-accent">→</span>
+                                        {part.title}
+                                    </dt>
+                                    {/* pl-7 = breedte van de pijl + gap, zodat de tekst onder het kopje uitlijnt */}
+                                    <dd class="pl-7 text-base leading-relaxed text-text-soft">{part.text}</dd>
+                                </div>
+                            ))}
+                        </dl>
+                        <ul class="flex flex-col gap-2.5 text-base leading-relaxed text-text-soft">
+                            {project.features.map((feature) => (
+                                <li class="flex gap-3">
+                                    <span class="text-accent">→</span>
+                                    {feature}
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+
+                    {/* Hoofdstukken: elk een stukje tekst met eigen galerij (gallery/<map>/) */}
+                    {project.chapters.map((chapter) => (
+                        <div class="flex flex-col gap-6">
+                            <section class="flex max-w-180 flex-col gap-4">
+                                <h4 class="font-terminal text-lg text-accent">// {chapter.title}</h4>
+                                {chapter.text.map((paragraph) => (
+                                    <p class="text-base leading-relaxed text-text-soft">{paragraph}</p>
+                                ))}
+                            </section>
+                            <Gallery images={chapter.images} label={`${project.title}, ${chapter.title}`} />
+
+                            {/* Vak met telefoon-screenshots (alleen als <map>/mobile/ foto's heeft) */}
+                            {chapter.mobileImages.length > 0 && (
+                                <Tile class="flex flex-wrap justify-center gap-5 p-7 sm:p-9">
+                                    {chapter.mobileImages.map((image, i) => (
+                                        <ZoomImage
+                                            src={image}
+                                            alt={`${project.title}, ${chapter.title} op mobiel, foto ${i + 1}`}
+                                            sizes="13rem"
+                                            class="aspect-[9/19.5] w-36 rounded-[1.75rem] border-4 border-ink-900 phone:w-40 sm:w-52"
+                                        />
+                                    ))}
+                                </Tile>
+                            )}
+                        </div>
+                    ))}
+
+                    {/* Codeblok: elke regel een eigen div met regelnummer */}
+                    {project.code && (
+                        <figure class="max-w-205 overflow-hidden rounded-2xl border border-ink-600 bg-ink-900">
+                            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-ink-600 bg-ink-850 px-4.5 py-3 text-sm">
+                                <span class="text-text-soft">{project.code.file}</span>
+                                <span class="font-terminal text-lg text-text-dim">{project.code.note}</span>
+                            </div>
+                            <code class="block overflow-x-auto py-5 pr-5 pl-1.5 text-sm leading-[1.75]">
+                                {project.code.source.split("\n").map((line, i) => (
+                                    <div class="whitespace-pre">
+                                        <span class="mr-4.5 inline-block w-7 text-right text-text-dim/60 select-none">
+                                            {i + 1}
+                                        </span>
+                                        {line}
+                                    </div>
+                                ))}
+                            </code>
+                        </figure>
+                    )}
+
+                    <section class="flex max-w-180 flex-col gap-4">
+                        <h4 class="font-terminal text-lg text-accent">// wat ik leerde</h4>
+                        <p class="text-base leading-relaxed text-text-soft">{project.learned}</p>
+                    </section>
+
+                    <button
+                        type="button"
+                        data-story-close
+                        aria-expanded="true"
+                        aria-controls={`verhaal-${project.slug}`}
+                        class="inline-flex min-h-11 items-center gap-2.5 self-start rounded-full border border-ink-500 px-5 text-sm text-text-soft transition-colors hover:border-accent hover:text-accent"
+                    >
+                        inklappen <span class="text-accent">↑</span>
+                    </button>
+                </div>
+
+                <CodeLabel>{"</article>"}</CodeLabel>
+
+                {/* ===== Vorig / volgend project ===== */}
+                {items.length > 1 && (
+                    <nav
+                        aria-label="Andere projecten"
+                        class="flex items-end justify-between gap-4"
+                    >
+                        {/* group + group-hover: hover op de hele knop kleurt alleen de projectnaam */}
+                        <button
+                            type="button"
+                            data-goto={project.prev}
+                            class="group flex min-h-11 flex-col justify-center gap-1 text-left"
+                        >
+                            <span class="text-sm text-text-dim">vorige</span>
+                            <span class="transition-colors group-hover:text-accent">
+                                <span class="text-accent">←</span> {items[project.prev].title}
+                            </span>
+                        </button>
+                        <button
+                            type="button"
+                            data-goto={project.next}
+                            class="group flex min-h-11 flex-col items-end justify-center gap-1 text-right"
+                        >
+                            <span class="text-sm text-text-dim">volgende</span>
+                            <span class="transition-colors group-hover:text-accent">
+                                {items[project.next].title} <span class="text-accent">→</span>
+                            </span>
+                        </button>
+                    </nav>
+                )}
+            </article>
+        ))
+    }
+
+    <CodeLabel>{"</section>"}</CodeLabel>
+</div>
+
+<Lightbox />
+
+<script>
+    // Astro bundelt dit script en laadt het één keer, ook al staan er meerdere projecten.
+    // Daarom zoeken we alles op via data-attributen in plaats van vaste id's.
+    const projects = [
+        ...document.querySelectorAll<HTMLElement>("[data-project]"),
+    ];
+
+    // ----- Uitklappen / inklappen, per project -----
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    for (const project of projects) {
+        const idea = project.querySelector<HTMLElement>("[data-idea]")!;
+        const ideaText = project.querySelector<HTMLElement>("[data-idea-text]")!;
+        const readMore = project.querySelector<HTMLElement>("[data-read-more]")!;
+        const story = project.querySelector<HTMLElement>("[data-story]")!;
+        const openBtn = project.querySelector<HTMLElement>("[data-story-open]")!;
+        const closeBtn = project.querySelector<HTMLElement>("[data-story-close]")!;
+
+        function setOpen(open: boolean) {
+            // max-height kan niet naar 'none' animeren, alleen naar een echte hoogte.
+            // Daarom schuiven we naar scrollHeight (de volledige hoogte van de tekst).
+            if (open) {
+                ideaText.style.maxHeight = `${ideaText.scrollHeight}px`;
+            } else {
+                ideaText.style.maxHeight = `${ideaText.scrollHeight}px`; // van 'none' naar een echte hoogte…
+                ideaText.offsetHeight; // …laat de browser dat verwerken…
+                ideaText.style.maxHeight = ""; // …en schuif terug naar max-h-30 uit de class
+            }
+            ideaText.toggleAttribute("data-open", open); // haalt het vervaag-masker weg
+            readMore.hidden = open;
+            story.hidden = !open;
+            openBtn.setAttribute("aria-expanded", String(open));
+
+            // Zonder animatie komt er geen transitionend, dus dan meteen loslaten
+            if (open && reducedMotion.matches) ideaText.style.maxHeight = "none";
+
+            if (!open) {
+                idea.scrollIntoView({ behavior: "smooth", block: "start" });
+                openBtn.focus({ preventScroll: true });
+            }
+        }
+
+        // Na het openklappen geen vaste hoogte meer, zodat de tekst mee kan groeien
+        // (bijv. als het scherm smaller wordt)
+        ideaText.addEventListener("transitionend", () => {
+            if (ideaText.hasAttribute("data-open")) ideaText.style.maxHeight = "none";
+        });
+
+        openBtn.addEventListener("click", () => setOpen(true));
+        closeBtn.addEventListener("click", () => setOpen(false));
+    }
+
+    // ----- Wisselen tussen projecten -----
+    for (const button of document.querySelectorAll<HTMLElement>("[data-goto]")) {
+        button.addEventListener("click", () => {
+            const target = Number(button.dataset.goto);
+
+            projects.forEach((project, i) => (project.hidden = i !== target));
+            projects[target].scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+    }
+</script>

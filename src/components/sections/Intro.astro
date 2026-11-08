@@ -8,16 +8,14 @@ import StatsCard from "../ui/StatsCard.astro";
 <div
     class="flex flex-col items-center gap-12 lg:flex-row lg:items-center lg:justify-between"
 >
-    <!-- Kaarten schuiven in en blijven daarna zweven; elk eigen tempo
-         zodat ze niet synchroon bewegen. Zie global.css. -->
+    <!-- Kaarten schuiven in en blijven daarna zweven; elk eigen tempo zodat ze niet synchroon bewegen. Zie global.css. -->
     <ProfileCard
-        class="slide-in-float from-left [--enter-delay:150ms] [--float-delay:-2s] [--float-duration:10s] [--float-r:0.5deg] [--float-y:7px]"
+        class="slide-in-float from-left [--enter-delay:150ms] [--float-delay:-2s] [--float-duration:10s] [--float-r:0.6deg] [--float-y:8px]"
     />
 
-    <!-- Intro: op mobiel bovenaan, op pc in het midden.
-         Alleen inschuiven, niet zweven (blijft goed leesbaar). -->
+    <!-- Intro: op mobiel bovenaan, op pc in het midden. Alleen inschuiven, niet zweven (blijft goed leesbaar). -->
     <div
-        class="slide-in order-first flex w-full max-w-[34rem] flex-col gap-3 lg:order-none"
+        class="slide-in order-first flex w-full max-w-136 flex-col gap-3 lg:order-0"
     >
         <CodeLabel>{"<h1>"}</CodeLabel>
 
@@ -60,7 +58,7 @@ import StatsCard from "../ui/StatsCard.astro";
     </div>
 
     <StatsCard
-        class="slide-in-float from-right [--enter-delay:300ms] [--float-delay:-5s] [--float-duration:12s] [--float-r:-0.6deg] [--float-y:6px]"
+        class="slide-in-float from-right [--enter-delay:300ms] [--float-delay:-5s] [--float-duration:12s] [--float-r:-0.8deg] [--float-y:8px]"
     />
 </div>
 

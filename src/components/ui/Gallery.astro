@@ -1,0 +1,52 @@
+---
+import type { ImageMetadata } from "astro";
+import ZoomImage from "./ZoomImage.astro";
+
+// Een galerij: de eerste drie foto's als mozaïek (1 groot + 2 klein),
+// de rest als brede foto's eronder. Eén foto alleen wordt meteen breed.
+interface Props {
+    images: ImageMetadata[];
+    // Basis voor de alt-tekst, bijv. "DBM Militaria" → "DBM Militaria, foto 1"
+    label: string;
+}
+
+const { images, label } = Astro.props;
+
+const mosaic = images.length > 1 ? images.slice(0, 3) : [];
+const wide = images.length > 1 ? images.slice(3) : images;
+---
+
+{
+    images.length > 0 && (
+        <div class="flex flex-col gap-4">
+            {mosaic.length > 0 && (
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:grid-rows-[repeat(2,13.75rem)]">
+                    {mosaic.map((image, i) => (
+                        <ZoomImage
+                            src={image}
+                            alt={`${label}, foto ${i + 1}`}
+                            sizes={i === 0 ? "(min-width: 640px) 66vw, 100vw" : "(min-width: 640px) 33vw, 100vw"}
+                            class:list={[
+                                "sm:h-full",
+                                i === 0
+                                    ? "h-60 rounded-[2.5rem_0.375rem_2.5rem_0.375rem] sm:col-span-2 sm:row-span-2"
+                                    : "h-50 rounded-2xl",
+                                // Met maar twee foto's vult de kleine de hele hoogte
+                                mosaic.length === 2 && i === 1 && "sm:row-span-2",
+                            ]}
+                        />
+                    ))}
+                </div>
+            )}
+
+            {wide.map((image, i) => (
+                <ZoomImage
+                    src={image}
+                    alt={`${label}, foto ${mosaic.length + i + 1}`}
+                    sizes="(min-width: 1280px) 1280px, 100vw"
+                    class="h-60 rounded-[0.375rem_2.5rem_0.375rem_2.5rem] sm:h-100"
+                />
+            ))}
+        </div>
+    )
+}

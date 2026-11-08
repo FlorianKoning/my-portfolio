@@ -1,7 +1,20 @@
 @import "tailwindcss";
 
+/* Tailwind v4 geeft knoppen standaard een gewone pijl-cursor.
+  Hiermee krijgen alle knoppen weer een handje. Een utility als
+  cursor-zoom-in (ZoomImage) wint nog steeds, want base-regels zijn het zwakst. */
+@layer base {
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 @theme {
   --font-mono: "Roboto Mono Variable", ui-monospace, monospace;
+  /* Pixel-terminalfont voor alle "// ..."-teksten */
+  --font-terminal: "VT323", ui-monospace, monospace;
 
   /* Accent */
   --color-accent: #F6C64F;
@@ -125,4 +138,8 @@
   .slide-in-float {
     animation: none;
   }
+}
+/* Niet doorscrollen achter een open modal (lightbox) */
+html:has(dialog[open]) {
+  overflow: hidden;
 }

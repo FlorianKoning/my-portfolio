@@ -1,0 +1,59 @@
+---
+// Eén modal voor de hele pagina. Elke [data-zoom]-knop (ZoomImage) opent hem.
+// <dialog> regelt zelf: Esc om te sluiten, focus vasthouden, en ::backdrop
+// voor de donkere achtergrond (die stylen we met backdrop:).
+---
+
+<dialog
+    data-lightbox
+    aria-label="Vergrote foto"
+    class="m-auto max-h-none max-w-none bg-transparent p-4 text-text opacity-0 transition-[opacity,display,overlay] transition-discrete duration-200 backdrop:bg-ink-900/85 backdrop:backdrop-blur-sm open:opacity-100 starting:open:opacity-0 motion-reduce:transition-none"
+>
+    <figure class="flex flex-col items-center gap-3">
+        <img
+            data-lightbox-img
+            alt=""
+            sizes="90vw"
+            class="max-h-[85svh] max-w-[90vw] rounded-2xl object-contain"
+        />
+        <figcaption data-lightbox-caption class="font-terminal text-lg text-text-dim"></figcaption>
+    </figure>
+
+    <button
+        type="button"
+        data-lightbox-close
+        aria-label="Sluiten"
+        class="fixed top-4 right-4 flex size-11 items-center justify-center rounded-full border border-ink-600 bg-ink-850 text-lg transition-colors hover:border-accent hover:text-accent"
+    >
+        ✕
+    </button>
+</dialog>
+
+<script>
+    const dialog = document.querySelector<HTMLDialogElement>("[data-lightbox]")!;
+    const bigImg = dialog.querySelector<HTMLImageElement>("[data-lightbox-img]")!;
+    const caption = dialog.querySelector<HTMLElement>("[data-lightbox-caption]")!;
+
+    for (const button of document.querySelectorAll<HTMLElement>("[data-zoom]")) {
+        button.addEventListener("click", () => {
+            const img = button.querySelector("img")!;
+
+            // Zelfde srcset als de kleine foto; met sizes="90vw" kiest
+            // de browser er zelf de grootste passende versie uit.
+            bigImg.srcset = img.srcset;
+            bigImg.src = img.src;
+            bigImg.alt = img.alt;
+            caption.textContent = `// ${img.alt}`;
+
+            dialog.showModal();
+        });
+    }
+
+    // Klik naast de foto (op de donkere achtergrond) of op ✕ = sluiten
+    dialog.addEventListener("click", (event) => {
+        const target = event.target as HTMLElement;
+        if (target === dialog || target.closest("[data-lightbox-close]")) {
+            dialog.close();
+        }
+    });
+</script>
