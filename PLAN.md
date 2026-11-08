@@ -17,6 +17,8 @@ Doel: de one-page portfolio van `main` (Laravel/Blade) opnieuw bouwen in Astro +
 | Data | `src/data/` | teksten, links, projecten: alles wat geen opmaak is |
 | Tokens | `src/styles/global.css` (`@theme`) | kleuren, fonts, animaties, achtergrondpatronen |
 | Pagina | `src/pages/index.astro` | alleen de volgorde van de secties |
+| Projectpagina | `src/pages/projecten/[slug].astro` | één pagina per project, gemaakt uit `src/data/projects/` (zie fase 4b) |
+| Project-onderdelen | `src/components/project/` | de kaart op de homepage en het artikel op de projectpagina |
 
 Bij elk nieuw stukje code vraag je je af: in welk bakje hoort dit?
 
@@ -31,6 +33,8 @@ Bij elk nieuw stukje code vraag je je af: in welk bakje hoort dit?
 - [x] Kleuren in `global.css` bijgewerkt naar het nieuwe design (`ink-*`, `accent`, `text-*`, `online`)
 - [x] Fase 0 en fase 1: fixes gedaan, `Section.astro` staat, `index.astro` heeft 4 placeholder-secties
 - [x] Fase 2: navbar blijft zoals hij is
+
+**Update 9 nov:** fase 3 (intro), Over mij en de projectensectie staan, inclusief een mobiele versie van de projecten. Er staat te veel op één pagina, dus de projecten verhuizen naar eigen pagina's. Volgende stap: **fase 4b**.
 
 ---
 
@@ -80,10 +84,89 @@ Leerpunten in deze fase: props doorgeven aan ui-componenten, data `.map()`en, `<
 ## Fase 4: de overige secties (zodra hun designs er zijn)
 
 - [x] Sectie 2: Over mij (`sections/About.astro`, data in `src/data/about.ts`). Gedeelde ui: `CodeLabel`, `SectionHeading`, `Tile`. `Section` heeft nu ook `width` (`content` = max-w-7xl, standaard | `full`)
-- [ ] Sectie 3: Projecten (`Designs/section-three/`). Projecten in `src/data/projects.ts`, of als Astro content collection als je per project een eigen pagina wilt.
+- [x] Sectie 3: Projecten (`sections/Projects.astro`, data in `src/data/projects/`, één bestand per project). Wordt in fase 4b opgesplitst.
 - [ ] Sectie 4: Contact (`Designs/section-four/`)
 
 Elke sectie volgt het recept.
+
+## Fase 4b: elk project een eigen pagina
+
+**Waarom:** de projectensectie verstopt nu te veel, in vier lagen: één project tegelijk, "lees verder", een uitklaplijst en verborgen screenshots op mobiel. Alleen DBM heeft al 11 screenshots. Op de homepage wil een bezoeker in een halve minuut zien wat je gedaan hebt. Het hele verhaal hoort op een eigen pagina. Het mobiele design (`dbm-militaria.html`) is ook al als losse pagina opgezet: met "← cd ../projecten", een teller "01 / 03" en links naar de andere projecten.
+
+**Eindresultaat:**
+- Homepage, sectie `#projects`: alle projecten tegelijk als compacte kaarten, met foto, rol · jaar, titel, één alinea, stack-chips en "lees de case study →".
+- `/projecten/dbm-militaria`, `/projecten/password-manager` en `/projecten/portfolio`: het volledige verhaal, gewoon uitgeklapt.
+
+**Leerpunten:** dynamische routes (`[slug].astro`), `getStaticPaths()`, `Astro.props` op een pagina, linken tussen pagina's, en waarom een gewone `<a>` vaak beter is dan JavaScript.
+
+### Stap 1: de route aanmaken
+
+Maak `src/pages/projecten/[slug].astro`. De blokhaken betekenen: dit bestand maakt meerdere pagina's. Astro vraagt via `getStaticPaths()` welke dat zijn:
+
+```astro
+---
+import { projects } from "../../data/projects";
+import BaseLayout from "../../layout/BaseLayout.astro";
+
+export function getStaticPaths() {
+    return projects.map((project, index) => ({
+        params: { slug: project.slug },   // → /projecten/dbm-militaria
+        props: { project, index },        // → komt binnen als Astro.props
+    }));
+}
+
+const { project, index } = Astro.props;
+---
+
+<BaseLayout title={`${project.title} | Florian Koning`} description={project.intro[0]}>
+    <h1>{project.title}</h1>
+</BaseLayout>
+```
+
+Check: `astro dev`, ga naar `/projecten/dbm-militaria` en zie de titel. Bij `astro build` verschijnen er drie mappen in `dist/projecten/`.
+
+> Een content collection is niet nodig: de data staat al netjes in TypeScript. Die stap is pas zinvol als je de verhalen liever in Markdown schrijft.
+
+### Stap 2: het artikel naar een eigen component
+
+- [ ] Verplaats alles binnen `<article>` uit `Projects.astro` naar `src/components/project/ProjectArticle.astro`, met als props `project` en `index`.
+- [ ] Het `items.map(...)` uit het frontmatter (de afbeeldingen, het tellertje en de hint) gaat mee.
+- [ ] Gebruik het in `[slug].astro`, binnen een container met dezelfde breedte als `Section` (`max-w-7xl`, `px-6 lg:px-8`, `pt-nav`).
+- [ ] Zet `<Lightbox />` op de projectpagina, anders werkt het inzoomen niet.
+- [ ] Het projecttitel-element wordt een `<h1>`, want het is nu de hoofdtitel van de pagina. De kopjes eronder schuiven op: `h4` wordt `h2`.
+
+### Stap 3: het verhaal vereenvoudigen
+
+Nu het een eigen pagina is, mag alles zichtbaar zijn:
+- [ ] Weg: de "lees verder"-knop, de vervaagde tekst (`max-h-30` en `mask-*`), `data-story hidden` en de "inklappen"-knop.
+- [ ] Weg: het hele `<script>` voor uitklappen en wisselen tussen projecten.
+- [ ] De uitklaplijst bij "hoe ik het aanpakte" mag blijven. Het is nog maar één laag.
+- [ ] `Gallery.astro`: haal `max-md:hidden` weg, zodat alle screenshots ook op mobiel te zien zijn.
+- [ ] Vorige/volgende worden gewone links: `<a href={`/projecten/${prev.slug}`} rel="prev">`. Dan werken terugknoppen, nieuwe tabbladen en delen vanzelf.
+- [ ] Uit het mobiele design: de sticky balk met "← cd ../projecten" en de teller (`md:hidden`), en op desktop de terug-link boven de titel (`hidden md:inline-flex`). Die links gaan naar `/#projects`.
+
+### Stap 4: de homepage-kaarten
+
+- [ ] Maak eerst een design voor de kaart (in `Designs/section-three/`), net als bij de andere secties. Of laat Claude er een voorstellen.
+- [ ] `src/components/project/ProjectCard.astro`: de hele kaart is één `<a href={`/projecten/${slug}`}>`.
+- [ ] `Projects.astro` wordt een grid: `grid gap-6 md:grid-cols-2 xl:grid-cols-3`, met per project een kaart.
+- [ ] Optioneel: een `summary`-veld in `types.ts` voor één korte zin op de kaart. Tot die tijd volstaat `intro[0]`.
+
+### Stap 5: links die nu stuk gaan
+
+Op `/projecten/...` bestaat `#about` niet, dus alle links die alleen een `#` hebben, moeten de homepage erbij krijgen:
+- [ ] `Navbar.astro`: `href={`#${item.id}`}` → `href={`/#${item.id}`}`, en het logo `#home` → `/#home`
+- [ ] `Intro.astro` (`#projects`, `#contact`) en `ScrollHint` werken alleen op de homepage, dus die mogen blijven.
+
+### Stap 6: checken en committen
+
+- [ ] Homepage op mobiel en desktop: zie je alle projecten in één oogopslag?
+- [ ] Elke projectpagina: alles zichtbaar, inzoomen werkt, vorige/volgende werkt, de terugknop van de browser werkt.
+- [ ] Navbar vanaf een projectpagina: kom je goed uit op de homepage?
+- [ ] `astro build` zonder fouten, en `dist/projecten/` bevat drie pagina's
+- [ ] Commit
+
+**Later, optioneel:** Astro's `<ClientRouter />` (View Transitions) in `BaseLayout` voor een vloeiende overgang tussen de homepage en een projectpagina. Let dan wel op: scripts draaien niet opnieuw na een paginawissel, tenzij je ze aan `astro:page-load` hangt.
 
 ## Fase 5: interactie (pas als alles staat)
 

@@ -20,19 +20,22 @@ const wide = images.length > 1 ? images.slice(3) : images;
     images.length > 0 && (
         <div class="flex flex-col gap-4">
             {mosaic.length > 0 && (
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:grid-rows-[repeat(2,13.75rem)]">
+                <div class="grid grid-cols-1 gap-3 md:grid-cols-3 md:grid-rows-[repeat(2,13.75rem)] md:gap-4">
                     {mosaic.map((image, i) => (
                         <ZoomImage
                             src={image}
                             alt={`${label}, foto ${i + 1}`}
-                            sizes={i === 0 ? "(min-width: 640px) 66vw, 100vw" : "(min-width: 640px) 33vw, 100vw"}
+                            sizes={i === 0 ? "(min-width: 768px) 66vw, 100vw" : "(min-width: 768px) 33vw, 100vw"}
                             class:list={[
-                                "sm:h-full",
+                                // Op mobiel geen vaste hoogte: de foto in zijn eigen verhouding
+                                "md:h-full",
                                 i === 0
-                                    ? "h-60 rounded-[2.5rem_0.375rem_2.5rem_0.375rem] sm:col-span-2 sm:row-span-2"
-                                    : "h-50 rounded-2xl",
+                                    ? "rounded-[0.375rem_1.25rem_0.375rem_1.25rem] md:col-span-2 md:row-span-2 md:rounded-[2.5rem_0.375rem_2.5rem_0.375rem]"
+                                    : // Op mobiel alleen de grote foto; de kleine pas vanaf md.
+                                      // max-md:hidden i.p.v. hidden md:block, omdat ZoomImage zelf al `block` heeft
+                                      "rounded-2xl max-md:hidden",
                                 // Met maar twee foto's vult de kleine de hele hoogte
-                                mosaic.length === 2 && i === 1 && "sm:row-span-2",
+                                mosaic.length === 2 && i === 1 && "md:row-span-2",
                             ]}
                         />
                     ))}
@@ -44,7 +47,7 @@ const wide = images.length > 1 ? images.slice(3) : images;
                     src={image}
                     alt={`${label}, foto ${mosaic.length + i + 1}`}
                     sizes="(min-width: 1280px) 1280px, 100vw"
-                    class="h-60 rounded-[0.375rem_2.5rem_0.375rem_2.5rem] sm:h-100"
+                    class="rounded-[0.375rem_1.25rem_0.375rem_1.25rem] md:h-100 md:rounded-[0.375rem_2.5rem_0.375rem_2.5rem]"
                 />
             ))}
         </div>

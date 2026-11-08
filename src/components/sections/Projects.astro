@@ -4,7 +4,6 @@ import CodeLabel from "../ui/CodeLabel.astro";
 import Gallery from "../ui/Gallery.astro";
 import Lightbox from "../ui/Lightbox.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
-import Tag from "../ui/Tag.astro";
 import Tile from "../ui/Tile.astro";
 import ZoomImage from "../ui/ZoomImage.astro";
 
@@ -15,11 +14,24 @@ const items = projects.map((project, index) => {
     const count = String(projects.length).padStart(2, "0");
     const number = String(index + 1).padStart(2, "0");
 
+    // Voor "nog 4 secties · 8 screenshots" onder de lees-verder-knop
+    const sections = 1 + chapters.length + (project.code ? 1 : 0) + 1; // aanpak + hoofdstukken + code + geleerd
+    const screenshots =
+        gallery.length +
+        chapters.reduce((sum, c) => sum + c.images.length + c.mobileImages.length, 0);
+    const hint = [
+        `nog ${sections} ${sections === 1 ? "sectie" : "secties"}`,
+        screenshots > 0 && `${screenshots} ${screenshots === 1 ? "screenshot" : "screenshots"}`,
+    ]
+        .filter(Boolean)
+        .join(" · ");
+
     return {
         ...project,
         main,
         gallery,
         chapters,
+        hint,
         counter: `// project ${number} / ${count}`,
         // Vorige/volgende lopen rond: na de laatste komt weer de eerste
         prev: (index - 1 + projects.length) % projects.length,
@@ -37,68 +49,76 @@ const items = projects.map((project, index) => {
                 id={`project-${project.slug}`}
                 data-project
                 hidden={index !== 0}
-                class="flex scroll-mt-nav flex-col gap-12"
+                class="flex scroll-mt-nav flex-col gap-7 md:gap-12"
             >
                 {/* ===== Kop ===== */}
-                <div class="flex flex-col gap-5">
+                <div class="flex flex-col gap-3.5 md:gap-5">
                     <span class="font-terminal text-lg text-text-dim">{project.counter}</span>
                     <CodeLabel>{"<article>"}</CodeLabel>
-                    <h3 class="-mt-2 text-3xl leading-tight font-bold tracking-tight sm:text-4xl">
+
+                    {/* Rol en jaar: klein regeltje boven de titel */}
+                    <p class="text-xs text-text-dim md:text-sm">
+                        {project.role} <span aria-hidden="true" class="text-ink-400">·</span> {project.year}
+                    </p>
+                    <h3 class="-mt-2 text-3xl leading-tight font-bold tracking-tight sm:text-4xl md:-mt-3">
                         {project.title}
                     </h3>
-                    <div class="flex max-w-180 flex-col gap-4">
-                        {project.intro.map((paragraph) => (
-                            <p class="text-lg leading-relaxed text-text-muted">{paragraph}</p>
+
+                    {/* De eerste alinea is de hoofdzin, de rest iets kleiner en zachter */}
+                    <div class="flex max-w-180 flex-col gap-3">
+                        {project.intro.map((paragraph, i) => (
+                            <p
+                                class:list={[
+                                    "leading-relaxed",
+                                    i === 0
+                                        ? "text-[0.9375rem] text-text-muted md:text-lg"
+                                        : "text-[0.8125rem] text-text-subtle md:text-base",
+                                ]}
+                            >
+                                {paragraph}
+                            </p>
                         ))}
                     </div>
 
-                    <dl class="mt-2 grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-3">
-                        <Tile class="flex flex-col gap-1.5 px-4 py-3.5">
-                            <dt class="text-sm text-text-dim">rol</dt>
-                            <dd>{project.role}</dd>
-                        </Tile>
-                        <Tile class="flex flex-col gap-1.5 px-4 py-3.5">
-                            <dt class="text-sm text-text-dim">jaar</dt>
-                            <dd>{project.year}</dd>
-                        </Tile>
-                        <Tile class="flex flex-col gap-1.5 px-4 py-3.5">
-                            <dt class="text-sm text-text-dim">stack</dt>
-                            <dd class="flex flex-wrap gap-1.5">
-                                {project.stack.map((tech) => (
-                                    <Tag label={tech} class="px-2.5" />
-                                ))}
-                            </dd>
-                        </Tile>
-                        <Tile class="flex flex-col gap-1.5 px-4 py-3.5">
-                            <dt class="text-sm text-text-dim">links</dt>
-                            <dd class="flex gap-3.5 text-accent">
-                                {project.links.github && (
-                                    <a href={project.links.github} target="_blank" rel="noopener" class="hover:underline">
-                                        GitHub ↗
-                                    </a>
-                                )}
-                                {project.links.live && (
-                                    <a href={project.links.live} target="_blank" rel="noopener" class="hover:underline">
-                                        Live ↗
-                                    </a>
-                                )}
-                            </dd>
-                        </Tile>
-                    </dl>
+                    {/* Stack als omlijnde chips. Een <ul>, want het is een lijstje */}
+                    <ul aria-label="Stack" class="flex flex-wrap gap-1.5 md:gap-2">
+                        {project.stack.map((tech) => (
+                            <li class="rounded-full border border-accent px-2.5 py-0.5 text-xs text-accent md:px-3 md:py-1">
+                                {tech}
+                            </li>
+                        ))}
+                    </ul>
+
+                    {/* Links: alleen tonen als er minstens één is */}
+                    {(project.links.github || project.links.live) && (
+                        <div class="flex max-w-180 gap-5.5 border-t border-dashed border-ink-500 pt-1.5 text-[0.8125rem] md:gap-7 md:text-sm">
+                            {project.links.github && (
+                                <a href={project.links.github} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-1.5 text-text-soft transition-colors hover:text-accent">
+                                    GitHub <span class="text-accent">↗</span>
+                                </a>
+                            )}
+                            {project.links.live && (
+                                <a href={project.links.live} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center gap-1.5 text-text-soft transition-colors hover:text-accent">
+                                    Live <span class="text-accent">↗</span>
+                                </a>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 {/* ===== Hoofdfoto met verschoven kader ===== */}
-                <figure class="flex flex-col gap-3">
-                    <div class="relative pr-5 pb-5">
+                {/* Op mobiel een kleiner kader en de foto in zijn eigen verhouding (geen vaste hoogte) */}
+                <figure class="flex flex-col gap-2.5 md:gap-3">
+                    <div class="relative pr-2.5 pb-2.5 md:pr-5 md:pb-5">
                         <div
                             aria-hidden="true"
-                            class="absolute inset-0 top-5 left-5 rounded-[0_3rem_0_3rem] border-2 border-accent"
+                            class="absolute inset-0 top-2.5 left-2.5 rounded-[0_1.5rem_0_1.5rem] border-2 border-accent md:top-5 md:left-5 md:rounded-[0_3rem_0_3rem]"
                         />
                         <ZoomImage
                             src={project.main}
                             alt={`Screenshot van ${project.title}`}
                             sizes="(min-width: 1280px) 1280px, 100vw"
-                            class="h-70 rounded-[0_3rem_0_3rem] sm:h-130"
+                            class="rounded-[0_1.5rem_0_1.5rem] md:h-130 md:rounded-[0_3rem_0_3rem]"
                         />
                     </div>
                     <figcaption class="font-terminal text-lg text-text-dim">{project.caption}</figcaption>
@@ -106,23 +126,23 @@ const items = projects.map((project, index) => {
 
                 {/* ===== Het idee: het begin is altijd zichtbaar en vervaagt ===== */}
                 {/* Alleen de tekst is max-w-180; de "lees verder"-rij loopt over de volle breedte */}
-                <section data-idea class="flex scroll-mt-nav flex-col gap-4">
+                <section data-idea class="flex scroll-mt-nav flex-col gap-3 md:gap-4">
                     <h4 class="font-terminal text-lg text-accent">// het idee</h4>
 
                     {/* Ingeklapt: max-h-30 + een masker dat de onderkant laat vervagen.
                         Het masker maakt de tekst zelf doorzichtig, dus het werkt op elke achtergrondkleur. */}
                     <div
                         data-idea-text
-                        class="flex max-h-30 max-w-180 flex-col gap-4 overflow-hidden mask-[linear-gradient(to_bottom,black_25%,transparent)] transition-[max-height] duration-500 ease-out data-open:mask-none motion-reduce:transition-none"
+                        class="flex max-h-30 max-w-180 flex-col gap-3 overflow-hidden mask-[linear-gradient(to_bottom,black_25%,transparent)] transition-[max-height] duration-500 ease-out data-open:mask-none motion-reduce:transition-none md:gap-4"
                     >
                         {project.idea.map((paragraph) => (
-                            <p class="text-base leading-relaxed text-text-soft">{paragraph}</p>
+                            <p class="text-sm leading-relaxed text-text-soft md:text-base">{paragraph}</p>
                         ))}
                     </div>
 
                     {/* "lees verder"-knop tussen twee stippellijntjes */}
                     <div data-read-more class="flex flex-col gap-1">
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3 md:gap-4">
                             <span aria-hidden="true" class="flex-1 border-t border-dashed border-ink-500" />
                             <button
                                 type="button"
@@ -135,30 +155,44 @@ const items = projects.map((project, index) => {
                             </button>
                             <span aria-hidden="true" class="flex-1 border-t border-dashed border-ink-500" />
                         </div>
+                        <span class="self-center font-terminal text-base text-text-dim">{project.hint}</span>
                     </div>
                 </section>
 
                 {/* ===== De rest van het verhaal (standaard ingeklapt) ===== */}
-                <div id={`verhaal-${project.slug}`} data-story hidden class="flex flex-col gap-12">
+                <div id={`verhaal-${project.slug}`} data-story hidden class="flex flex-col gap-8 md:gap-12">
 
                     {/* Losse foto's (gallery/*.png) */}
                     <Gallery images={project.gallery} label={project.title} />
 
-                    <section class="flex max-w-180 flex-col gap-4">
+                    <section class="flex max-w-180 flex-col gap-3 md:gap-4">
                         <h4 class="font-terminal text-lg text-accent">// hoe ik het aanpakte</h4>
-                        <dl class="flex flex-col gap-5">
-                            {project.built.map((part) => (
-                                <div class="flex flex-col gap-1.5">
-                                    <dt class="flex gap-3 font-bold">
-                                        <span class="text-accent">→</span>
-                                        {part.title}
-                                    </dt>
-                                    {/* pl-7 = breedte van de pijl + gap, zodat de tekst onder het kopje uitlijnt */}
-                                    <dd class="pl-7 text-base leading-relaxed text-text-soft">{part.text}</dd>
-                                </div>
+
+                        {/* Uitklapbare regels met <details>/<summary>: de browser regelt
+                            het open- en dichtklappen zelf, dus geen JavaScript nodig */}
+                        <div class="border-t border-dashed border-ink-500">
+                            {project.built.map((part, i) => (
+                                <details open={i === 0} class="group border-b border-dashed border-ink-500">
+                                    {/* list-none + ::-webkit-details-marker verbergen het standaard driehoekje */}
+                                    <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 [&::-webkit-details-marker]:hidden">
+                                        <span class="flex gap-2.5 text-sm font-bold md:text-base">
+                                            <span class="font-normal text-text-dim">
+                                                {String(i + 1).padStart(2, "0")}
+                                            </span>
+                                            {part.title}
+                                        </span>
+                                        {/* group-open: draait de + naar een × zodra <details> open is */}
+                                        <span aria-hidden="true" class="text-lg text-accent transition-transform group-open:rotate-45 motion-reduce:transition-none">
+                                            +
+                                        </span>
+                                    </summary>
+                                    {/* pl-7 = breedte van het nummer + gap, zodat de tekst onder de titel uitlijnt */}
+                                    <p class="mb-4 pl-7 text-sm leading-relaxed text-text-soft md:text-base">{part.text}</p>
+                                </details>
                             ))}
-                        </dl>
-                        <ul class="flex flex-col gap-2.5 text-base leading-relaxed text-text-soft">
+                        </div>
+
+                        <ul class="flex flex-col gap-2.5 text-sm leading-relaxed text-text-soft md:text-base">
                             {project.features.map((feature) => (
                                 <li class="flex gap-3">
                                     <span class="text-accent">→</span>
@@ -170,24 +204,27 @@ const items = projects.map((project, index) => {
 
                     {/* Hoofdstukken: elk een stukje tekst met eigen galerij (gallery/<map>/) */}
                     {project.chapters.map((chapter) => (
-                        <div class="flex flex-col gap-6">
-                            <section class="flex max-w-180 flex-col gap-4">
+                        <div class="flex flex-col gap-3.5 md:gap-6">
+                            <section class="flex max-w-180 flex-col gap-3 md:gap-4">
                                 <h4 class="font-terminal text-lg text-accent">// {chapter.title}</h4>
                                 {chapter.text.map((paragraph) => (
-                                    <p class="text-base leading-relaxed text-text-soft">{paragraph}</p>
+                                    <p class="text-sm leading-relaxed text-text-soft md:text-base">{paragraph}</p>
                                 ))}
                             </section>
                             <Gallery images={chapter.images} label={`${project.title}, ${chapter.title}`} />
 
-                            {/* Vak met telefoon-screenshots (alleen als <map>/mobile/ foto's heeft) */}
+                            {/* Vak met telefoon-screenshots (alleen als <map>/mobile/ foto's heeft).
+                                Mobiel: alle telefoons naast elkaar in één rij (grid-flow-col + auto-cols-fr
+                                = elke foto een even brede kolom, hoeveel het er ook zijn).
+                                Vanaf md: vaste breedte, gecentreerd. */}
                             {chapter.mobileImages.length > 0 && (
-                                <Tile class="flex flex-wrap justify-center gap-5 p-7 sm:p-9">
+                                <Tile class="grid auto-cols-fr grid-flow-col gap-2 px-3 py-3.5 md:flex md:flex-wrap md:justify-center md:gap-5 md:p-9">
                                     {chapter.mobileImages.map((image, i) => (
                                         <ZoomImage
                                             src={image}
                                             alt={`${project.title}, ${chapter.title} op mobiel, foto ${i + 1}`}
-                                            sizes="13rem"
-                                            class="aspect-[9/19.5] w-36 rounded-[1.75rem] border-4 border-ink-900 phone:w-40 sm:w-52"
+                                            sizes="(min-width: 768px) 13rem, 33vw"
+                                            class="aspect-[9/19.5] rounded-xl border-2 border-ink-900 md:w-52 md:rounded-[1.75rem] md:border-4"
                                         />
                                     ))}
                                 </Tile>
@@ -215,9 +252,9 @@ const items = projects.map((project, index) => {
                         </figure>
                     )}
 
-                    <section class="flex max-w-180 flex-col gap-4">
+                    <section class="flex max-w-180 flex-col gap-3 md:gap-4">
                         <h4 class="font-terminal text-lg text-accent">// wat ik leerde</h4>
-                        <p class="text-base leading-relaxed text-text-soft">{project.learned}</p>
+                        <p class="text-sm leading-relaxed text-text-soft md:text-base">{project.learned}</p>
                     </section>
 
                     <button
@@ -237,26 +274,27 @@ const items = projects.map((project, index) => {
                 {items.length > 1 && (
                     <nav
                         aria-label="Andere projecten"
-                        class="flex items-end justify-between gap-4"
+                        class="flex items-end justify-between gap-3 border-t border-dashed border-ink-500 pt-3.5 md:gap-4 md:pt-5"
                     >
-                        {/* group + group-hover: hover op de hele knop kleurt alleen de projectnaam */}
+                        {/* group + group-hover: hover op de hele knop kleurt alleen de projectnaam.
+                            flex-1 + min-w-0 + truncate: lange namen krijgen "..." i.p.v. de rij op te rekken */}
                         <button
                             type="button"
                             data-goto={project.prev}
-                            class="group flex min-h-11 flex-col justify-center gap-1 text-left"
+                            class="group flex min-h-11 min-w-0 flex-1 flex-col justify-center gap-1 text-left"
                         >
-                            <span class="text-sm text-text-dim">vorige</span>
-                            <span class="transition-colors group-hover:text-accent">
+                            <span class="text-xs text-text-dim md:text-sm">vorige</span>
+                            <span class="max-w-full truncate text-sm transition-colors group-hover:text-accent md:text-base">
                                 <span class="text-accent">←</span> {items[project.prev].title}
                             </span>
                         </button>
                         <button
                             type="button"
                             data-goto={project.next}
-                            class="group flex min-h-11 flex-col items-end justify-center gap-1 text-right"
+                            class="group flex min-h-11 min-w-0 flex-1 flex-col items-end justify-center gap-1 text-right"
                         >
-                            <span class="text-sm text-text-dim">volgende</span>
-                            <span class="transition-colors group-hover:text-accent">
+                            <span class="text-xs text-text-dim md:text-sm">volgende</span>
+                            <span class="max-w-full truncate text-sm transition-colors group-hover:text-accent md:text-base">
                                 {items[project.next].title} <span class="text-accent">→</span>
                             </span>
                         </button>
