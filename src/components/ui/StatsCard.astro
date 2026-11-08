@@ -1,9 +1,14 @@
 ---
 import { stats } from "../../data/site";
+
+const { class: className } = Astro.props;
 ---
 
 <aside
-    class="flex w-full max-w-80 flex-col rounded-[0.25rem_3rem_0.25rem_3rem] border border-ink-600 bg-ink-800 px-6 py-4 lg:w-52"
+    class:list={[
+        "flex w-full max-w-80 flex-col rounded-[0.25rem_3rem_0.25rem_3rem] border border-ink-600 bg-ink-800 px-6 py-4 lg:w-52",
+        className,
+    ]}
 >
     <dl>
         {

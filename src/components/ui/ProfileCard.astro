@@ -3,10 +3,15 @@ import { Image } from "astro:assets";
 import photo from "../../assets/florian-portrait.jpeg";
 import { profile } from "../../data/site";
 import Tag from "./Tag.astro";
+
+const { class: className } = Astro.props;
 ---
 
 <aside
-    class="flex w-full max-w-80 flex-col items-center gap-5 rounded-[4.5rem_0.25rem_4.5rem_0.25rem] border border-ink-600 bg-ink-800 px-6 pt-9 pb-8"
+    class:list={[
+        "flex w-full max-w-80 flex-col items-center gap-5 rounded-[4.5rem_0.25rem_4.5rem_0.25rem] border border-ink-600 bg-ink-800 px-6 pt-9 pb-8",
+        className,
+    ]}
 >
     <Image
         src={photo}

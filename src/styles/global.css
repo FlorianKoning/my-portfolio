@@ -58,3 +58,71 @@
   }
 }
 
+/* ---------- Intro: inschuiven + zweven ----------
+  Inschuiven animeert `translate` en zweven animeert `transform`;
+  dat zijn losse properties, dus beide kunnen op hetzelfde element. */
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    translate: var(--slide-from);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  /* Vooral op en neer; zijwaartse drift is bewust klein (0.08) */
+  25% {
+    transform: translate(calc(var(--float-y, 6px) * 0.08), calc(var(--float-y, 6px) * -1)) rotate(var(--float-r, 0.5deg));
+  }
+
+  50% {
+    transform: translate(0, calc(var(--float-y, 6px) * -0.5)) rotate(0deg);
+  }
+
+  75% {
+    transform: translate(calc(var(--float-y, 6px) * -0.08), calc(var(--float-y, 6px) * -0.8)) rotate(calc(var(--float-r, 0.5deg) * -1));
+  }
+}
+
+.slide-in,
+.slide-in-float {
+  /* Mobiel: alles staat onder elkaar, dus van onderen inschuiven
+    (voorkomt horizontale scroll). Vanaf lg vanaf de zijkanten. */
+  /* Overige instellingen via Tailwind-classes per element, bijv.
+    [--enter-delay:150ms] [--float-duration:9s] [--float-y:12px].
+    Defaults staan als var()-fallback, want utilities zitten in een
+    @layer en zouden anders door deze (ongelaagde) regels overschreven worden. */
+  --slide-from: 0 1.5rem;
+
+  animation: slide-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) var(--enter-delay, 0ms) both;
+}
+
+.slide-in-float {
+  animation:
+    slide-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) var(--enter-delay, 0ms) both,
+    float var(--float-duration, 8s) ease-in-out var(--float-delay, 0s) infinite;
+}
+
+@variant lg {
+  .from-left {
+    --slide-from: -4rem 0;
+  }
+
+  .from-right {
+    --slide-from: 4rem 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .slide-in,
+  .slide-in-float {
+    animation: none;
+  }
+}
