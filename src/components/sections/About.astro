@@ -5,6 +5,13 @@ import { about, aboutFacts } from "../../data/about";
 import CodeLabel from "../ui/CodeLabel.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 import Tile from "../ui/Tile.astro";
+
+type Fact = { id: string; label: string; text: string | number };
+
+// Getallen krijgen een grote tegel, tekst een rij in de lijst
+const facts: Fact[] = aboutFacts;
+const numberFacts = facts.filter((f) => typeof f.text === "number");
+const textFacts = facts.filter((f) => typeof f.text !== "number");
 ---
 
 <div class="flex flex-col gap-8">
@@ -31,28 +38,25 @@ import Tile from "../ui/Tile.astro";
                 />
             </div>
 
-            <!-- Feitjes -->
-            <dl class="grid grid-cols-3 gap-3">
-                {
-                    aboutFacts.map((fact) => (
-                        <Tile class="flex flex-col justify-end gap-1 p-3.5">
-                            <dt class="order-last text-sm text-text-subtle">
-                                {fact.label}
-                            </dt>
-                            <dd
-                                class:list={[
-                                    "font-bold break-words text-accent",
-                                    typeof fact.value === "number"
-                                        ? "text-3xl"
-                                        : "text-xl",
-                                ]}
-                            >
-                                {fact.value}
-                            </dd>
-                        </Tile>
-                    ))
-                }
-            </dl>
+            <!-- Feitjes: getallen als tegels, tekst als lijst -->
+            <div class="flex flex-col gap-3">
+                <Tile class="px-4 py-1">
+                    <dl class="divide-y divide-ink-600">
+                        {
+                            textFacts.map((fact) => (
+                                <div class="flex flex-col gap-1 py-3">
+                                    <dt class="text-sm text-text-dim">
+                                        {`// ${fact.label.toLowerCase()}`}
+                                    </dt>
+                                    <dd class="font-bold wrap-break-word text-accent">
+                                        {fact.text}
+                                    </dd>
+                                </div>
+                            ))
+                        }
+                    </dl>
+                </Tile>
+            </div>
         </div>
 
         <!-- Rechts: tekst-tegels -->

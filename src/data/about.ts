@@ -6,18 +6,17 @@ const age = yearsSince(birthDate);
 
 export const about = {
     greeting: '// even voorstellen',
-    intro: "Bij Pay.nl onderhoud en ontwikkel ik de API's achter hun dashboard. Wat ik zo leuk vind aan back-end: het is nooit gewoon \"de foutmelding is weg, dus klaar\". Je moet echt nadenken of het de juiste fix is, en of hij ook het resultaat geeft dat je nodig hebt.",
-    body: 'Je kunt er eindeloos diep in duiken, en gaandeweg ontwikkel je je eigen smaak in hoe je dingen bouwt. Daar ben ik elke dag een beetje mee bezig.',
+    intro: "Bij Pay.nl werk ik aan de API's achter hun dashboard. Wat ik zo leuk vind aan back-end is dat je nooit klaar bent zodra de foutmelding weg is, want je moet echt nadenken of je fix wel klopt en of hij ook doet wat je nodig hebt.",
+    body: 'Je kunt er eindeloos diep in duiken en gaandeweg je eigen smaak ontwikkelen in hoe je dingen bouwt, en daar ben ik elke dag graag mee bezig.',
     origin: {
         label: '// hoe het begon',
-        text: 'Toen ik twaalf was, bouwde ik mijn eerste website op een Chromebook, tijdens de pauze op school. Sindsdien ben ik blijven bouwen.',
+        text: 'Toen ik twaalf was bouwde ik in de pauze op school mijn eerste website op een Chromebook, en sindsdien ben ik eigenlijk nooit meer gestopt.',
     },
 };
 
-// Feitjes, geen prestaties. Houd tekstwaardes kort (vakjes zijn smal)
+// Feitjes: getallen worden grote tegels, tekst komt in de lijst eronder
 export const aboutFacts = [
-    { id: 'age', label: 'jaar oud', value: age },
-    { id: 'city', label: 'woonplaats', value: 'Delft' },
-    // TODO: invullen wat je nu aan het leren bent
-    { id: 'learning', label: 'nu aan het leren', value: '...' },
+    { id: 'dailyDriver', label: 'Daily Driver', text: 'Arch + Hyprland' },
+    { id: 'favoStack', label: 'Favorite Stack', text: 'Symfony + ApiPlantform' },
+    { id: 'favoGame', label: 'Favorite game', text: 'ELDEN RING' },
 ];
