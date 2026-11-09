@@ -1,0 +1,26 @@
+---
+// Eén hoofdstuk van een projectverhaal: een "// kopje" met tekst.
+// Op brede schermen staat het kopje links in een eigen kolom, zoals in een blog,
+// en de tekst blijft smal genoeg om prettig te lezen (max-w-180).
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section
+    class="grid gap-3 md:gap-4 lg:grid-cols-[13rem_minmax(0,45rem)] lg:gap-10"
+>
+    {/* sticky: blijft naast de tekst staan terwijl je erlangs scrolt */}
+    <h2
+        class="font-terminal text-xl text-accent lg:sticky lg:top-[calc(var(--spacing-nav)+1.5rem)] lg:self-start"
+    >
+        // {title}
+    </h2>
+    <div
+        class="flex flex-col gap-3 text-sm leading-relaxed text-text-soft md:gap-4 md:text-base"
+    >
+        <slot />
+    </div>
+</section>

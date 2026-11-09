@@ -1,0 +1,81 @@
+---
+import { Image } from "astro:assets";
+import { projectImages, type Project } from "../../data/projects";
+
+// Compacte kaart op de homepage. De hele kaart is één link naar de projectpagina.
+interface Props {
+    project: Project;
+    index: number;
+}
+
+const { project, index } = Astro.props;
+const { main } = projectImages(project);
+const number = String(index + 1).padStart(2, "0");
+---
+
+<a
+    href={`/projecten/${project.slug}`}
+    class="group flex h-full flex-col gap-5 rounded-[1.25rem] border border-ink-600 bg-ink-850 p-3 pb-5 transition duration-300 hover:border-accent focus-visible:border-accent focus-visible:outline-none motion-safe:hover:scale-[1.01] motion-safe:focus-visible:scale-[1.03]"
+>
+    {/* Foto: zelfde schuine hoeken als de hoofdfoto op de projectpagina */}
+    <div
+        class="aspect-[16/10] overflow-hidden rounded-[0_1.25rem_0_1.25rem] bg-ink-800"
+    >
+        <Image
+            src={main}
+            alt=""
+            widths={[480, 800, 1200]}
+            sizes="(min-width: 1024px) 26rem, (min-width: 768px) 50vw, 100vw"
+            class="h-full w-full object-cover object-top"
+        />
+    </div>
+
+    <div class="flex flex-1 flex-col gap-3 px-2">
+        <p
+            class="flex items-baseline justify-between gap-3 text-xs text-text-dim md:text-sm"
+        >
+            <span>
+                {project.role}
+                <span aria-hidden="true" class="text-ink-400">·</span>
+                {project.year}
+            </span>
+            <span class="text-base">{number}</span>
+        </p>
+
+        <h3
+            class="-mt-1 text-2xl font-bold tracking-tight transition-colors group-hover:text-accent"
+        >
+            {project.title}
+        </h3>
+
+        {
+            /* line-clamp-3: maximaal 3 regels, daarna "…". Zo blijven de kaarten even hoog */
+        }
+        <p class="line-clamp-3 text-sm leading-relaxed text-text-subtle">
+            {project.intro[0]}
+        </p>
+
+        {/* mt-auto duwt de chips en de link naar de onderkant van de kaart */}
+        <ul aria-label="Stack" class="mt-auto flex flex-wrap gap-1.5 pt-1">
+            {
+                project.stack.map((tech) => (
+                    <li class="rounded-full border border-accent px-2.5 py-0.5 text-xs text-accent">
+                        {tech}
+                    </li>
+                ))
+            }
+        </ul>
+
+        <span
+            class="flex items-center justify-between border-t border-dashed border-ink-500 pt-4 text-sm text-text-soft"
+        >
+            Lees Meer Over Het Project
+            <span
+                aria-hidden="true"
+                class="text-accent transition-transform group-hover:translate-x-1 motion-reduce:transition-none"
+            >
+                →
+            </span>
+        </span>
+    </div>
+</a>

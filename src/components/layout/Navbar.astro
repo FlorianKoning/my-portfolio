@@ -10,7 +10,7 @@ import { navItems, socials } from "../../data/site";
         aria-label="Hoofdnavigatie"
     >
         <!-- website logo -->
-        <a href="#home" class="flex gap-2 text-text">
+        <a href="/#home" class="flex gap-2 text-text">
             <span>{"<?php"}</span>
             <span><span class="text-accent">Florian</span> Koning</span>
             <span>{"?>"}</span>
@@ -22,7 +22,7 @@ import { navItems, socials } from "../../data/site";
                 navItems.map((item) => (
                     <li>
                         <a
-                            href={`#${item.id}`}
+                            href={`/#${item.id}`}
                             class="text-sm font-semibold text-text transition-colors duration-300 hover:text-accent"
                         >
                             {item.label}

@@ -1,0 +1,248 @@
+---
+import { projectImages, type Project } from "../../data/projects";
+import CodeLabel from "../ui/CodeLabel.astro";
+import Gallery from "../ui/Gallery.astro";
+import Tile from "../ui/Tile.astro";
+import ZoomImage from "../ui/ZoomImage.astro";
+import StoryBlock from "./StoryBlock.astro";
+
+// Het volledige verhaal van één project, alles zichtbaar.
+// Wordt gebruikt op /projecten/[slug].
+interface Props {
+    project: Project;
+}
+
+const { project } = Astro.props;
+const { main, gallery, chapters } = projectImages(project);
+
+// Eén tegel per gegeven; op mobiel een 2×2 blok, op desktop 4 losse tegels.
+// Alleen de stippellijnen verschillen per positie, dus die staan hier.
+const metaCell =
+    "flex flex-col gap-1.5 border-dashed border-ink-500 px-4 py-3.5 md:rounded-[0.875rem] md:border md:border-solid md:border-ink-600 md:bg-ink-850";
+---
+
+<article class="flex flex-col gap-10 md:gap-16">
+    {/* ===== Kop ===== */}
+    <header class="flex flex-col gap-4 md:gap-5">
+        <CodeLabel>{"<article>"}</CodeLabel>
+        <h1
+            class="-mt-1 text-4xl leading-tight font-bold tracking-tight sm:text-5xl"
+        >
+            {project.title}
+        </h1>
+
+        {/* De eerste alinea is de hoofdzin, de rest iets kleiner en zachter */}
+        <div class="flex max-w-180 flex-col gap-3">
+            {
+                project.intro.map((paragraph, i) => (
+                    <p
+                        class:list={[
+                            "leading-relaxed",
+                            i === 0
+                                ? "text-base text-text-muted md:text-lg"
+                                : "text-sm text-text-subtle md:text-base",
+                        ]}
+                    >
+                        {paragraph}
+                    </p>
+                ))
+            }
+        </div>
+
+        {/* <dl> = een lijst van "naam → waarde", precies wat dit is */}
+        <dl
+            class="mt-2 grid grid-cols-2 overflow-hidden rounded-[0.875rem] border border-ink-600 bg-ink-850 md:grid-cols-4 md:gap-3 md:overflow-visible md:rounded-none md:border-0 md:bg-transparent"
+        >
+            <div class:list={[metaCell, "border-r border-b"]}>
+                <dt class="text-xs text-text-dim">rol</dt>
+                <dd class="text-sm">{project.role}</dd>
+            </div>
+            <div class:list={[metaCell, "border-b"]}>
+                <dt class="text-xs text-text-dim">jaar</dt>
+                <dd class="text-sm">{project.year}</dd>
+            </div>
+            <div class:list={[metaCell, "border-r"]}>
+                <dt class="text-xs text-text-dim">stack</dt>
+                <dd class="flex flex-wrap gap-1.5">
+                    {
+                        project.stack.map((tech) => (
+                            <span class="rounded-full bg-accent px-2.5 py-0.5 text-xs font-bold text-ink-900">
+                                {tech}
+                            </span>
+                        ))
+                    }
+                </dd>
+            </div>
+            <div class={metaCell}>
+                <dt class="text-xs text-text-dim">links</dt>
+                <dd class="flex gap-4 text-sm text-accent">
+                    {
+                        project.links.github && (
+                            <a
+                                href={project.links.github}
+                                target="_blank"
+                                rel="noopener"
+                                class="inline-flex min-h-9 items-center hover:underline md:min-h-0"
+                            >
+                                GitHub ↗
+                            </a>
+                        )
+                    }
+                    {
+                        project.links.live && (
+                            <a
+                                href={project.links.live}
+                                target="_blank"
+                                rel="noopener"
+                                class="inline-flex min-h-9 items-center hover:underline md:min-h-0"
+                            >
+                                Live ↗
+                            </a>
+                        )
+                    }
+                    {
+                        !project.links.github && !project.links.live && (
+                            <span class="text-text-dim">—</span>
+                        )
+                    }
+                </dd>
+            </div>
+        </dl>
+    </header>
+
+    {/* ===== Hoofdfoto met verschoven kader ===== */}
+    <figure class="flex flex-col gap-2.5 md:gap-3">
+        <div class="relative pr-2.5 pb-2.5 md:pr-5 md:pb-5">
+            <div
+                aria-hidden="true"
+                class="absolute inset-0 top-2.5 left-2.5 rounded-[0_1.5rem_0_1.5rem] border-2 border-accent md:top-5 md:left-5 md:rounded-[0_3rem_0_3rem]"
+            >
+            </div>
+            <ZoomImage
+                src={main}
+                alt={`Screenshot van ${project.title}`}
+                sizes="(min-width: 1280px) 1280px, 100vw"
+                class="rounded-[0_1.5rem_0_1.5rem] md:h-130 md:rounded-[0_3rem_0_3rem]"
+            />
+        </div>
+        <figcaption class="font-terminal text-lg text-text-dim">
+            {project.caption}
+        </figcaption>
+    </figure>
+
+    {/* ===== Het verhaal ===== */}
+    <StoryBlock title="het idee">
+        {project.idea.map((paragraph) => <p>{paragraph}</p>)}
+    </StoryBlock>
+
+    {/* Losse foto's (gallery/*.png) */}
+    <Gallery images={gallery} label={project.title} />
+
+    <StoryBlock title="hoe ik het aanpakte">
+        {
+            /* Uitklapbare regels met <details>/<summary>: geen JavaScript nodig */
+        }
+        <div class="border-t border-dashed border-ink-500">
+            {
+                project.built.map((part, i) => (
+                    <details
+                        open={i === 0}
+                        class="group border-b border-dashed border-ink-500"
+                    >
+                        <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 [&::-webkit-details-marker]:hidden">
+                            <span class="flex gap-2.5 font-bold text-text">
+                                <span class="font-normal text-text-dim">
+                                    {String(i + 1).padStart(2, "0")}
+                                </span>
+                                {part.title}
+                            </span>
+                            <span
+                                aria-hidden="true"
+                                class="text-lg text-accent transition-transform group-open:rotate-45 motion-reduce:transition-none"
+                            >
+                                +
+                            </span>
+                        </summary>
+                        <p class="mb-4 pl-7">{part.text}</p>
+                    </details>
+                ))
+            }
+        </div>
+
+        {
+            project.features.length > 0 && (
+                <ul class="flex flex-col gap-2.5">
+                    {project.features.map((feature) => (
+                        <li class="flex gap-3">
+                            <span class="text-accent">→</span>
+                            {feature}
+                        </li>
+                    ))}
+                </ul>
+            )
+        }
+    </StoryBlock>
+
+    {
+        /* Hoofdstukken: elk een stukje tekst met eigen galerij (gallery/<map>/) */
+    }
+    {
+        chapters.map((chapter) => (
+            <div class="flex flex-col gap-5 md:gap-8">
+                <StoryBlock title={chapter.title}>
+                    {chapter.text.map((paragraph) => (
+                        <p>{paragraph}</p>
+                    ))}
+                </StoryBlock>
+
+                <Gallery
+                    images={chapter.images}
+                    label={`${project.title}, ${chapter.title}`}
+                />
+
+                {chapter.mobileImages.length > 0 && (
+                    <Tile class="grid auto-cols-fr grid-flow-col gap-2 px-3 py-3.5 md:flex md:flex-wrap md:justify-center md:gap-5 md:p-9">
+                        {chapter.mobileImages.map((image, i) => (
+                            <ZoomImage
+                                src={image}
+                                alt={`${project.title}, ${chapter.title} op mobiel, foto ${i + 1}`}
+                                sizes="(min-width: 768px) 13rem, 33vw"
+                                class="aspect-[9/19.5] rounded-xl border-2 border-ink-900 md:w-52 md:rounded-[1.75rem] md:border-4"
+                            />
+                        ))}
+                    </Tile>
+                )}
+            </div>
+        ))
+    }
+
+    {/* Codeblok: elke regel een eigen div met regelnummer */}
+    {
+        project.code && (
+            <figure class="max-w-205 overflow-hidden rounded-2xl border border-ink-600 bg-ink-900">
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-ink-600 bg-ink-850 px-4.5 py-3 text-sm">
+                    <span class="text-text-soft">{project.code.file}</span>
+                    <span class="font-terminal text-lg text-text-dim">
+                        {project.code.note}
+                    </span>
+                </div>
+                <code class="block overflow-x-auto py-5 pr-5 pl-1.5 text-sm leading-[1.75]">
+                    {project.code.source.split("\n").map((line, i) => (
+                        <div class="whitespace-pre">
+                            <span class="mr-4.5 inline-block w-7 text-right text-text-dim/60 select-none">
+                                {i + 1}
+                            </span>
+                            {line}
+                        </div>
+                    ))}
+                </code>
+            </figure>
+        )
+    }
+
+    <StoryBlock title="wat ik leerde">
+        <p>{project.learned}</p>
+    </StoryBlock>
+
+    <CodeLabel>{"</article>"}</CodeLabel>
+</article>

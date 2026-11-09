@@ -91,6 +91,8 @@ Elke sectie volgt het recept.
 
 ## Fase 4b: elk project een eigen pagina
 
+> **Update 9 nov:** stap 1 t/m 5 zijn gebouwd door Claude: `pages/projecten/[slug].astro`, `project/ProjectArticle.astro`, `project/ProjectCard.astro` en `project/StoryBlock.astro` (kopje links, tekst rechts, zoals in een blog). Nog te doen: stap 6 (checken + feedback verwerken) en committen.
+
 **Waarom:** de projectensectie verstopt nu te veel, in vier lagen: één project tegelijk, "lees verder", een uitklaplijst en verborgen screenshots op mobiel. Alleen DBM heeft al 11 screenshots. Op de homepage wil een bezoeker in een halve minuut zien wat je gedaan hebt. Het hele verhaal hoort op een eigen pagina. Het mobiele design (`dbm-militaria.html`) is ook al als losse pagina opgezet: met "← cd ../projecten", een teller "01 / 03" en links naar de andere projecten.
 
 **Eindresultaat:**
