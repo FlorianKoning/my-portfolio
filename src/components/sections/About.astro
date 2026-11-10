@@ -23,7 +23,10 @@ const textFacts = facts.filter((f) => typeof f.text !== "number");
             class="flex w-full flex-col gap-5 lg:max-w-95 lg:shrink-0 lg:basis-[38%]"
         >
             <!-- Foto met verschoven kader -->
-            <div class="relative pr-4.5 pb-4.5">
+            <!-- Alleen inschuiven, geen float: een oneindige transform-animatie maakt tekst wazig -->
+            <div
+                class="reveal slide-in from-left relative pr-4.5 pb-4.5"
+            >
                 <div
                     aria-hidden="true"
                     class="absolute inset-0 top-4.5 left-4.5 rounded-[0_2.5rem_0_2.5rem] border-2 border-accent"
@@ -40,12 +43,14 @@ const textFacts = facts.filter((f) => typeof f.text !== "number");
 
             <!-- Feitjes: getallen als tegels, tekst als lijst -->
             <div class="flex flex-col gap-3">
-                <Tile class="px-4 py-1">
+                <Tile
+                    class="reveal slide-in from-left px-4 py-1 [--enter-delay:150ms]"
+                >
                     <dl class="divide-y divide-ink-600">
                         {
                             textFacts.map((fact) => (
                                 <div class="flex flex-col gap-1 py-3">
-                                    <dt class="font-terminal text-lg text-text-dim">
+                                    <dt class="font-terminal text-sm text-text-dim">
                                         {`// ${fact.label.toLowerCase()}`}
                                     </dt>
                                     <dd class="font-bold wrap-break-word text-accent">
@@ -62,9 +67,9 @@ const textFacts = facts.filter((f) => typeof f.text !== "number");
         <!-- Rechts: tekst-tegels -->
         <div class="flex min-w-0 flex-1 flex-col gap-5">
             <Tile
-                class="flex flex-1 flex-col justify-center gap-4.5 p-7 sm:p-9"
+                class="reveal slide-in from-right flex flex-1 flex-col justify-center gap-4.5 p-7 sm:p-9 [--enter-delay:100ms]"
             >
-                <span class="font-terminal text-lg text-accent">{about.greeting}</span>
+                <span class="font-terminal text-sm text-accent">{about.greeting}</span>
                 <p class="max-w-155 text-lg leading-relaxed text-text">
                     {about.intro}
                 </p>
@@ -73,8 +78,10 @@ const textFacts = facts.filter((f) => typeof f.text !== "number");
                 </p>
             </Tile>
 
-            <Tile class="flex flex-wrap items-center gap-6 p-7 sm:px-9">
-                <span class="shrink-0 font-terminal text-lg text-text-dim">
+            <Tile
+                class="reveal slide-in from-right flex flex-wrap items-center gap-6 p-7 sm:px-9 [--enter-delay:250ms]"
+            >
+                <span class="shrink-0 font-terminal text-sm text-text-dim">
                     {about.origin.label}
                 </span>
                 <p

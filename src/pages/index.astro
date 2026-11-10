@@ -23,3 +23,25 @@ import BaseLayout from "../layout/BaseLayout.astro";
         <h2 class="text-3xl text-accent">Contact</h2>
     </Section>
 </BaseLayout>
+
+<script>
+    // Tiles met .reveal pas laten inschuiven zodra ze in beeld komen.
+    // Zonder JavaScript gebeurt er niets: dan spelen ze gewoon meteen af.
+    const tiles = document.querySelectorAll<HTMLElement>(".reveal");
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                entry.target.classList.remove("reveal-wait");
+                observer.unobserve(entry.target); // één keer is genoeg
+            }
+        },
+        { threshold: 0.15 }, // 15% van de tile moet zichtbaar zijn
+    );
+
+    for (const tile of tiles) {
+        tile.classList.add("reveal-wait");
+        observer.observe(tile);
+    }
+</script>

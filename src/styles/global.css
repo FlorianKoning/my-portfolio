@@ -11,10 +11,20 @@
   }
 }
 
+/* Pixelfont Departure Mono (niet op npm), staat in public/fonts.
+  Het scherpst op 11px of een veelvoud daarvan (22, 33, ...). */
+@font-face {
+  font-family: "Departure Mono";
+  src: url("/fonts/DepartureMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-mono: "Roboto Mono Variable", ui-monospace, monospace;
   /* Pixel-terminalfont voor alle "// ..."-teksten */
-  --font-terminal: "VT323", ui-monospace, monospace;
+  --font-terminal: "Departure Mono", ui-monospace, monospace;
 
   /* Accent */
   --color-accent: #F6C64F;
@@ -132,6 +142,13 @@
   .from-right {
     --slide-from: 4rem 0;
   }
+}
+
+/* Tiles verderop de pagina: de animatie staat op pauze tot de tile
+  in beeld komt (zie het script in index.astro). Moet ná .slide-in staan,
+  want het `animation:`-shorthand daar zet hem anders weer op running. */
+.reveal-wait {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {

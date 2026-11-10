@@ -21,7 +21,9 @@ import SectionHeading from "../ui/SectionHeading.astro";
     <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {
             projects.map((project, index) => (
-                <li>
+                // De animatie zit op de <li>, de hover-vergroting op de kaart zelf:
+                // zo zitten ze elkaar niet in de weg. Ze schuiven na elkaar in (index * 120ms).
+                <li class="reveal slide-in" style={{ "--enter-delay": `${index * 120}ms` }}>
                     <ProjectCard project={project} index={index} />
                 </li>
             ))

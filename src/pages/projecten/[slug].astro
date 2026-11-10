@@ -28,49 +28,81 @@ const counter = {
 const description = project.intro[0].replace(/\s+/g, " ").trim();
 ---
 
-<BaseLayout title={`${project.title} | Florian Koning`} description={description}>
+<BaseLayout
+    title={`${project.title} | Florian Koning`}
+    description={description}
+>
     <div class="mx-auto max-w-7xl px-6 pt-nav lg:px-8">
         {/* Mobiel: balk die onder de navbar blijft plakken */}
-        <div class="sticky top-nav z-40 -mx-6 flex items-center justify-between border-b border-ink-600 bg-ink-750 py-1 pr-6 pl-3 md:hidden">
-            <a href="/#projects" class="inline-flex min-h-11 items-center px-3 text-xs text-text-dim">← cd ../projecten</a>
+        <div
+            class="sticky top-nav z-40 -mx-6 flex items-center justify-between border-b border-ink-600 bg-ink-750 py-1 pr-6 pl-3 md:hidden"
+        >
+            <a
+                href="/#projects"
+                class="inline-flex min-h-11 items-center px-3 text-xs text-text-dim"
+                >← cd ../projecten</a
+            >
             <span class="text-xs text-text-dim">
-                <span class="text-accent">{counter.current}</span> / {counter.total}
+                <span class="text-accent">{counter.current}</span> / {
+                    counter.total
+                }
             </span>
         </div>
 
-        <div class="flex flex-col gap-10 pt-8 pb-16 md:gap-14 md:pt-14 md:pb-24">
+        <div
+            class="flex flex-col gap-10 pt-8 pb-16 md:gap-14 md:pt-14 md:pb-24"
+        >
             {/* Desktop: terug-link en teller boven het artikel */}
             <div class="hidden items-center justify-between md:flex">
-                <a href="/#projects" class="inline-flex min-h-11 items-center text-sm text-text-dim transition-colors hover:text-accent">
+                <a
+                    href="/#projects"
+                    class="inline-flex min-h-11 items-center text-sm text-text-dim transition-colors hover:text-accent"
+                >
                     ← cd ../projecten
                 </a>
-                <span class="font-terminal text-lg text-text-dim">
+                <span class="font-terminal text-sm text-text-dim">
                     // project {counter.current} / {counter.total}
                 </span>
             </div>
 
             <ProjectArticle project={project} />
 
-            {/* Gewone links: terugknop, nieuw tabblad en delen werken vanzelf */}
-            {projects.length > 1 && (
-                <nav
-                    aria-label="Andere projecten"
-                    class="grid grid-cols-2 gap-3 border-t border-dashed border-ink-500 pt-5 md:gap-6"
-                >
-                    <a href={`/projecten/${prev.slug}`} rel="prev" class="group flex min-w-0 flex-col gap-1">
-                        <span class="text-xs text-text-dim md:text-sm">vorige</span>
-                        <span class="truncate text-sm transition-colors group-hover:text-accent md:text-lg">
-                            <span class="text-accent">←</span> {prev.title}
-                        </span>
-                    </a>
-                    <a href={`/projecten/${next.slug}`} rel="next" class="group flex min-w-0 flex-col items-end gap-1 text-right">
-                        <span class="text-xs text-text-dim md:text-sm">volgende</span>
-                        <span class="max-w-full truncate text-sm transition-colors group-hover:text-accent md:text-lg">
-                            {next.title} <span class="text-accent">→</span>
-                        </span>
-                    </a>
-                </nav>
-            )}
+            {
+                /* Gewone links: terugknop, nieuw tabblad en delen werken vanzelf */
+            }
+            {
+                projects.length > 1 && (
+                    <nav
+                        aria-label="Andere projecten"
+                        class="grid grid-cols-2 gap-3 border-t border-dashed border-ink-500 pt-5 md:gap-6"
+                    >
+                        <a
+                            href={`/projecten/${prev.slug}`}
+                            rel="prev"
+                            class="group flex min-w-0 flex-col gap-1"
+                        >
+                            <span class="text-xs text-text-dim md:text-sm">
+                                vorige
+                            </span>
+                            <span class="truncate text-sm transition-colors group-hover:text-accent md:text-lg">
+                                <span class="text-accent">←</span> {prev.title}
+                            </span>
+                        </a>
+                        <a
+                            href={`/projecten/${next.slug}`}
+                            rel="next"
+                            class="group flex min-w-0 flex-col items-end gap-1 text-right"
+                        >
+                            <span class="text-xs text-text-dim md:text-sm">
+                                volgende
+                            </span>
+                            <span class="max-w-full truncate text-sm transition-colors group-hover:text-accent md:text-lg">
+                                {next.title} <span class="text-accent">→</span>
+                            </span>
+                        </a>
+                    </nav>
+                )
+            }
         </div>
     </div>
 
