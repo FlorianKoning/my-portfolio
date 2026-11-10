@@ -55,7 +55,7 @@ const number = String(index + 1).padStart(2, "0");
             {project.intro[0]}
         </p>
 
-        {/* mt-auto duwt de chips en de link naar de onderkant van de kaart */}
+        {/* mt-auto duwt de chips naar de onderkant van de kaart */}
         <ul aria-label="Stack" class="mt-auto flex flex-wrap gap-1.5 pt-1">
             {
                 project.stack.map((tech) => (
@@ -65,17 +65,5 @@ const number = String(index + 1).padStart(2, "0");
                 ))
             }
         </ul>
-
-        <span
-            class="flex items-center justify-between border-t border-dashed border-ink-500 pt-4 text-sm text-text-soft"
-        >
-            Lees Meer Over Het Project
-            <span
-                aria-hidden="true"
-                class="text-accent transition-transform group-hover:translate-x-1 motion-reduce:transition-none"
-            >
-                →
-            </span>
-        </span>
     </div>
 </a>
