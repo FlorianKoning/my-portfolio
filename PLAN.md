@@ -180,7 +180,8 @@ Hier leer je Astro's `<script>` (wordt automatisch gebundeld, geen jQuery nodig)
 
 ## Fase 6: afronden
 
-- [ ] `404.astro` (hergebruikt `BaseLayout`)
+- [ ] `404.astro` (hergebruikt `BaseLayout`), in terminalstijl: `$ cd /pagina` → `bash: no such file or directory`, plus een link terug naar home. Astro gebruikt `src/pages/404.astro` automatisch.
+- [ ] Contactpagina/-sectie vervalt: contact loopt via de LinkedIn-link in de navbar. Weghalen: de `<Section id="contact">` in `index.astro`, het `./contact`-knopje in `Intro.astro` en `{ id: 'contact', ... }` uit `navItems` in `site.ts`.
 - [ ] Meta/SEO: `description`, Open Graph-afbeelding, favicon
 - [ ] `--breakpoint-phone` weghalen als hij niet meer gebruikt wordt
 - [ ] `astro build`, de build testen, deployen

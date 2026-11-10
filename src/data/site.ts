@@ -8,7 +8,6 @@ export const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'Over Mij' },
     { id: 'projects', label: 'Mijn Projecten' },
-    { id: 'contact', label: 'Contact Mogelijkheden' },
 ];
 
 export const socials = [
