@@ -39,8 +39,8 @@ const description = project.intro[0].replace(/\s+/g, " ").trim();
         >
             <a
                 href="/#projects"
-                class="inline-flex min-h-11 items-center px-3 text-xs text-text-dim"
-                >← cd ../projecten</a
+                class="inline-flex min-h-11 items-center px-3 text-xs text-accent"
+                >Ga terug</a
             >
             <span class="text-xs text-text-dim">
                 <span class="text-accent">{counter.current}</span> / {
@@ -56,9 +56,9 @@ const description = project.intro[0].replace(/\s+/g, " ").trim();
             <div class="hidden items-center justify-between md:flex">
                 <a
                     href="/#projects"
-                    class="inline-flex min-h-11 items-center text-sm text-text-dim transition-colors hover:text-accent"
+                    class="inline-flex min-h-11 items-center text-sm text-accent transition-opacity hover:opacity-75"
                 >
-                    ← cd ../projecten
+                    Ga terug
                 </a>
                 <span class="font-terminal text-sm text-text-dim">
                     // project {counter.current} / {counter.total}
