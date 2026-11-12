@@ -6,12 +6,14 @@ interface Props {
 const { href } = Astro.props;
 ---
 
+<!-- Mobiel: onderaan de hero in de flow (mt-auto duwt hem naar beneden).
+     md: verborgen. lg: zwevend onderaan de sectie. -->
 <a
     href={href}
-    class="absolute inset-x-0 bottom-8 mx-auto hidden w-fit flex-col items-center gap-1 text-sm text-text-dim transition-colors hover:text-accent lg:flex"
+    class="mt-auto flex min-h-11 w-fit flex-col items-center justify-center gap-1 self-center pt-6 text-[0.6875rem] text-text-dim transition-colors hover:text-accent md:hidden lg:absolute lg:inset-x-0 lg:bottom-8 lg:mx-auto lg:mt-0 lg:flex lg:pt-0 lg:text-sm"
 >
     <span class="flex animate-nudge flex-col items-center gap-1">
         // scroll
-        <span class="text-xl text-accent" aria-hidden="true">↓</span>
+        <span class="text-sm text-accent lg:text-xl" aria-hidden="true">↓</span>
     </span>
 </a>

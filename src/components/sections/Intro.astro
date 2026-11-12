@@ -1,39 +1,51 @@
 ---
+import { profile } from "../../data/site";
 import CodeLabel from "../ui/CodeLabel.astro";
+import ProfileBar from "../ui/ProfileBar.astro";
 import ProfileCard from "../ui/ProfileCard.astro";
 import ScrollHint from "../ui/ScrollHint.astro";
 import StatsCard from "../ui/StatsCard.astro";
+import Tag from "../ui/Tag.astro";
 ---
 
+<!-- Mobiel: balkje, kop, cijfers, skills onder elkaar.
+     flex-1 + justify-between: de blokken vullen de hele schermhoogte. Op een lange
+     telefoon worden de tussenruimtes groter; gap-6.5 blijft het minimum.
+     md: kop bovenaan, daaronder de twee kaarten. lg: drie kolommen. -->
 <div
-    class="flex flex-col items-center gap-12 lg:flex-row lg:items-center lg:justify-between"
+    class="flex flex-1 flex-col justify-between gap-6.5 md:flex-none md:items-center md:justify-start md:gap-12 lg:flex-row lg:items-center lg:justify-between"
 >
+    <!-- Zweeft net als de kaarten, met een eigen tempo zodat hij niet gelijk loopt met de cijfers -->
+    <ProfileBar
+        class="slide-in-float [--enter-delay:150ms] [--float-delay:-2s] [--float-duration:10s] [--float-r:0.6deg] [--float-y:8px]"
+    />
+
     <!-- Kaarten schuiven in en blijven daarna zweven; elk eigen tempo zodat ze niet synchroon bewegen. Zie global.css. -->
     <ProfileCard
         class="slide-in-float from-left [--enter-delay:150ms] [--float-delay:-2s] [--float-duration:10s] [--float-r:0.6deg] [--float-y:8px]"
     />
 
-    <!-- Intro: op mobiel bovenaan, op pc in het midden. Alleen inschuiven, niet zweven (blijft goed leesbaar). -->
+    <!-- Intro: op md bovenaan, op pc in het midden. Alleen inschuiven, niet zweven (blijft goed leesbaar). -->
     <div
-        class="slide-in order-first flex w-full max-w-136 flex-col gap-3 lg:order-0"
+        class="slide-in flex w-full max-w-136 flex-col gap-1.5 md:order-first md:gap-3 lg:order-0"
     >
         <CodeLabel>{"<h1>"}</CodeLabel>
 
-        <div class="flex flex-col gap-4 pl-6">
-            <span class="text-4xl text-accent">Hey</span>
+        <div class="flex flex-col gap-1.5 pl-3.5 md:gap-4 md:pl-6">
+            <span class="text-[1.625rem] text-accent md:text-4xl">Hey</span>
 
             <h1
-                class="flex flex-wrap items-baseline gap-x-3 gap-y-1 font-normal lg:flex-nowrap"
+                class="flex flex-col gap-0.5 font-normal md:flex-row md:flex-wrap md:items-baseline md:gap-x-3 md:gap-y-1 lg:flex-nowrap"
             >
-                <span class="text-md tracking-wider text-text">IK BEN</span>
-                <span class="text-4xl font-bold text-accent sm:text-5xl">
+                <span class="text-xs tracking-wider text-text-soft md:text-base md:text-text">IK BEN</span>
+                <span class="text-[2rem] leading-[1.15] font-bold text-accent md:text-5xl md:leading-none">
                     Florian Koning<span class="animate-blink" aria-hidden="true"
                         >_</span
                     >
                 </span>
             </h1>
 
-            <p class="mt-1 text-lg leading-relaxed text-text-muted">
+            <p class="mt-1.5 text-sm leading-[1.65] text-text-muted md:mt-1 md:text-lg md:leading-relaxed">
                 Back-end developer bij Pay.nl, met ervaring in Laravel, Symfony
                 en moderne API's.
             </p>
@@ -45,6 +57,17 @@ import StatsCard from "../ui/StatsCard.astro";
     <StatsCard
         class="slide-in-float from-right [--enter-delay:300ms] [--float-delay:-5s] [--float-duration:12s] [--float-r:-0.8deg] [--float-y:8px]"
     />
+
+    <!-- Op mobiel staan de skills los onder de cijfers; vanaf md zitten ze in ProfileCard -->
+    <ul aria-label="Skills" class="flex flex-wrap gap-1.5 md:hidden">
+        {
+            profile.skills.map((skill) => (
+                <li class="grid">
+                    <Tag label={skill} class="px-3" />
+                </li>
+            ))
+        }
+    </ul>
 </div>
 
 <ScrollHint href="#about" />

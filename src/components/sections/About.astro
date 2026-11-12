@@ -14,22 +14,25 @@ const numberFacts = facts.filter((f) => typeof f.text === "number");
 const textFacts = facts.filter((f) => typeof f.text !== "number");
 ---
 
-<div class="flex flex-col gap-8">
+<div class="flex flex-col gap-5.5 md:gap-8">
     <SectionHeading id="over-mij" title="Over" highlight="mij" />
 
-    <div class="flex flex-col gap-6 lg:flex-row lg:items-stretch">
+    <!-- Onder lg zijn de twee kolommen `contents`: de wrapper doet dan niet mee
+         in de layout, dus de blokken erin worden direct flex-items van deze div.
+         Zo kan `order` ze herschikken: foto, voorstellen, weetjes, hoe het begon. -->
+    <div class="flex flex-col gap-5.5 md:gap-6 lg:flex-row lg:items-stretch">
         <!-- Links: foto + drie getallen -->
         <div
-            class="flex w-full flex-col gap-5 lg:max-w-95 lg:shrink-0 lg:basis-[38%]"
+            class="contents lg:flex lg:w-full lg:max-w-95 lg:shrink-0 lg:basis-[38%] lg:flex-col lg:gap-5"
         >
             <!-- Foto met verschoven kader -->
             <!-- Alleen inschuiven, geen float: een oneindige transform-animatie maakt tekst wazig -->
             <div
-                class="reveal slide-in from-left relative pr-4.5 pb-4.5"
+                class="reveal slide-in from-left relative order-1 pr-3.5 pb-3.5 md:pr-4.5 md:pb-4.5 lg:order-none"
             >
                 <div
                     aria-hidden="true"
-                    class="absolute inset-0 top-4.5 left-4.5 rounded-[0_2.5rem_0_2.5rem] border-2 border-accent"
+                    class="absolute inset-0 top-3.5 left-3.5 rounded-[0_2rem_0_2rem] border-2 border-accent md:top-4.5 md:left-4.5 md:rounded-[0_2.5rem_0_2.5rem]"
                 >
                 </div>
                 <Image
@@ -37,23 +40,23 @@ const textFacts = facts.filter((f) => typeof f.text !== "number");
                     alt="Portret van Florian Koning"
                     widths={[400, 800]}
                     sizes="(min-width: 1024px) 380px, 100vw"
-                    class="relative block h-90 w-full rounded-[0_2.5rem_0_2.5rem] object-cover object-[center_40%] sm:h-105"
+                    class="relative block h-85 w-full rounded-[0_2rem_0_2rem] object-cover object-[center_35%] md:h-105 md:rounded-[0_2.5rem_0_2.5rem] md:object-[center_40%]"
                 />
             </div>
 
             <!-- Feitjes: getallen als tegels, tekst als lijst -->
-            <div class="flex flex-col gap-3">
+            <div class="order-3 flex flex-col gap-3 lg:order-none">
                 <Tile
-                    class="reveal slide-in from-left px-4 py-1 [--enter-delay:150ms]"
+                    class="reveal slide-in from-left px-5 py-1.5 [--enter-delay:150ms] md:px-4 md:py-1"
                 >
                     <dl class="divide-y divide-ink-600">
                         {
                             textFacts.map((fact) => (
-                                <div class="flex flex-col gap-1 py-3">
-                                    <dt class="font-terminal text-sm text-text-dim">
+                                <div class="flex items-baseline justify-between gap-3 py-3.5 md:flex-col md:items-start md:justify-start md:gap-1 md:py-3">
+                                    <dt class="shrink-0 font-terminal text-[0.6875rem] text-text-dim md:text-sm">
                                         {`// ${fact.label.toLowerCase()}`}
                                     </dt>
-                                    <dd class="font-bold wrap-break-word text-accent">
+                                    <dd class="text-right text-[0.8125rem] font-bold wrap-break-word text-accent md:text-left md:text-base">
                                         {fact.text}
                                     </dd>
                                 </div>
@@ -65,27 +68,27 @@ const textFacts = facts.filter((f) => typeof f.text !== "number");
         </div>
 
         <!-- Rechts: tekst-tegels -->
-        <div class="flex min-w-0 flex-1 flex-col gap-5">
+        <div class="contents lg:flex lg:min-w-0 lg:flex-1 lg:flex-col lg:gap-5">
             <Tile
-                class="reveal slide-in from-right flex flex-1 flex-col justify-center gap-4.5 p-7 sm:p-9 [--enter-delay:100ms]"
+                class="reveal slide-in from-right order-2 flex flex-1 flex-col justify-center gap-3.5 px-5 py-6 [--enter-delay:100ms] md:gap-4.5 md:p-9 lg:order-none"
             >
-                <span class="font-terminal text-sm text-accent">{about.greeting}</span>
-                <p class="max-w-155 text-lg leading-relaxed text-text">
+                <span class="font-terminal text-[0.6875rem] text-accent md:text-sm">{about.greeting}</span>
+                <p class="max-w-155 text-[0.9375rem] leading-[1.7] text-text md:text-lg md:leading-relaxed">
                     {about.intro}
                 </p>
-                <p class="max-w-155 text-base leading-relaxed text-text-subtle">
+                <p class="max-w-155 text-[0.8125rem] leading-[1.75] text-text-subtle md:text-base md:leading-relaxed">
                     {about.body}
                 </p>
             </Tile>
 
             <Tile
-                class="reveal slide-in from-right flex flex-wrap items-center gap-6 p-7 sm:px-9 [--enter-delay:250ms]"
+                class="reveal slide-in from-right order-4 flex flex-col gap-2.5 px-5 py-5.5 [--enter-delay:250ms] md:flex-row md:flex-wrap md:items-center md:gap-6 md:px-9 md:py-7 lg:order-none"
             >
-                <span class="shrink-0 font-terminal text-sm text-text-dim">
+                <span class="shrink-0 font-terminal text-[0.6875rem] text-text-dim md:text-sm">
                     {about.origin.label}
                 </span>
                 <p
-                    class="min-w-0 flex-1 basis-75 text-base leading-relaxed text-text-soft"
+                    class="min-w-0 text-sm leading-[1.7] text-text-soft md:flex-1 md:basis-75 md:text-base md:leading-relaxed"
                 >
                     {about.origin.text}
                 </p>

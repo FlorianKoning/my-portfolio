@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+import photo from "../../assets/florian-portrait.jpeg";
+import { profile } from "../../data/site";
+
+// Compacte versie van ProfileCard voor mobiel: één balkje bovenaan de hero.
+// Vanaf md neemt ProfileCard het over.
+const { class: className } = Astro.props;
+---
+
+<div
+    class:list={[
+        "flex items-center gap-3.5 rounded-[2rem_0.25rem_2rem_0.25rem] border border-ink-600 bg-ink-800 px-4 py-3.5 md:hidden",
+        className,
+    ]}
+>
+    {/* densities: ook een 2x- en 3x-versie, anders is de foto op een telefoonscherm wazig */}
+    <Image
+        src={photo}
+        alt="Portret van Florian Koning"
+        width={56}
+        densities={[2, 3]}
+        class="size-14 shrink-0 rounded-full border-2 border-accent object-cover object-[center_30%]"
+    />
+
+    <div class="flex min-w-0 flex-1 flex-col gap-1">
+        <span class="text-sm font-bold text-accent">
+            {profile.name}
+            <span class="text-xs font-normal text-text-soft">· {profile.role}</span>
+        </span>
+        <span class="text-[0.6875rem] text-text-subtle">⌖ {profile.location}</span>
+    </div>
+
+    <span
+        class="flex shrink-0 items-center gap-1.5 rounded-full bg-ink-900 px-2.5 py-1 text-[0.625rem] text-text-muted"
+    >
+        <span aria-hidden="true" class="size-1.5 rounded-full bg-online"></span>
+        Nu bij {profile.company}
+    </span>
+</div>

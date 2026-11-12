@@ -5,30 +5,129 @@ import CodeLabel from "../ui/CodeLabel.astro";
 import SectionHeading from "../ui/SectionHeading.astro";
 
 // Op de homepage alleen een overzicht; het hele verhaal staat op /projecten/[slug]
+// Mobiel: een schuif waar je doorheen swipet. Vanaf md: een grid.
 ---
 
-<div class="flex flex-col gap-10">
-    <div class="flex flex-col gap-4">
+<div class="flex flex-col gap-5.5 md:gap-10">
+    <div class="flex flex-col gap-2.5 md:gap-4">
         <SectionHeading id="projecten" title="Mijn" highlight="projecten" />
         <p
-            class="max-w-180 text-base leading-relaxed text-text-subtle md:text-lg"
+            class="max-w-180 text-[0.8125rem] leading-[1.65] text-text-subtle md:text-lg md:leading-relaxed"
         >
-            Een paar dingen die ik gebouwd heb. Klik op een project voor het
-            hele verhaal: het idee, de keuzes en wat ik ervan leerde.
+            Een paar dingen die ik gebouwd heb. <span class="md:hidden">Tik</span><span
+                class="hidden md:inline">Klik</span
+            > op een project voor het hele verhaal<span class="hidden md:inline"
+                >: het idee, de keuzes en wat ik ervan leerde</span
+            >.
         </p>
     </div>
 
-    <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {
-            projects.map((project, index) => (
-                // De animatie zit op de <li>, de hover-vergroting op de kaart zelf:
-                // zo zitten ze elkaar niet in de weg. Ze schuiven na elkaar in (index * 120ms).
-                <li class="reveal slide-in" style={{ "--enter-delay": `${index * 120}ms` }}>
-                    <ProjectCard project={project} index={index} />
-                </li>
-            ))
-        }
-    </ul>
+    {/* Mobiel: de hele schuif + pijlen faden samen in, als één blok.
+        Vanaf md is deze wrapper `contents`: hij heeft dan geen eigen vak, dus ook
+        geen animatie, en de kaarten hieronder faden één voor één in. */}
+    <div class="reveal slide-in flex flex-col gap-5.5 md:contents">
+        {/* Schuif: -mx-5 + px-5 laat hem tot de schermrand lopen, met dezelfde marge als de rest.
+            snap-x snap-mandatory: na het swipen klikt de kaart netjes in het midden vast. */}
+        <ul
+            data-slider
+            class="-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 [scrollbar-width:none] motion-safe:scroll-smooth md:mx-0 md:grid md:snap-none md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 lg:grid-cols-3"
+        >
+            {
+                projects.map((project, index) => (
+                    // De animatie zit op de <li>, de hover-vergroting op de kaart zelf:
+                    // zo zitten ze elkaar niet in de weg. Ze schuiven na elkaar in (index * 120ms).
+                    // Op mobiel niet per kaart (max-md:animate-none!), want kaarten die buiten
+                    // beeld in de schuif staan zouden dan pas tijdens het swipen invliegen.
+                    // Daar fadet de wrapper hierboven in.
+                    <li
+                        class="reveal slide-in w-full shrink-0 snap-center max-md:animate-none! md:w-auto"
+                        style={{ "--enter-delay": `${index * 120}ms` }}
+                    >
+                        <ProjectCard project={project} index={index} />
+                    </li>
+                ))
+            }
+        </ul>
+
+        {/* Pijlen + bolletjes, alleen op mobiel */}
+        <div class="flex items-center justify-between gap-3 md:hidden">
+            <button
+                type="button"
+                data-slider-prev
+                aria-label="Vorig project"
+                class="flex size-11 items-center justify-center rounded-full border border-ink-400 text-text-soft"
+            >
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5" /><path d="M11 6l-6 6 6 6" /></svg>
+            </button>
+
+            <div class="flex items-center gap-2">
+                {
+                    projects.map((project, index) => (
+                        // Het actieve bolletje is geel en iets groter via aria-current op de knop
+                        <button
+                            type="button"
+                            data-slider-dot
+                            aria-label={`Project ${String(index + 1).padStart(2, "0")}: ${project.title}`}
+                            aria-current={index === 0 ? "true" : "false"}
+                            class="group flex h-11 w-7 items-center justify-center"
+                        >
+                            <span class="block size-1.5 rounded-full bg-ink-400 transition-all group-aria-[current=true]:size-2 group-aria-[current=true]:bg-accent" />
+                        </button>
+                    ))
+                }
+            </div>
+
+            <button
+                type="button"
+                data-slider-next
+                aria-label="Volgend project"
+                class="flex size-11 items-center justify-center rounded-full border border-accent text-accent"
+            >
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="M13 6l6 6-6 6" /></svg>
+            </button>
+        </div>
+    </div>
 
     <CodeLabel>{"</section>"}</CodeLabel>
 </div>
+
+<script>
+    // Pijlen, bolletjes en swipen houden elkaar bij
+    const slider = document.querySelector<HTMLElement>("[data-slider]")!;
+    const cards = [...slider.children] as HTMLElement[];
+    const dots = [...document.querySelectorAll<HTMLElement>("[data-slider-dot]")];
+    let current = 0;
+
+    function goTo(index: number) {
+        // Rondlopen: na de laatste weer de eerste
+        current = (index + cards.length) % cards.length;
+        // Afstand tot de eerste kaart = hoe ver de schuif moet scrollen.
+        // Smooth komt van scroll-smooth op de <ul> (en valt weg bij reduced motion).
+        slider.scrollTo({ left: cards[current].offsetLeft - cards[0].offsetLeft });
+    }
+
+    function markDot(index: number) {
+        dots.forEach((dot, i) => dot.setAttribute("aria-current", String(i === index)));
+    }
+
+    document.querySelector("[data-slider-prev]")!.addEventListener("click", () => goTo(current - 1));
+    document.querySelector("[data-slider-next]")!.addEventListener("click", () => goTo(current + 1));
+    dots.forEach((dot, i) => dot.addEventListener("click", () => goTo(i)));
+
+    // Welke kaart staat er in beeld? Een IntersectionObserver met de schuif als root
+    // meldt het zodra een kaart voor meer dan de helft zichtbaar is. Dat werkt hetzelfde
+    // voor swipen, de pijlen en de bolletjes, zonder zelf scrollposities te rekenen.
+    const observer = new IntersectionObserver(
+        (entries) => {
+            for (const entry of entries) {
+                // De observer meldt ook als een kaart ónder de 60% zakt; die negeren we
+                if (entry.intersectionRatio < 0.6) continue;
+                current = cards.indexOf(entry.target as HTMLElement);
+                markDot(current);
+            }
+        },
+        { root: slider, threshold: 0.6 },
+    );
+
+    for (const card of cards) observer.observe(card);
+</script>

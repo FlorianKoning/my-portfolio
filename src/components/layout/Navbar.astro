@@ -1,16 +1,19 @@
 ---
 import { navItems, socials } from "../../data/site";
+
+// Alleen LinkedIn en GitHub in het mobiele menu, geen e-mail
+const externalSocials = socials.filter((social) => social.href.startsWith("http"));
 ---
 
 <header
-    class="fixed inset-x-0 top-0 z-50 h-nav border-b-2 border-ink-600 bg-ink-750"
+    class="fixed inset-x-0 top-0 z-50 h-nav border-b border-ink-600 bg-ink-750 md:border-b-2"
 >
     <nav
-        class="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-8"
+        class="mx-auto flex h-full max-w-7xl items-center justify-between pr-2 pl-5 md:px-6 lg:px-8"
         aria-label="Hoofdnavigatie"
     >
         <!-- website logo -->
-        <a href="/#home" class="flex gap-2 text-text">
+        <a href="/#home" class="flex gap-1.5 text-xs text-text md:gap-2 md:text-base">
             <span>{"<?php"}</span>
             <span><span class="text-accent">Florian</span> Koning</span>
             <span>{"?>"}</span>
@@ -54,5 +57,86 @@ import { navItems, socials } from "../../data/site";
                 ))
             }
         </ul>
+
+        <!-- Hamburger (alleen mobiel). Welk icoon je ziet hangt af van aria-expanded:
+             group-aria-expanded: kijkt naar die attribuut op de knop, dus geen JS nodig voor de iconen. -->
+        <button
+            type="button"
+            data-menu-button
+            aria-label="Menu"
+            aria-expanded="false"
+            aria-controls="mobiel-menu"
+            class="group flex size-11 items-center justify-center text-text md:hidden"
+        >
+            <svg aria-hidden="true" class="group-aria-expanded:hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h10" /></svg>
+            <svg aria-hidden="true" class="hidden text-accent group-aria-expanded:block" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12" /><path d="M18 6L6 18" /></svg>
+        </button>
+
+        <!-- Mobiel menu: vult het scherm onder de navbar. Het `hidden`-attribuut
+             wint van `flex` (Tailwind v4 maakt [hidden] !important). -->
+        <div
+            id="mobiel-menu"
+            data-menu
+            hidden
+            class="fixed inset-x-0 top-nav bottom-0 flex flex-col gap-1.5 bg-ink-750 px-6 pt-7 pb-8 md:hidden"
+        >
+            {
+                navItems.map((item, index) => (
+                    <a
+                        href={`/#${item.id}`}
+                        class="flex min-h-12 items-center gap-3 text-lg transition-colors hover:text-accent"
+                    >
+                        <span class="text-xs text-text-faint">
+                            {String(index + 1).padStart(2, "0")}
+                        </span>
+                        {item.label}
+                    </a>
+                ))
+            }
+
+            <div
+                class="mt-auto flex flex-col gap-1.5 border-t border-dashed border-ink-500 pt-5 text-[0.8125rem] text-text-soft"
+            >
+                <div class="flex gap-6">
+                    {
+                        externalSocials.map((social) => (
+                            <a
+                                href={social.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="flex min-h-11 items-center transition-colors hover:text-accent"
+                            >
+                                {social.label} ↗
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
     </nav>
 </header>
+
+<script>
+    const button = document.querySelector<HTMLButtonElement>("[data-menu-button]")!;
+    const menu = document.querySelector<HTMLElement>("[data-menu]")!;
+
+    function setOpen(open: boolean) {
+        menu.hidden = !open;
+        button.setAttribute("aria-expanded", String(open));
+        // Pagina erachter niet laten scrollen zolang het menu open is
+        document.documentElement.classList.toggle("overflow-hidden", open);
+    }
+
+    button.addEventListener("click", () => {
+        setOpen(button.getAttribute("aria-expanded") !== "true");
+    });
+
+    // Na het kiezen van een link, met Esc, of als het scherm breder wordt dan md: dicht
+    for (const link of menu.querySelectorAll("a")) {
+        link.addEventListener("click", () => setOpen(false));
+    }
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") setOpen(false);
+    });
+    matchMedia("(min-width: 48rem)").addEventListener("change", () => setOpen(false));
+</script>

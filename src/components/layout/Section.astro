@@ -27,7 +27,7 @@ const { id, variant = "base", width = "content" } = Astro.props;
 <section
     id={id}
     class:list={[
-        "relative flex min-h-svh flex-col px-6 pt-nav",
+        "relative flex min-h-svh flex-col px-5 pt-nav md:px-6",
         // Stippellijn tussen secties: niet bij de eerste, die zit al onder de navbar
         "border-dashed border-ink-500 not-first:border-t",
         width === "full" ? "lg:px-[8vw]" : "lg:px-8",

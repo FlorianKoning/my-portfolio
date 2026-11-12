@@ -56,6 +56,7 @@
   --color-text-muted: #C9C8C4;
   --color-text-subtle: #B4B5BB;
   --color-text-dim: #9A9CA5;
+  --color-text-faint: #6E7079;
 
   --breakpoint-phone: 360px;
 
@@ -80,6 +81,14 @@
     50% {
       transform: translateY(0.3rem);
     }
+  }
+}
+
+/* Op mobiel is de navbar lager. h-nav, pt-nav en top-nav lezen deze
+  variabele, dus alles schuift vanzelf mee. */
+@media (width < 48rem) {
+  :root {
+    --spacing-nav: 3.5rem;
   }
 }
 

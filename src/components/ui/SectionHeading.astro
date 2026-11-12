@@ -14,7 +14,7 @@ const { id, title, highlight } = Astro.props;
 
 <div class="flex flex-col gap-3">
     <CodeLabel>{`<section id="${id}">`}</CodeLabel>
-    <h2 class="text-4xl font-bold tracking-tight sm:text-5xl">
+    <h2 class="text-3xl font-bold tracking-tight md:text-5xl">
         {title} <span class="text-accent">{highlight}</span>
     </h2>
 </div>
