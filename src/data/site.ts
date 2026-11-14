@@ -20,9 +20,7 @@ export const profile = {
     name: 'Florian',
     role: 'Junior',
     company: 'Pay.',
-    email: 'florian.koning2004@gmail.com',
     location: 'Nederland – Delft',
-    website: { label: 'www.floriankoning.nl', href: 'https://www.floriankoning.nl' },
     skills: ['PHP', 'Laravel', 'Symfony', 'GIT', 'HTML', 'CSS'],
 };
 

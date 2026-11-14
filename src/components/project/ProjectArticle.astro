@@ -55,15 +55,15 @@ const metaCell =
         >
             <div class:list={[metaCell, "border-r border-b"]}>
                 <dt class="text-xs text-text-dim">rol</dt>
-                <dd class="text-sm">{project.role}</dd>
+                <dd class="text-sm font-terminal">{project.role}</dd>
             </div>
             <div class:list={[metaCell, "border-b"]}>
                 <dt class="text-xs text-text-dim">jaar</dt>
-                <dd class="text-sm">{project.year}</dd>
+                <dd class="text-sm font-terminal">{project.year}</dd>
             </div>
             <div class:list={[metaCell, "border-r"]}>
                 <dt class="text-xs text-text-dim">stack</dt>
-                <dd class="flex flex-wrap gap-1.5">
+                <dd class="flex flex-wrap gap-1.5 font-terminal">
                     {
                         project.stack.map((tech) => (
                             <span class="rounded-full bg-accent px-2.5 py-0.5 text-xs font-bold text-ink-900">
@@ -75,7 +75,7 @@ const metaCell =
             </div>
             <div class={metaCell}>
                 <dt class="text-xs text-text-dim">links</dt>
-                <dd class="flex gap-4 text-sm text-accent">
+                <dd class="flex gap-4 text-sm text-accent font-terminal">
                     {
                         project.links.github && (
                             <a

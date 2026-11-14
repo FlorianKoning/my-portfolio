@@ -82,13 +82,13 @@ const textFacts = facts.filter((f) => typeof f.text !== "number");
             </Tile>
 
             <Tile
-                class="reveal slide-in from-right order-4 flex flex-col gap-2.5 px-5 py-5.5 [--enter-delay:250ms] md:flex-row md:flex-wrap md:items-center md:gap-6 md:px-9 md:py-7 lg:order-none"
+                class="reveal slide-in from-right order-4 flex flex-col gap-2.5 px-5 py-5.5 [--enter-delay:250ms] md:gap-3 md:px-9 md:py-7 lg:order-none"
             >
-                <span class="shrink-0 font-terminal text-[0.6875rem] text-text-dim md:text-sm">
+                <span class="font-terminal text-[0.6875rem] text-text-dim md:text-sm">
                     {about.origin.label}
                 </span>
                 <p
-                    class="min-w-0 text-sm leading-[1.7] text-text-soft md:flex-1 md:basis-75 md:text-base md:leading-relaxed"
+                    class="text-sm leading-[1.7] text-text-soft md:text-base md:leading-relaxed"
                 >
                     {about.origin.text}
                 </p>
