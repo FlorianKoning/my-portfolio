@@ -10,8 +10,12 @@ interface Props {
     description?: string;
 }
 
-const { title, description = "Portofolio van Florian Koning, developer" } =
+const { title, description = "Portfolio van Florian Koning, developer" } =
     Astro.props;
+
+// Open Graph wil absolute URLs; Astro.site komt uit `site` in astro.config.mjs
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+const imageUrl = new URL("/og.png", Astro.site);
 ---
 
 <!doctype html>
@@ -22,6 +26,18 @@ const { title, description = "Portofolio van Florian Koning, developer" } =
         <meta name="description" content={description} />
         <link rel="icon" href="/favicon.ico" />
         <title>{title}</title>
+        <link rel="canonical" href={pageUrl} />
+
+        <!-- Voorbeeldkaart bij delen (LinkedIn, WhatsApp, Slack) -->
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="nl_NL" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
     </head>
     <body class="bg-ink-700 font-mono text-text antialiased">
         <Navbar />
