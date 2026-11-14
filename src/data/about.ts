@@ -17,6 +17,6 @@ export const about = {
 // Feitjes: getallen worden grote tegels, tekst komt in de lijst eronder
 export const aboutFacts = [
     { id: 'dailyDriver', label: 'Daily Driver', text: 'Arch + Hyprland' },
-    { id: 'favoStack', label: 'Favorite Stack', text: 'Symfony + ApiPlantform' },
+    { id: 'favoStack', label: 'Favorite Stack', text: 'Symfony + ApiPlatform' },
     { id: 'favoGame', label: 'Favorite game', text: 'ELDEN RING' },
 ];

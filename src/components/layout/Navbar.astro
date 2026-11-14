@@ -1,7 +1,7 @@
 ---
 import { navItems, socials } from "../../data/site";
 
-// Alleen LinkedIn en GitHub in het mobiele menu, geen e-mail
+// Alleen LinkedIn en GitHub in de navbar, geen e-mail
 const externalSocials = socials.filter((social) => social.href.startsWith("http"));
 ---
 
@@ -39,15 +39,11 @@ const externalSocials = socials.filter((social) => social.href.startsWith("http"
         <!-- Socials -->
         <ul class="hidden gap-5 lg:flex">
             {
-                socials.map((social) => (
+                externalSocials.map((social) => (
                     <li>
                         <a
                             href={social.href}
-                            target={
-                                social.href.startsWith("http")
-                                    ? "_blank"
-                                    : undefined
-                            }
+                            target="_blank"
                             rel="noopener noreferrer"
                             aria-label={social.label}
                             class="text-2xl text-accent"
