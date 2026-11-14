@@ -22,7 +22,7 @@
 }
 
 @theme {
-  --font-mono: "Roboto Mono Variable", ui-monospace, monospace;
+  --font-mono: "DM Mono", ui-monospace, monospace;
   /* Pixel-terminalfont voor alle "// ..."-teksten */
   --font-terminal: "Departure Mono", ui-monospace, monospace;
 
