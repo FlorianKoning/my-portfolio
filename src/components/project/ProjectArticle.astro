@@ -18,7 +18,7 @@ const { main, gallery, chapters } = projectImages(project);
 // Eén tegel per gegeven; op mobiel een 2×2 blok, op desktop 4 losse tegels.
 // Alleen de stippellijnen verschillen per positie, dus die staan hier.
 const metaCell =
-    "flex flex-col gap-1.5 border-dashed border-ink-500 px-4 py-3.5 md:rounded-[0.875rem] md:border md:border-solid md:border-ink-600 md:bg-ink-850";
+    "flex flex-col gap-1.5 border-ink-500 px-4 py-3.5 md:rounded-[0.875rem] md:border md:border-ink-600 md:bg-ink-850";
 ---
 
 <article class="flex flex-col gap-10 md:gap-16">
@@ -142,12 +142,12 @@ const metaCell =
         {
             /* Uitklapbare regels met <details>/<summary>: geen JavaScript nodig */
         }
-        <div class="border-t border-dashed border-ink-500">
+        <div class="border-t border-ink-500">
             {
                 project.built.map((part, i) => (
                     <details
                         open={i === 0}
-                        class="group border-b border-dashed border-ink-500"
+                        class="group border-b border-ink-500"
                     >
                         <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 [&::-webkit-details-marker]:hidden">
                             <span class="flex gap-2.5 font-bold text-text">

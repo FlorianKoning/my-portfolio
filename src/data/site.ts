@@ -25,9 +25,10 @@ export const profile = {
 };
 
 export const stats = [
-    { id: 'experience', label: 'Jaar Werk Ervaring', amount: yearsSince(experienceStartYear) },
-    { id: 'closedProjects', label: 'Afgeronden Projecten', amount: 3 },
-    { id: 'programmingYears', label: 'Jaar Programmeren', amount: yearsSince(codingStartDate) }
+    // name + unit: mobiele lijst ("Werkervaring … 2 jaar"); label: desktop-kaart
+    { id: 'experience', label: 'Jaar Werk Ervaring', name: 'Werkervaring', unit: 'jaar', amount: yearsSince(experienceStartYear) },
+    { id: 'closedProjects', label: 'Afgeronden Projecten', name: 'Afgeronde projecten', amount: 3 },
+    { id: 'programmingYears', label: 'Jaar Programmeren', name: 'Programmeren', unit: 'jaar', amount: yearsSince(codingStartDate) }
 ];
 
 // Calculates the years since the given date

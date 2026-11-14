@@ -4,22 +4,36 @@ import { stats } from "../../data/site";
 const { class: className } = Astro.props;
 ---
 
-<!-- Mobiel: één brede balk met drie kolommen (getal boven, tekst onder).
+<!-- Mobiel: simpele lijst, naam links en getal rechts.
      Vanaf md: de smalle kaart met de getallen onder elkaar. -->
 <aside
     class:list={[
-        "w-full rounded-[0.25rem_1.75rem_0.25rem_1.75rem] border border-ink-600 bg-ink-800 md:flex md:max-w-80 md:flex-col md:rounded-[0.25rem_3rem_0.25rem_3rem] md:px-6 md:py-4 lg:w-52",
+        "w-full rounded-[0.25rem_1.75rem_0.25rem_1.75rem] border border-ink-600 bg-ink-800 px-5 py-1 md:flex md:max-w-80 md:flex-col md:rounded-[0.25rem_3rem_0.25rem_3rem] md:px-6 md:py-4 lg:w-52",
         className,
     ]}
 >
-    <dl class="grid grid-cols-3 md:block">
+    <dl class="md:hidden">
         {
             stats.map((stat) => (
-                <div class="flex flex-col gap-0.5 border-r border-dashed border-ink-500 px-3 py-3.5 last:border-r-0 md:flex-row md:items-center md:gap-4 md:border-r-0 md:border-b md:px-0 md:py-5 md:last:border-b-0">
-                    <dt class="order-last text-[0.6875rem] leading-snug text-text-soft first-letter:uppercase md:text-sm">
+                <div class="flex items-baseline justify-between gap-3 border-b border-ink-500 py-2 last:border-b-0">
+                    <dt class="text-[0.8125rem] text-text-subtle">{stat.name}</dt>
+                    <dd class="text-[0.8125rem] text-text-soft">
+                        <span class="text-lg font-bold text-accent">{stat.amount}</span>
+                        {/* ponytail: vaste 4ch (DM Mono = monospace) zodat getallen uitlijnen; langere unit → breedte ophogen */}
+                        <span class="ml-[1ch] inline-block w-[4ch]">{stat.unit}</span>
+                    </dd>
+                </div>
+            ))
+        }
+    </dl>
+    <dl class="hidden md:block">
+        {
+            stats.map((stat) => (
+                <div class="flex flex-row items-center gap-4 border-b border-ink-500 py-5 last:border-b-0">
+                    <dt class="order-last text-sm leading-snug text-text-soft first-letter:uppercase">
                         {stat.label}
                     </dt>
-                    <dd class="text-[1.375rem] font-bold text-accent md:text-3xl">
+                    <dd class="text-3xl font-bold text-accent">
                         {stat.amount}
                     </dd>
                 </div>
