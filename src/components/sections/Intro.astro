@@ -1,11 +1,10 @@
 ---
-import { profile } from "../../data/site";
 import CodeLabel from "../ui/CodeLabel.astro";
 import ProfileBar from "../ui/ProfileBar.astro";
 import ProfileCard from "../ui/ProfileCard.astro";
 import ScrollHint from "../ui/ScrollHint.astro";
+import SkillList from "../ui/SkillList.astro";
 import StatsCard from "../ui/StatsCard.astro";
-import Tag from "../ui/Tag.astro";
 ---
 
 <!-- Mobiel: balkje, kop, cijfers, skills onder elkaar.
@@ -59,15 +58,7 @@ import Tag from "../ui/Tag.astro";
     />
 
     <!-- Op mobiel staan de skills los onder de cijfers; vanaf md zitten ze in ProfileCard -->
-    <ul aria-label="Skills" class="flex flex-wrap gap-1.5 md:hidden">
-        {
-            profile.skills.map((skill) => (
-                <li class="grid">
-                    <Tag label={skill} class="px-3" />
-                </li>
-            ))
-        }
-    </ul>
+    <SkillList class="md:hidden" />
 </div>
 
 <ScrollHint href="#about" />

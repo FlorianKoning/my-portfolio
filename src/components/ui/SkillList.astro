@@ -1,0 +1,20 @@
+---
+import { profile } from "../../data/site";
+import Tag from "./Tag.astro";
+
+// Mobiel: losse rij onder de cijfers (Intro). md+: raster van 3 in ProfileCard.
+const { class: className } = Astro.props;
+---
+
+<ul
+    aria-label="Skills"
+    class:list={["flex flex-wrap gap-1.5 md:grid md:w-full md:grid-cols-3 md:gap-2", className]}
+>
+    {
+        profile.skills.map((skill) => (
+            <li class="grid">
+                <Tag label={skill} class="px-3 md:px-0" />
+            </li>
+        ))
+    }
+</ul>

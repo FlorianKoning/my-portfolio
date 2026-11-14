@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import photo from "../../assets/florian-portrait.jpeg";
 import { profile } from "../../data/site";
+import ProfileLocation from "./ProfileLocation.astro";
+import ProfileStatus from "./ProfileStatus.astro";
 
 // Compacte versie van ProfileCard voor mobiel: één balkje bovenaan de hero.
 // Vanaf md neemt ProfileCard het over.
@@ -23,18 +25,17 @@ const { class: className } = Astro.props;
         class="size-14 shrink-0 rounded-full border-2 border-accent object-cover object-[center_30%]"
     />
 
-    <div class="flex min-w-0 flex-1 flex-col gap-1">
-        <span class="text-sm font-bold text-accent">
+    {/* Badge onder de locatie i.p.v. ernaast: naast de badge was er op een telefoon
+        te weinig breedte en brak "Nederland – Delft" af. items-start: badge zo breed als de tekst. */}
+    <div class="flex min-w-0 flex-1 flex-col items-start gap-1">
+        {/* flex + gap i.p.v. spaties: zo is de ruimte links en rechts van het streepje gelijk,
+            ook al hebben naam en rol een andere lettergrootte */}
+        <span class="flex items-baseline gap-1.5 text-sm font-bold text-accent">
             {profile.name}
-            <span class="text-xs font-normal text-text-soft">· {profile.role}</span>
+            <span aria-hidden="true" class="text-xs font-normal text-text-soft">–</span>
+            <span class="text-xs font-normal text-text-soft">{profile.role}</span>
         </span>
-        <span class="text-[0.6875rem] text-text-subtle">⌖ {profile.location}</span>
+        <ProfileLocation />
+        <ProfileStatus />
     </div>
-
-    <span
-        class="flex shrink-0 items-center gap-1.5 rounded-full bg-ink-900 px-2.5 py-1 text-[0.625rem] text-text-muted"
-    >
-        <span aria-hidden="true" class="size-1.5 rounded-full bg-online"></span>
-        Nu bij {profile.company}
-    </span>
 </div>

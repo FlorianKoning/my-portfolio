@@ -1,0 +1,12 @@
+---
+import { profile } from "../../data/site";
+
+// Gedeeld door ProfileBar (mobiel) en ProfileCard (md+): de md:-classes zijn de kaart-maten
+---
+
+<span
+    class="flex shrink-0 items-center gap-1.5 rounded-full bg-ink-900 px-2.5 py-1 text-[0.625rem] text-text-muted md:gap-2 md:px-3 md:text-xs"
+>
+    <span aria-hidden="true" class="size-1.5 rounded-full bg-online md:size-2"></span>
+    Nu bij {profile.company}
+</span>

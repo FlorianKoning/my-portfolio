@@ -34,38 +34,27 @@ const description = project.intro[0].replace(/\s+/g, " ").trim();
 >
     <div class="mx-auto max-w-7xl px-6 pt-nav lg:px-8">
 
-        {/* Mobiel: balk die onder de navbar blijft plakken */}
+        {/* Terug-link en teller. Mobiel: balk die onder de navbar blijft plakken.
+            md: gewone regel boven het artikel (md:mt-14 + de md:pt-14 hieronder
+            geven dezelfde ruimte als toen hij nog in de kolom stond). */}
         <div
-            class="sticky top-nav z-40 -mx-6 flex items-center justify-between border-b border-ink-600 bg-ink-750 py-1 pr-6 pl-3 md:hidden"
+            class="sticky top-nav z-40 -mx-6 flex items-center justify-between border-b border-ink-600 bg-ink-750 py-1 pr-6 pl-3 md:static md:z-auto md:mx-0 md:mt-14 md:border-b-0 md:bg-transparent md:p-0"
         >
             <a
                 href="/#projects"
-                class="inline-flex min-h-11 items-center px-3 text-xs text-accent"
+                class="inline-flex min-h-11 items-center px-3 text-xs text-accent transition-opacity hover:opacity-75 md:px-0 md:text-sm"
                 >{"← Projecten Overzicht"}</a
             >
-            <span class="text-xs text-text-dim">
-                <span class="text-accent">{counter.current}</span> / {
-                    counter.total
-                }
+            <span class="text-xs text-text-dim md:font-terminal md:text-sm">
+                <span class="hidden md:inline">{"// project "}</span><span
+                    class="text-accent md:text-inherit">{counter.current}</span
+                > / {counter.total}
             </span>
         </div>
 
         <div
             class="flex flex-col gap-10 pt-8 pb-16 md:gap-14 md:pt-14 md:pb-24"
         >
-            {/* Desktop: terug-link en teller boven het artikel */}
-            <div class="hidden items-center justify-between md:flex">
-                <a
-                    href="/#projects"
-                    class="inline-flex min-h-11 items-center text-sm text-accent transition-opacity hover:opacity-75"
-                >
-                    {"← Projecten Overzicht"}
-                </a>
-                <span class="font-terminal text-sm text-text-dim">
-                    // project {counter.current} / {counter.total}
-                </span>
-            </div>
-
             <ProjectArticle project={project} />
 
             {
