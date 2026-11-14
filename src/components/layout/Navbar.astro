@@ -26,7 +26,8 @@ const externalSocials = socials.filter((social) => social.href.startsWith("http"
                     <li>
                         <a
                             href={`/#${item.id}`}
-                            class="text-sm font-semibold text-text transition-colors duration-300 hover:text-accent"
+                            data-nav-link={item.id}
+                            class="text-sm font-semibold text-text transition-colors duration-300 hover:text-accent aria-[current=location]:text-accent"
                         >
                             {item.label}
                         </a>
@@ -84,7 +85,8 @@ const externalSocials = socials.filter((social) => social.href.startsWith("http"
                 navItems.map((item, index) => (
                     <a
                         href={`/#${item.id}`}
-                        class="flex min-h-12 items-center gap-3 text-lg transition-colors hover:text-accent"
+                        data-nav-link={item.id}
+                        class="flex min-h-12 items-center gap-3 text-lg transition-colors hover:text-accent aria-[current=location]:text-accent"
                     >
                         <span class="text-xs text-text-faint">
                             {String(index + 1).padStart(2, "0")}
@@ -139,4 +141,31 @@ const externalSocials = socials.filter((social) => social.href.startsWith("http"
         if (event.key === "Escape") setOpen(false);
     });
     matchMedia("(min-width: 48rem)").addEventListener("change", () => setOpen(false));
+
+    // Actieve link: de sectie die over de middellijn van het scherm valt.
+    // rootMargin -50% boven en onder maakt van het kijkvenster één horizontale lijn.
+    // Op een projectpagina bestaan de secties niet, dan gebeurt er niets.
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]");
+
+    const sectionObserver = new IntersectionObserver(
+        (entries) => {
+            for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                for (const link of navLinks) {
+                    if (link.dataset.navLink === entry.target.id) {
+                        link.setAttribute("aria-current", "location");
+                    } else {
+                        link.removeAttribute("aria-current");
+                    }
+                }
+            }
+        },
+        { rootMargin: "-50% 0px -50% 0px" },
+    );
+
+    // Desktop en mobiel hebben elk een link per sectie, dus ids ontdubbelen
+    for (const id of new Set(Array.from(navLinks, (link) => link.dataset.navLink!))) {
+        const section = document.getElementById(id);
+        if (section) sectionObserver.observe(section);
+    }
 </script>
