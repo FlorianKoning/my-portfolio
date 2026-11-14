@@ -1,0 +1,80 @@
+---
+import Section from "../components/layout/Section.astro";
+import CodeLabel from "../components/ui/CodeLabel.astro";
+import { navItems } from "../data/site";
+import BaseLayout from "../layout/BaseLayout.astro";
+---
+
+<!-- Astro bouwt dit als 404.html; de host serveert die bij elke onbekende URL. -->
+<BaseLayout title="404 – Pagina niet gevonden | Florian Koning">
+    <Section id="not-found" variant="glow">
+        <div
+            class="flex flex-col gap-9 md:flex-row md:flex-wrap md:items-center md:justify-center md:gap-x-36 md:gap-y-12"
+        >
+            <!-- Zelfde opbouw als de kop in Intro.astro -->
+            <div class="flex flex-col gap-1.5 md:max-w-125 md:flex-[0_1_31.25rem] md:gap-2">
+                <CodeLabel>{"<h1>"}</CodeLabel>
+
+                <div class="flex flex-col gap-2 pl-3.5 md:gap-2.5 md:pl-5">
+                    <span class="text-[1.625rem] text-accent md:text-3xl">Oeps</span>
+
+                    <h1
+                        class="flex flex-col gap-0.5 font-normal md:flex-row md:flex-wrap md:items-baseline md:gap-x-3.5"
+                    >
+                        <span class="text-xs tracking-wider text-text-soft md:text-sm">DEZE PAGINA</span>
+                        <span class="text-[2rem] leading-[1.15] font-medium text-accent md:text-[2.5rem]">
+                            bestaat niet<span class="animate-blink" aria-hidden="true">_</span>
+                        </span>
+                    </h1>
+
+                    <p class="mt-1.5 text-sm leading-[1.65] text-text-muted md:text-base">
+                        De link klopt niet meer, of de pagina heeft nooit bestaan. Geen
+                        zorgen, de rest van de site staat er nog gewoon.
+                    </p>
+
+                    <!-- Het pad vult het script hieronder in: tijdens de build bestaat het nog niet -->
+                    <span class="font-terminal text-[0.6875rem] text-text-dim [overflow-wrap:anywhere]">
+                        // 404<span data-missing-path></span>
+                    </span>
+                </div>
+
+                <CodeLabel>{"</h1>"}</CodeLabel>
+            </div>
+
+            <!-- Kaart met links, in de vorm van StatsCard -->
+            <nav
+                aria-label="Ga naar"
+                class="flex flex-col rounded-[0.25rem_1.75rem_0.25rem_1.75rem] border border-ink-600 bg-ink-800 px-5 py-3.5 md:w-65 md:flex-none md:rounded-[0.25rem_3rem_0.25rem_3rem] md:px-5.5 md:py-4.5"
+            >
+                <span class="pt-1 pb-2 font-terminal text-[0.6875rem] text-text-dim md:pt-1.5 md:pb-2.5">
+                    // misschien zocht je
+                </span>
+                {
+                    navItems.map((item, index) => (
+                        <a
+                            href={`/#${item.id}`}
+                            class="group flex min-h-12.5 items-center justify-between border-t border-ink-500 text-sm md:min-h-13"
+                        >
+                            {/* Home staat in het design al geel: de voor de hand liggende keuze */}
+                            <span
+                                class:list={[
+                                    "transition-colors group-hover:text-accent",
+                                    index === 0 && "text-accent",
+                                ]}
+                            >
+                                {item.label}
+                            </span>
+                            <span class="text-accent" aria-hidden="true">→</span>
+                        </a>
+                    ))
+                }
+            </nav>
+        </div>
+    </Section>
+</BaseLayout>
+
+<script>
+    // textContent, geen innerHTML: het pad komt uit de URL en is dus invoer van buiten
+    const pathLabel = document.querySelector<HTMLElement>("[data-missing-path]");
+    if (pathLabel) pathLabel.textContent = ` · ${location.pathname}`;
+</script>
