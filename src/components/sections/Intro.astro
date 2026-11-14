@@ -16,12 +16,12 @@ import StatsCard from "../ui/StatsCard.astro";
 >
     <!-- Zweeft net als de kaarten, met een eigen tempo zodat hij niet gelijk loopt met de cijfers -->
     <ProfileBar
-        class="slide-in-float [--enter-delay:150ms] [--float-delay:-2s] [--float-duration:10s] [--float-r:0.6deg] [--float-y:8px]"
+        class="slide-in-float [--enter-delay:150ms] [--float-delay:-2s] [--float-duration:10s] [--float-r:0.6deg] [--float-y:3px] md:[--float-y:8px]"
     />
 
     <!-- Kaarten schuiven in en blijven daarna zweven; elk eigen tempo zodat ze niet synchroon bewegen. Zie global.css. -->
     <ProfileCard
-        class="slide-in-float from-left [--enter-delay:150ms] [--float-delay:-2s] [--float-duration:10s] [--float-r:0.6deg] [--float-y:8px]"
+        class="slide-in-float from-left [--enter-delay:150ms] [--float-delay:-2s] [--float-duration:10s] [--float-r:0.6deg] [--float-y:3px] md:[--float-y:8px]"
     />
 
     <!-- Intro: op md bovenaan, op pc in het midden. Alleen inschuiven, niet zweven (blijft goed leesbaar). -->
@@ -54,7 +54,7 @@ import StatsCard from "../ui/StatsCard.astro";
     </div>
 
     <StatsCard
-        class="slide-in-float from-right [--enter-delay:300ms] [--float-delay:-5s] [--float-duration:12s] [--float-r:-0.8deg] [--float-y:8px]"
+        class="slide-in-float from-right [--enter-delay:300ms] [--float-delay:-5s] [--float-duration:12s] [--float-r:-0.8deg] [--float-y:3px] md:[--float-y:8px]"
     />
 
     <!-- Op mobiel staan de skills los onder de cijfers; vanaf md zitten ze in ProfileCard -->
