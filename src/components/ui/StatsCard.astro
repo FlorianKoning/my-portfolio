@@ -4,7 +4,7 @@ import { stats } from "../../data/site";
 const { class: className } = Astro.props;
 ---
 
-<!-- Mobiel: simpele lijst, naam en getal in twee even brede kolommen die in het midden samenkomen.
+<!-- Mobiel: simpele lijst, naam links en getal rechts.
      Vanaf md: de smalle kaart met de getallen onder elkaar. -->
 <aside
     class:list={[
@@ -15,8 +15,8 @@ const { class: className } = Astro.props;
     <dl class="md:hidden">
         {
             stats.map((stat) => (
-                <div class="grid grid-cols-2 items-baseline gap-4 border-b border-ink-500 py-2 last:border-b-0">
-                    <dt class="text-right text-[0.8125rem] text-text-subtle">{stat.name}</dt>
+                <div class="flex items-baseline justify-between gap-3 border-b border-ink-500 py-2 last:border-b-0">
+                    <dt class="text-[0.8125rem] text-text-subtle">{stat.name}</dt>
                     <dd class="text-[0.8125rem] text-text-soft">
                         <span class="text-lg font-bold text-accent">{stat.amount}</span>
                         {/* ponytail: vaste 4ch (DM Mono = monospace) zodat getallen uitlijnen; langere unit → breedte ophogen */}

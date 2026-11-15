@@ -8,7 +8,8 @@ const { class: className } = Astro.props;
 
 <ul
     aria-label="Skills"
-    class:list={["flex flex-wrap gap-1.5 md:grid md:w-full md:grid-cols-3 md:gap-2", className]}
+    data-skill-list
+    class:list={["mx-auto flex flex-wrap justify-center gap-1.5 data-wrapped:justify-start md:grid md:w-full md:grid-cols-3 md:gap-2", className]}
 >
     {
         profile.skills.map((skill) => (
@@ -18,3 +19,34 @@ const { class: className } = Astro.props;
         ))
     }
 </ul>
+
+<script>
+    // Eén regel: skills in het midden. Breekt de rij af, dan maken we de lijst precies
+    // zo breed als de eerste regel; mx-auto zet dat blok in het midden van het scherm
+    // en de tweede regel begint links binnen dat blok (data-wrapped → justify-start).
+    // CSS kan dit niet zelf: een afgebroken flex-rij is altijd 100% breed.
+    document.querySelectorAll<HTMLElement>("[data-skill-list]").forEach((list) => {
+        const check = () => {
+            list.style.width = "";
+            list.removeAttribute("data-wrapped");
+
+            // Alleen op mobiel (flex). Vanaf md is het een grid in ProfileCard.
+            if (getComputedStyle(list).display !== "flex") return;
+
+            const items = [...list.children] as HTMLElement[];
+            if (items.length === 0) return;
+
+            const firstRow = items.filter((li) => li.offsetTop === items[0].offsetTop);
+            if (firstRow.length === items.length) return; // past op één regel
+
+            // Naar boven afronden: 1px te krap en de laatste skill van regel 1 springt alsnog naar beneden
+            const left = items[0].getBoundingClientRect().left;
+            const right = firstRow[firstRow.length - 1].getBoundingClientRect().right;
+            list.style.width = `${Math.ceil(right - left)}px`;
+            list.setAttribute("data-wrapped", "");
+        };
+        // De ouder observeren, niet de lijst zelf: de lijst krijgt van ons een vaste
+        // breedte en zou dus niet meer meegroeien als het scherm breder wordt.
+        if (list.parentElement) new ResizeObserver(check).observe(list.parentElement);
+    });
+</script>
