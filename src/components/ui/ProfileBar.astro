@@ -25,17 +25,22 @@ const { class: className } = Astro.props;
         class="size-14 shrink-0 rounded-full border-2 border-accent object-cover object-[center_47%]"
     />
 
-    {/* Badge onder de locatie i.p.v. ernaast: naast de badge was er op een telefoon
+    {/* Badge op een eigen regel: naast de badge was er op een telefoon
         te weinig breedte en brak "Nederland – Delft" af. flex-1 + items-center: de tekst staat in het midden van de ruimte naast de foto. */}
     <div class="flex min-w-0 flex-1 flex-col items-center gap-1 text-center">
         {/* flex + gap i.p.v. spaties: zo is de ruimte links en rechts van het streepje gelijk,
             ook al hebben naam en rol een andere lettergrootte */}
-        <span class="flex items-baseline gap-1.5 text-sm font-bold text-accent">
-            {profile.name}
-            <span aria-hidden="true" class="text-xs font-normal text-text-soft">–</span>
-            <span class="text-xs font-normal text-text-soft">{profile.role}</span>
-        </span>
-        <ProfileLocation />
-        <ProfileStatus />
+        {/* flex-wrap: naam en plaats naast elkaar als het past; is het scherm te smal,
+            dan springt de plaats als geheel naar de volgende regel */}
+        <div class="flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1">
+            <span class="flex items-baseline gap-1.5 text-sm font-bold text-accent">
+                {profile.name}
+                <span aria-hidden="true" class="text-xs font-normal text-text-soft">–</span>
+                <span class="text-xs font-normal text-text-soft">{profile.role}</span>
+            </span>
+            <ProfileLocation />
+        </div>
+        {/* self-start: de badge negeert items-center van de ouder en staat links */}
+        <ProfileStatus class="self-start" />
     </div>
 </div>
