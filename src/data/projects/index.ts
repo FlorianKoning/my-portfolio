@@ -1,6 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import dbmMilitaria from './dbm-militaria';
 import passwordManager from './password-manager';
+import animalBingo from './animal-bingo';
 import type { Project } from './types';
 
 export type { Chapter, Project } from './types';
@@ -13,7 +14,7 @@ export type { Chapter, Project } from './types';
 // De volgorde is alfabetisch, dus noem ze bijv. 01-dashboard.png, 02-...
 
 // De volgorde hier is de volgorde op de site
-export const projects: Project[] = [dbmMilitaria, passwordManager];
+export const projects: Project[] = [dbmMilitaria, passwordManager, animalBingo];
 
 // Vite zoekt bij het bouwen alle afbeeldingen op die bij het patroon passen.
 // Resultaat: { '../../assets/projects/dbm-militaria/main.png': { default: ImageMetadata }, ... }
