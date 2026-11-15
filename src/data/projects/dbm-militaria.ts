@@ -11,7 +11,7 @@ export default {
     ],
     role: 'Full-stack developer',
     year: '2025-2026',
-    stack: ['Laravel', 'Tailwind', 'MySQL'],
+    stack: ['Laravel', 'Tailwind', 'Javascript', 'PHP'],
     links: { github: 'https://github.com/FlorianKoning', live: 'https://dbmmilitaria.nl/' },
     caption: '// de homepage van de webshop',
     idea: [

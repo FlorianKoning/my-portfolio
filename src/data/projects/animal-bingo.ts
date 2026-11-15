@@ -9,7 +9,7 @@ export default {
     ],
     role: 'Full-stack developer',
     year: '2026',
-    stack: ['React', 'TypeScript', 'PHP'],
+    stack: ['Laravel', 'React', 'TypeScript', 'PHP'],
     links: { live: 'https://dierenbingo.floriankoning.nl/login' },
     caption: "// het overzicht van alle bingo's",
     idea: [

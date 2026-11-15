@@ -7,7 +7,7 @@ export default {
             Verder was het een standaard password manager waarin je wachtwoorden, inloggegevens en notities kon opslaan.`],
     role: 'Full-stack developer',
     year: '2024',
-    stack: ['Laravel', 'Tailwind', 'JavaScript'],
+    stack: ['Laravel', 'Tailwind', 'JavaScript', 'PHP'],
     links: { github: 'https://github.com/FlorianKoning' },
     caption: '// Het dashboardscherm',
     idea: [`Het idee was eigenlijk vrij simpel: ik had tijdens mijn stage een password manager nodig, dus bouwde ik er zelf een. Zo begon het,
