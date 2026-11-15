@@ -1,0 +1,10 @@
+Options -MultiViews -Indexes
+
+RewriteEngine On
+
+# Altijd HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Eigen 404-pagina
+ErrorDocument 404 /404.html
